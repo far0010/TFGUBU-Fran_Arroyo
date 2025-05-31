@@ -10,7 +10,6 @@
 [![GitHub issues](https://img.shields.io/github/issues-closed/far0010/TFGUBU-Fran_Arroyo)](https://github.com/far0010/TFGUBU-Fran_Arroyo/issues)
 [![Wiki](https://img.shields.io/badge/wiki-available-brightgreen)](https://github.com/far0010/TFGUBU-Fran_Arroyo/wiki)
 ![GitHub Release](https://img.shields.io/github/v/release/far0010/TFGUBU-Fran_Arroyo?label=Release)
-[![Workflow Status](https://github.com/far0010/TFGUBU-Fran_Arroyo/actions/workflows/main.yml/badge.svg)](https://github.com/far0010/TFGUBU-Fran_Arroyo/actions)
 [![Zube](https://img.shields.io/badge/zube-managed-blue?logo=zube)](https://zube.io/)
 ---
 
