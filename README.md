@@ -1,11 +1,17 @@
 # TFGUBU-Fran_Arroyo
 ## TFG Ingeniería Informática - Francisco J Arroyo Redondo
 
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=far0010TFG_TFGUBU-Fran_Arroyo&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=far0010TFG_TFGUBU-Fran_Arroyo)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=far0010TFG_TFGUBU-Fran_Arroyo&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=far0010TFG_TFGUBU-Fran_Arroyo)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=far0010TFG_TFGUBU-Fran_Arroyo&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=far0010TFG_TFGUBU-Fran_Arroyo)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=far0010TFG_TFGUBU-Fran_Arroyo&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=far0010TFG_TFGUBU-Fran_Arroyo) 
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=far0010TFG_TFGUBU-Fran_Arroyoo&metric=bugs)](https://sonarcloud.io/summary/new_code?id=far0010TFG_TFGUBU-Fran_Arroyo) 
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=far0010_TFGUBU-Fran_Arroyo&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=far0010_TFGUBU-Fran_Arroyo)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=far0010_TFGUBU-Fran_Arroyo&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=far0010_TFGUBU-Fran_Arroyo)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=far0010_TFGUBU-Fran_Arroyo&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=far0010_TFGUBU-Fran_Arroyo)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=far0010_TFGUBU-Fran_Arroyo&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=far0010_TFGUBU-Fran_Arroyo) 
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=far0010_TFGUBU-Fran_Arroyo&metric=bugs)](https://sonarcloud.io/summary/new_code?id=far0010_TFGUBU-Fran_Arroyo) 
+
+[![GitHub issues](https://img.shields.io/github/issues-closed/far0010/TFGUBU-Fran_Arroyo)](https://github.com/far0010/TFGUBU-Fran_Arroyo/issues)
+[![Wiki](https://img.shields.io/badge/wiki-available-brightgreen)](https://github.com/far0010/TFGUBU-Fran_Arroyo/wiki)
+![GitHub Release](https://img.shields.io/github/v/release/far0010/TFGUBU-Fran_Arroyo?label=Release)
+[![Workflow Status](https://github.com/far0010/TFGUBU-Fran_Arroyo/actions/workflows/main.yml/badge.svg)](https://github.com/far0010/TFGUBU-Fran_Arroyo/actions)
+[![Zube](https://img.shields.io/badge/zube-managed-blue?logo=zube)](https://zube.io/)
 ---
 
 Este repositorio contiene el Trabajo de Fin de Grado de informática de la Universidad de Burgos. Se pretende generar una aplicación APEX, para el manejo de los contratos con personal investigador asociado a proyectos que actualmente se gestiona mediante excel
