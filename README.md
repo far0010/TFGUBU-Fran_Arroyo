@@ -1,7 +1,7 @@
 # TFGUBU-Fran_Arroyo
 ## TFG Ingeniería Informática - Francisco J Arroyo Redondo
 
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=TFGUBU-Fran_Arroyo&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=TFGUBU-Fran_Arroyo)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=TFGUBU-Fran_Arroyo&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=far0010tfg)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=TFGUBU-Fran_Arroyo&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=TFGUBU-Fran_Arroyo)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=TFGUBU-Fran_Arroyot&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=TFGUBU-Fran_Arroyo)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=TFGUBU-Fran_Arroyo&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=TFGUBU-Fran_Arroyo) 
