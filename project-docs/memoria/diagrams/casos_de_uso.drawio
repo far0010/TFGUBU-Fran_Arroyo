@@ -1,0 +1,130 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Página-1" id="xX-KryBHWflfFYgo-DQv">
+    <mxGraphModel dx="786" dy="564" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="S11rfLDNTL9BjyZebiUB-1" value="Gestor&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="100" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-7" value="Gestión de Contratos es una aplicación que gestiona los contratos de personal investigador asociado a proyectos" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;" vertex="1" parent="1">
+          <mxGeometry x="10" y="30" width="140" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-15" value="Gestión de Contratos" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=6;" vertex="1" parent="1">
+          <mxGeometry x="240" y="280" width="300" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-36" value="Alta de convocatoria" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="S11rfLDNTL9BjyZebiUB-15">
+          <mxGeometry x="50" y="30" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-37" value="Alta de contratado" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="S11rfLDNTL9BjyZebiUB-15">
+          <mxGeometry x="55" y="90" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-38" value="Alta de contrato" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="S11rfLDNTL9BjyZebiUB-15">
+          <mxGeometry x="55" y="150" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-39" value="Gestión Contratos" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=4;" vertex="1" parent="S11rfLDNTL9BjyZebiUB-15">
+          <mxGeometry x="60" y="210" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-17" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="S11rfLDNTL9BjyZebiUB-1" target="S11rfLDNTL9BjyZebiUB-16">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="180" y="220" as="sourcePoint" />
+            <mxPoint x="380" y="300" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-33" value="Tramita" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="S11rfLDNTL9BjyZebiUB-17">
+          <mxGeometry x="0.1187" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-22" value="Investigador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="640" y="59" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-23" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="S11rfLDNTL9BjyZebiUB-16" target="S11rfLDNTL9BjyZebiUB-22">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="350" as="sourcePoint" />
+            <mxPoint x="380" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-24" value="Solicita" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="S11rfLDNTL9BjyZebiUB-23">
+          <mxGeometry y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-25" value="Interesado&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="640" y="170" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-26" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="S11rfLDNTL9BjyZebiUB-20">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="455" y="199" as="sourcePoint" />
+            <mxPoint x="640" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-29" value="Presenta" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="S11rfLDNTL9BjyZebiUB-26">
+          <mxGeometry x="0.027" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-16" value="Alta Convocatoria" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="325" y="60" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-21" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="S11rfLDNTL9BjyZebiUB-16" target="S11rfLDNTL9BjyZebiUB-20">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="270" as="sourcePoint" />
+            <mxPoint x="370" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="S11rfLDNTL9BjyZebiUB-20" target="S11rfLDNTL9BjyZebiUB-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-20" value="Solicitudes" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="325" y="170" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-34" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="S11rfLDNTL9BjyZebiUB-1" target="S11rfLDNTL9BjyZebiUB-20">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="350" as="sourcePoint" />
+            <mxPoint x="380" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-35" value="Recibe&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="S11rfLDNTL9BjyZebiUB-34">
+          <mxGeometry x="-0.0115" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-40" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="380" as="sourcePoint" />
+            <mxPoint x="240" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-42" value="Realiza&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="S11rfLDNTL9BjyZebiUB-40">
+          <mxGeometry x="-0.1444" y="-2" relative="1" as="geometry">
+            <mxPoint y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-48" value="" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.jumpInArrow;dy=15;dx=38;arrowHead=55;rotation=135;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="432.33" y="540" width="84.14" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-49" value="Tareas" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="250" y="610" width="290" height="146" as="geometry">
+            <mxRectangle x="310" y="670" width="60" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-50" value="Convocatorias (crear, consultar, informes)" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="S11rfLDNTL9BjyZebiUB-49">
+          <mxGeometry y="26" width="290" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-51" value="Solicitantes (crear, consultas)" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="S11rfLDNTL9BjyZebiUB-49">
+          <mxGeometry y="56" width="290" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-52" value="Contratos (crear, consultas, informes)" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="S11rfLDNTL9BjyZebiUB-49">
+          <mxGeometry y="86" width="290" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="S11rfLDNTL9BjyZebiUB-53" value="Nómina: (crear, consultar, informes)" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="S11rfLDNTL9BjyZebiUB-49">
+          <mxGeometry y="116" width="290" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
