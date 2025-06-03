@@ -24,12 +24,13 @@ jobs:
 
       - name: Verificar presencia de SONAR_TOKEN
         run: |
-          if [ -z "$SONAR_TOKEN" ]; then
-            echo "SONAR_TOKEN NO está disponible en este contexto"
+          if ($env:SONAR_TOKEN -eq $null -or $env:SONAR_TOKEN -eq "") {
+            Write-Host "SONAR_TOKEN NO está disponible en este contexto"
             exit 1
-          else
-            echo "SONAR_TOKEN está presente"
-          fi
+          } else {
+            Write-Host "SONAR_TOKEN está presente"
+          }
+        shell: pwsh
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
@@ -45,8 +46,7 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v5
         with:
           args: >
-            -Dsonar.organization=<far0010TFG>
-            -Dsonar.projectKey=<far0010tfg>
+            -Dsonar.organization=<TU_ORGANIZACION>
+            -Dsonar.projectKey=<TU_PROJECT_KEY>
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
-
