@@ -47,6 +47,6 @@ jobs:
         with:
           args: >
             -Dsonar.organization="far0010TFG"
-            -Dsonar.projectKey="far0010tfg"
+            -Dsonar.projectKey="far0010_TFGUBU-Fran_Arroyo"
             -Dsonar.host.url="https://sonarcloud.io"
             -Dsonar.token="${{ secrets.SONAR_TOKEN }}"
