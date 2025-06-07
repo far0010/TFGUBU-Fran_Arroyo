@@ -92,3 +92,17 @@ JOIN contratos c2 ON c1.contratado = c2.contratado
                         OR c2.f_ini BETWEEN c1.f_ini AND c1.f_fin)
 JOIN solicitante s ON c1.contratado = s.dni_sol
 ORDER BY c1.contratado;
+
+-- Test de listado de nómina por orgánica, con personal y sus costes
+
+SELECT P.ORGANICA, s.nom_sol AS NOMBRE_CONTRATADO, 
+       SUM(N.MENSUALIDAD) AS MENSUALIDAD_TOTAL, 
+       SUM(N.SEG_SOC) AS SEG_SOC_TOTAL, 
+       SUM(N.MENSUALIDAD + N.SEG_SOC) AS TOTAL
+FROM NOMINA N
+JOIN SOLICITANTE S ON N.DNI_NOM = S.DNI_SOL
+JOIN CONVOCATORIA C ON s.ref_con = C.REFERENCIA  -- Ajustando relación con convocatoria
+JOIN RESPONSABLE R ON C.REF_INV = R.DNI  -- Vinculando correctamente a responsable
+JOIN PROYECTO P ON C.REF_PROY = P.ORGANICA
+WHERE N.MES = 7 AND N.ANNO = 25
+GROUP BY ROLLUP (P.ORGANICA, s.nom_sol);
