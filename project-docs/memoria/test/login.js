@@ -12,12 +12,14 @@ test('Validar si login exitoso', async t => {
     const passwordField = Selector('input').withAttribute('name', 'P101_PASSWORD');
     const loginButton = Selector('.region-buttons').find('button').withText('LOGIN');
     
-    const iframeGeNomIn = Selector('iframe[name="GeNomIn"]'); // Ajusta el selector si es necesario
-    const titlePaginaPrincipal = Selector('.content-body .title').withText('PÁGINA PRINCIPAL');
+    // Seleccionar el iframe y el título dentro de Content Body
+    const titlePaginaPrincipal = Selector('h2.t-Region-title').withText('PÁGINA PRINCIPAL');
 
     // Espera a que los campos estén disponibles
     await t.expect(usernameField.exists).ok({ timeout: 5000 });
     await t.expect(passwordField.exists).ok({ timeout: 5000 });
+
+    
 
     // Interacción con los elementos
     await t
@@ -26,9 +28,8 @@ test('Validar si login exitoso', async t => {
        
     await clickButton();
 
-    // Cambiar al iframe antes de buscar el título
-    await t.switchToIframe(iframeGeNomIn);
-
+     //await t.debug();
+    
     // Validar que el título de la página principal aparece
     await t.expect(titlePaginaPrincipal.exists).ok({ timeout: 5000 });
 });
