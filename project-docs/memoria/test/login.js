@@ -23,8 +23,8 @@ test('Validar si login exitoso', async t => {
 
     // Interacción con los elementos
     await t
-        .typeText(usernameField, 'Fran')
-        .typeText(passwordField, 'epdrntr')
+        .typeText(usernameField, 'USER01')
+        .typeText(passwordField, 'USER01')
        
     await clickButton();
 
