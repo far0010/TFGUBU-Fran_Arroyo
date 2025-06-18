@@ -2,8 +2,7 @@ name: Publicar informe Allure
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - 'projects-docs/allure-report/**'
 
@@ -11,16 +10,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Clona el repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Copia el informe a subcarpeta "informe"
+      - name: Preparar carpeta para publicar
         run: |
+          rm -rf sitio
           mkdir -p sitio/informe
-          cp -r projects-docs/allure-report/* sitio/informe/
+          cp -a projects-docs/allure-report/. sitio/informe/
 
-      - name: Publica en GitHub Pages
+      - name: Publicar solo el informe Allure
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./sitio
+          keep_files: false
