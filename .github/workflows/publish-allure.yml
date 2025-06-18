@@ -14,10 +14,10 @@ jobs:
       - name: Clona el repo
         uses: actions/checkout@v3
 
-      - name: Copia el informe a carpeta temporal
+      - name: Copia el informe a subcarpeta "informe"
         run: |
-          mkdir sitio
-          cp -r projects-docs/allure-report/* sitio/
+          mkdir -p sitio/informe
+          cp -r projects-docs/allure-report/* sitio/informe/
 
       - name: Publica en GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
