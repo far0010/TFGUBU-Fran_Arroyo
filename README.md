@@ -6,7 +6,8 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=far0010_TFGUBU-Fran_Arroyo&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=far0010_TFGUBU-Fran_Arroyo)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=far0010_TFGUBU-Fran_Arroyo&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=far0010_TFGUBU-Fran_Arroyo) 
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=far0010_TFGUBU-Fran_Arroyo&metric=bugs)](https://sonarcloud.io/summary/new_code?id=far0010_TFGUBU-Fran_Arroyo) 
-📈 [Ver Informe Test Allure](https://far0010.github.io/TFGUBU-Fran_Arroyo/projects-docs/allure-report/)
+[![Test Report](https://img.shields.io/badge/Allure-Report-blueviolet?logo=allure)](https://far0010.github.io/TFGUBU-Fran_Arroyo/informe/)
+
 
 
 [![GitHub issues](https://img.shields.io/github/issues-closed/far0010/TFGUBU-Fran_Arroyo)](https://github.com/far0010/TFGUBU-Fran_Arroyo/issues)
@@ -35,7 +36,7 @@ Este proyecto forma parte del Trabajo de Fin de Grado (TFG) de Ingeniería Infor
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Oracle11g expressEdition**: Gestión de la base de datos relacional.
+- **Oracle23ai**: Gestión de la base de datos relacional.
 - **SQL Developer**: Creación de la tablas.
-- **APEX 5.1**: Creación de formularios e informes web para Oracle.
+- **APEX 2402**: Creación de formularios e informes web para Oracle.
   
