@@ -36,7 +36,7 @@ Este proyecto forma parte del Trabajo de Fin de Grado (TFG) de Ingeniería Infor
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Oracle11g expressEdition**: Gestión de la base de datos relacional.
+- **Oracle23ai**: Gestión de la base de datos relacional.
 - **SQL Developer**: Creación de la tablas.
-- **APEX 5.1**: Creación de formularios e informes web para Oracle.
+- **APEX 2402**: Creación de formularios e informes web para Oracle.
   
