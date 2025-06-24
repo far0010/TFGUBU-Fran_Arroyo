@@ -1,6 +1,6 @@
 import { Selector} from 'testcafe';
 import {BUTTON, USERNAME, PASSW, FILASANTES, FILASDESPUES, CONFILASTABLA, CONVOMENU, 
-    CONVOHEAD, GRADUADO, SELECOPEN, ABIERTO, SELECTIT, INVEST, SELINVEST, PROYEC, SELPROY} from './constanst.js';
+    CONVOHEAD, GRADUADO, SELECOPEN, ABIERTO, SELECTIT, INVEST, SELINVEST, PROYEC, SELPROY,TOGICON2} from './constanst.js';
 
 fixture`Test Suite`.page("https://192.168.2.61:8443/apex/f?p=100:LOGIN_DESKTOP:12651011480748:::::");
 
@@ -20,9 +20,14 @@ test('Crear convocatoria', async t => {
     await BUTTON();;
 
     // click en Convocatorias
-    await t.expect(CONVOMENU.exists).ok({ timeout: 5000 });
+    //await t.expect(CONVOMENU.exists).ok({ timeout: 5000 });
 
-    // Hace clic en el enlace "Convocatorias"
+     await t
+            .click(TOGICON2)  // Hace clic en el ícono de despliegue
+    // Esperar a que aparezca en Convocatorias
+    await t.expect(CONVOMENU.exists).ok({ timeout: 5000 });
+       
+    // Hace clic en el enlace "Convocatoria"
     await t.click(CONVOMENU);
 
     await t.expect(CONVOHEAD.exists).ok({ timeout: 5000 });
@@ -43,7 +48,7 @@ test('Crear convocatoria', async t => {
     await t
         
         .expect(TITULO.exists).ok()
-        .typeText(TITULO, 'PRUEBA 3')
+        .typeText(TITULO, 'PRUEBA PARA BORRAR')
         
         .expect(SELECTIT.exists).ok({ timeout: 5000 })
         .expect(SELECTIT.hasAttribute('disabled')).notOk('El select está deshabilitado')

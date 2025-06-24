@@ -1,5 +1,5 @@
 import { Selector} from 'testcafe';
-import {BUTTON, USERNAME, PASSW,  CONVOMENU, CONVOHEAD} from './constanst.js';
+import {BUTTON, USERNAME, PASSW,  CONVOMENU, CONVOHEAD, TOGICON2} from './constanst.js';
 
 fixture`Test Suite`.page("https://192.168.2.61:8443/apex/f?p=100:LOGIN_DESKTOP:12651011480748:::::");
 
@@ -17,7 +17,9 @@ test('Borrar Convocatoria simple', async t => {
         .typeText(PASSW, 'user01')
        
     await BUTTON();;
-
+    // click en menu Convocatorias
+     await t
+                .click(TOGICON2)  // Hace clic en el ícono de despliegue
     // click en Convocatorias
     await t.expect(CONVOMENU.exists).ok({ timeout: 5000 });
 
@@ -68,7 +70,7 @@ test('Borrar Convocatoria simple', async t => {
         .expect(confirmBtn.exists).ok('El botón js-confirmBtn no se ha encontrado')
         .expect(confirmBtn.visible).ok('El botón js-confirmBtn no está visible')
         .click(confirmBtn);
-
+    await t.debug();
     // Volver a buscar la convocatoria y comprobar que ya no existe
     await t
         //.switchToMainWindow()
@@ -78,6 +80,6 @@ test('Borrar Convocatoria simple', async t => {
     // Esperar y validar el mensaje "No data found"
     const noDataMessage = Selector('span.a-IRR-noDataMsg-text').withText('No data found.');
     await t
-    .expect(noDataMessage.exists).ok('El mensaje "No data found" no apareció, el registro exite');
+        .expect(noDataMessage.exists).ok('El mensaje "No data found" no apareció, el registro exite');
 
 });
