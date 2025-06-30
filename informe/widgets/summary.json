@@ -1,1 +1,1 @@
-{"reportName":"Allure Report","testRuns":[],"statistic":{"failed":0,"broken":0,"skipped":0,"passed":24,"unknown":0,"total":24},"time":{"start":1750707077721,"stop":1751191854729,"duration":484777008,"minDuration":2727,"maxDuration":19711,"sumDuration":198196}}
+{"reportName":"Test de GeNomIn","testRuns":[],"statistic":{"failed":0,"broken":0,"skipped":0,"passed":14,"unknown":0,"total":14},"time":{"start":1751299181169,"stop":1751299293942,"duration":112773,"minDuration":2302,"maxDuration":15672,"sumDuration":107270}}

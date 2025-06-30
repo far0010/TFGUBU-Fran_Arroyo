@@ -1,1 +1,1 @@
-[{"data":{"failed":0,"broken":0,"skipped":0,"passed":24,"unknown":0,"total":24}}]
+[{"buildOrder":1,"reportUrl":"","reportName":"Test de GeNomIn","data":{"failed":0,"broken":0,"skipped":0,"passed":14,"unknown":0,"total":14}},{"buildOrder":1,"reportUrl":"","reportName":"Test de GeNomIn","data":{"failed":1,"broken":0,"skipped":0,"passed":13,"unknown":0,"total":14}},{"buildOrder":1,"reportUrl":"","reportName":"Test de GeNomIn","data":{"failed":1,"broken":0,"skipped":0,"passed":13,"unknown":0,"total":14}}]
