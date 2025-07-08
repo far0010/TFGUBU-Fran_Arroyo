@@ -15,6 +15,18 @@ if (abierto == '0') {
     $s('P7_REF_CON', ''); // Limpia la convocatoria para que elijan otra
 } 
 
+-- mostrar las convocatorias en el desplegable, solo las que no están llenas
+
+SELECT C.TITULO, C.REFERENCIA
+FROM CONVOCATORIA C
+LEFT JOIN (
+    SELECT REF_CON, COUNT(*) AS NUM_SOLICITANTES
+    FROM SOLICITANTE
+    GROUP BY REF_CON
+) S ON C.REFERENCIA = S.REF_CON
+WHERE NVL(S.NUM_SOLICITANTES, 0) < C.NUM_PLAZAS
+ORDER BY C.TITULO, C.REFERENCIA;
+
 -- comprobar titulación requerida
 
 SELECT TIT_REQUERIDA
