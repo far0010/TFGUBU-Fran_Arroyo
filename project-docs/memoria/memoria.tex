@@ -1,5 +1,5 @@
 \documentclass[a4paper,12pt,twoside]{memoir}
-
+\sloppy
 % Castellano
 \usepackage[spanish,es-tabla]{babel}
 \selectlanguage{spanish}
@@ -57,65 +57,36 @@
 
 \newacronym{APEX}{APEX}{\textit{Application Express}}
 \newacronym{TFG}{TFG}{\textit{Trabajo de Fin de Grado}}
+\newacronym{ODB}{ODB}{\textit{ORACLE 23ai}}
+\newacronym{FN}{FN}{\textit{Forma Normal}}
+\newacronym{AGBD}{AGBD}{\textit{Aplicaciones de Gestión de BD}}
+\newacronym{HTTPS}{HTTPS}{\textit{Secure Hipertext Transfer Protocol}}
+\newacronym{VYP}{VYP}{\textit{Validación y Pruebas}}
 
 % Glosario
-\newglossaryentry{ingenieria_prompt}
+\newglossaryentry{LATEX}
 {
-	name=Ingeniería del prompt,
-	description={Proceso de optimización y diseño de instrucciones (prompts) para mejorar las respuestas de los modelos de lenguaje a gran escala (LLM)}
-}
-\newglossaryentry{zero-shot}{
-	name={Zero-shot learning},
-	description={Técnica en la que el modelo no recibe ejemplos previos sobre cómo realizar una tarea. El modelo interpreta la solicitud basado únicamente en el contexto.}
+	name=LATEX,
+	description={Sistema de composición de textos orientado a la creación de documentos escritos, genralmente científicos que presenten una alta calidad tipográfica}
 }
 
-\newglossaryentry{few-shot}{
-	name={Few-shot learning},
-	description={Técnica en la que el modelo recibe algunos ejemplos en el prompt para comprender con mayor precisión lo que se espera.}
+\newglossaryentry{Normalización}
+{
+	name=Normalización,
+	description={Proceso de estructuración los datos en una BD relacional, eliminando redundancia de datos y manteniendo la integridad a través de Formas Normales}
 }
 
-\newglossaryentry{tool-calling}{
-	name={Tool calling (Function calling)},
-	description={Técnica que garantiza que el modelo genere una salida en un formato estructurado y procesable, como JSON.}
+\newglossaryentry{MER}
+{
+	name=Modelo Relacional,
+	description={Herramienta que permite organizar los datos en tablas y las relaciones entre las mismas}
 }
 
-\newglossaryentry{rag_glos}{
-	name={RAG},
-	description={\textit{Generación Aumentada por Recuperación}, técnica en la que un modelo LLM se nutre de información adicional para mejorar sus respuestas}
+\newglossaryentry{SLL}
+{
+	name=Secure Sockets Layer,
+	description={protocolo de seguridad que cifra la comunicación entre un navegador web y un servidor, protegiendo la información transmitida}
 }
-
-\newglossaryentry{agentes}{
-	name={Agentes},
-	description={Herramientas que alimentan a un LLM con información adicional obtenida de diversas fuentes como bases de datos, motores de búsqueda o páginas web}
-}
-
-\newglossaryentry{tokenizacion}{
-	name={Tokenización},
-	description={Proceso de dividir una cadena de texto en elementos más pequeños (tokens) para que sean procesados por un modelo de lenguaje}
-}
-
-\newglossaryentry{embeddings}{
-	name={Embeddings},
-	description={Técnica que convierte información en vectores numéricos de n dimensiones, utilizados por los modelos LLM para representar datos en un espacio vectorial}
-}
-
-\newglossaryentry{zero_shot}{
-	name={Zero-shot learning},
-	description={Técnica en la que el LLM realiza una tarea sin recibir ejemplos previos, basándose únicamente en su entrenamiento y contexto}
-}
-
-\newglossaryentry{few_shot}{
-	name={Few-shot learning},
-	description={Técnica en la que se proporcionan al modelo algunos ejemplos de la tarea que se quiere realizar, para mejorar la precisión de la respuesta}
-}
-
-\newglossaryentry{tool_calling}{
-	name={Tool calling},
-	description={Método utilizado para generar salidas precisas en formatos específicos, como JSON, facilitando la integración del LLM en aplicaciones}
-}
-
-
-
 
 
 % Ecuaciones
@@ -456,7 +427,7 @@
 
 
 % Datos de portada
-\title{\fontsize{18pt}{22pt}\selectfont Gestión de Contratos\\
+\title{\fontsize{18pt}{22pt}\selectfont Gestión de Contratos GeNomIn\\
 	\fontsize{16pt}{18pt}\selectfont Aplicación APEX sobre Oracle, para la gestión de contratos del Personal contratado con cargo a proyectos de Investigación}
 \author{\nombre}
 \tutor{Pedro Renedo Fernández}
@@ -506,7 +477,7 @@ En Burgos, {\large \today}
 % Abstract en castellano
 \renewcommand*\abstractname{Resumen}
 \begin{abstract}
-Gestión de Contratos, es una aplicación web desarrollada en APEX 5.1 \acrfull{APEX}, para la gestión de contratos de Investigación que actualmente se gestionan a través de una hoja de cálculo. Estos contratos se vinculan a convocatorias y éstas a proyectos de investigación, pretendiendo unificar todas estas actividades en un único aplicativo más sencillo de gestionar por el personal del Servicio.
+Gestión de Contratos GeNomIn, es una aplicación web desarrollada en \acrfull{APEX} 24.2 para la gestión de contratos de  Investigación que actualmente se gestionan a través de una hoja de cálculo. Estos contratos se vinculan a convocatorias y éstas a proyectos de investigación, pretendiendo unificar todas estas actividades en un único aplicativo más sencillo de gestionar por el personal del Servicio.
 
 \end{abstract}
 
@@ -520,7 +491,7 @@ Gestión de Contratos, Convocatorias, Investigación.
 % Abstract en inglés
 \renewcommand*\abstractname{Abstract}
 \begin{abstract}
-Contract Management, is a web application developed in APEX 5.1 \acrfull{APEX}, for the management of Research contracts that are currently managed through a spreadsheet. These contracts are linked to calls and these to research projects, seeking to unify all these activities into a single application.
+Contract Management GeNomIn, is a web application developed in \acrfull{APEX} 24.2, for the management of Research contracts that are currently managed through a spreadsheet. These contracts are linked to calls and these to research projects, seeking to unify all these activities into a single application.
 \end{abstract}
 
 \renewcommand*\abstractname{Keywords}
@@ -566,7 +537,7 @@ Contract Management, is a web application developed in APEX 5.1 \acrfull{APEX}, 
 
 
 
-
+\nocite{*}
 \bibliographystyle{plain}
 \bibliography{bibliografia}
 

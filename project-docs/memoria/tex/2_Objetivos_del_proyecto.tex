@@ -1,0 +1,32 @@
+\capitulo{2}{Objetivos del proyecto}
+
+\section{Objetivos funcionales}
+
+Estos objetivos se centran en las funcionalidades y características que debe tener la aplicación \textit{GeNomIn} para satisfacer las necesidades y expectativas de los usuarios. A continuación se detallan los objetivos funcionales del proyecto:
+
+\begin{itemize}
+	\item \textbf{Sustitución de la hoja de cálculo Excel}: Uno de los primeros y fundamentales pasos es la conversión de el libro de Excel tablas para la \acrfull{ODB} sin pérdida de datos a través del proceso de \gls{Normalización}.
+	En este proceso se irán generado \acrfull{FN} 1, 2 y 3 que nos permitirán; la 1ª eliminar grupos repetidos de datos, y que cada columna tenga un solo valor, la 2ª eliminará redundancias en claves primarias y la 3ª eliminará dependencias transitivas.
+	\item \textbf{Creación de las tablas en la \acrfull{ODB}}: Una vez normalizada el libro de Excel, se crearán las correspondientes tablas en la \acrshort{ODB}, configurando correctamente las relaciones entre las mismas \gls{MER}, de vital importancia, ya que una mala definición de las relaciones entre las distintas tablas puede dar al traste con todo el proyecto.
+	\item \textbf{Creación de la aplicación sobre \acrfull{APEX}} 24.2: Uno de los principales retos es la creación de dicha aplicación, su correcto funcionamiento y  funcionalidad, que exige el aprendizaje de esta potente  plataforma de desarrollo de aplicaciones web de bajo código que se ejecuta dentro de una base de datos Oracle. Esta versión introduce nuevas funcionalidades, mejoras y actualizaciones, especialmente en el área de la inteligencia artificial generativa y la experiencia del desarrollador.
+		
+\end{itemize}
+
+\section{Objetivos no funcionales}
+
+Los objetivos no funcionales se refieren a los desafíos y metas que se deben abordar para desarrollar el software. Estos objetivos abarcan aspectos como la arquitectura del sistema, las tecnologías a utilizar y las metodologías de desarrollo. A continuación se detallan los objetivos no funcionales del proyecto:
+
+\begin{itemize}
+	\item \textbf{Gestión de las diversas herramientas para la creación de la aplicación GeNomIn}: 
+	Durante la asignatura de \acrfull{AGBD}, se han visto someramente las herramientas \acrshort{APEX} 5.1 y Oracle 9. Teniendo el objetivo de desarrollar una aplicación funcional y entendiendo que ha de desplegarse en un servidor \acrshort{HTTPS} con \gls{SLL}, se prefirió como reto personal, el desarrollo sobre \acrfull{APEX} 23.2 sobre Oracle 23ai. También durante la asignatura de \acrfull{VYP}, se han utilizado herramientas de prueba como Selenium y Katalom, se ha querido salir de la zona de confort y utilizar \textbf{textcafe} para comprobar la usabilidad de la aplicación.
+	\item \textbf{Usabilidad de \textbf{GeNomIn}}: La aplicación no debe ser sólo útil, como principal objetivo, si no que debe permitir un manejo fácil e intuitivo por el personal que debe manejarla. Como se ha comentado en la introducción la familiaridad del personal con \acrfull{APEX} en las distintas aplicaciones ya usadas (portales Económico e Investigación), favorece una mejor asimilación de este nuevo entorno en comparación con la tediosa hoja de cálculo. 
+\end{itemize}
+
+\section{Objetivos personales}
+
+\begin{itemize}
+	\item \textbf{Capacidad de desarrollo}: el principal objetivo es comprobar si el esfuerzo realizado durante todos estos años es aplicable a la "vida profesional" y tiene aplicación directa en un caso real. 
+	\item \textbf{Reto de aprendizaje}: Lo sencillo hubiera sido realizar este trabajo con herramientas conocidas y se ha querido llevar un paso más allá, utilizando versiones muy superiores a las utilizadas en prácticas (\acrshort{APEX}5.1) y software totalmente distinto para la realización de pruebas.
+	También, la realización de esta memoria con \gls{LATEX}, supone un cambio de paradigma sobre el uso de los procesadores texto convencionales como Word.
+	\item \textbf{Reto personal}: la realización del \acrshort{TFG} supone el final del camino iniciado hace ya más de 20 años cuando inicié la Ingeniería Técnica Informática y por motivos personales no pude concluir.
+\end{itemize}
