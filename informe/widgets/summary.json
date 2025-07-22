@@ -1,1 +1,1 @@
-{"reportName":"Test de GeNomIn","testRuns":[],"statistic":{"failed":0,"broken":0,"skipped":0,"passed":17,"unknown":0,"total":17},"time":{"start":1751299181169,"stop":1752160822530,"duration":861641361,"minDuration":2302,"maxDuration":37567,"sumDuration":174793}}
+{"reportName":"Test de GeNomIn","testRuns":[],"statistic":{"failed":0,"broken":0,"skipped":0,"passed":22,"unknown":0,"total":22},"time":{"start":1751299181169,"stop":1753203418479,"duration":1904237310,"minDuration":2083,"maxDuration":37567,"sumDuration":248703}}
