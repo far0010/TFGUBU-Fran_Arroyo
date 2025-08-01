@@ -29,6 +29,21 @@ FROM SOLICITANTE
 WHERE REF_CON = :P12_CONVOCATORIA
 ORDER BY APE1_SOL;
 
+-- Modificación de solicitante de convocatoria para que solo refleje los que no tienen contrato
+
+SELECT NOM_SOL || ' ' || APE1_SOL || ' ' || APE2_SOL AS DISPLAY_VALUE,
+       DNI_SOL AS RETURN_VALUE
+FROM SOLICITANTE S
+WHERE REF_CON = :P12_CONVOCATORIA
+  AND NOT EXISTS (
+      SELECT 1
+      FROM CONTRATOS C
+      WHERE C.CONTRATADO = S.DNI_SOL
+        AND C.F_FIN >= SYSDATE -- aún está activo o en el futuro
+  )
+ORDER BY APE1_SOL;
+
+
 -- verificar la fecha inicio del contrato posterior a fecha proyecto
 SELECT P.FECHA_INI
 FROM CONVOCATORIA C 
