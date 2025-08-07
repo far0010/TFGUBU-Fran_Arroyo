@@ -1,0 +1,21 @@
+-- seleccion de solicitantes contratados
+
+SELECT
+  NOM_SOL || ' ' || APE1_SOL || ' ' || APE2_SOL AS display_value,
+  DNI_SOL AS return_value
+FROM SOLICITANTE
+JOIN CONTRATOS C ON C.CONTRATADO = DNI_SOL
+ORDER BY NOM_SOL;
+
+-- seleccion de nominas de un contratado
+SELECT 
+    n.MES,
+    n.ANNO AS AÑO,
+    n.MENSUALIDAD AS MENSUALIDAD,
+    n.SEG_SOC AS SEG_SOC,
+    n.MENSUALIDAD + n.SEG_SOC AS TOTAL,
+    n.OBSERVACIONES
+FROM SOLICITANTE s
+JOIN CONTRATOS ct ON s.DNI_SOL = ct.CONTRATADO
+JOIN NOMINA n ON n.DNI_NOM = s.DNI_SOL
+WHERE s.DNI_SOL=:P19_CONTRATADO AND ct.F_INI>= :P19_DESDE AND ct.F_FIN <= :P19_HASTA;
