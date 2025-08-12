@@ -31,7 +31,7 @@ test.meta({SEVERITY:'critical', ISSUE_URL: 'https://github.com/far0010/TFGUBU-Fr
     await t.click(RENUNMENU);
 
     await t.expect(SOLICIRENUN.exists).ok({ timeout: 5000 });
-    const okButton = Selector('button.js-confirmBtn').withText('OK');
+
     // meter los datos
     const contratoSelect = Selector('#P14_SEL_CONT');
     await t.maximizeWindow() //maximizamos la ventana para ver bien los campos.
