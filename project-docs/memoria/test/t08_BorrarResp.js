@@ -1,5 +1,5 @@
 import { Selector} from 'testcafe';
-import {BUTTON, USERNAME, PASSW, TOGICON, SUBMEN, RESPONMENU,RESPONHEAD, FILASANTES, FILASDESPUES, SELECDEPTO, FISICA, CONFILASTABLA} from './constanst.js';
+import {BUTTON, USERNAME, PASSW, TOGICON, SUBMEN, RESPONMENU,RESPONHEAD} from './constanst.js';
 
 fixture`Test Suite`.page("https://192.168.2.61:8443/apex/f?p=100:LOGIN_DESKTOP:12651011480748:::::");
 
@@ -42,14 +42,12 @@ test('Borrar responsable', async t => {
         .click(searchButton);
     
      // Localizar directamente el <td> con el enlace del lápiz
-    const editLinkCell = Selector('td.a-IRR-linkCol').withText(dniObjetivo);
+    
     const editIcon = Selector('img.apex-edit-pencil');
 
     await t
         .expect(editIcon.exists).ok('No se encontró el icono del lápiz', { timeout: 5000 })
         .click(editIcon);
-
-        //await t.debug();
     
     // En la página de edición, hacer clic en Delete
     const botonEliminar = Selector('button').withText('Delete');

@@ -1,7 +1,5 @@
 import oracledb from 'oracledb';
 
-const oracledb = require('oracledb');
-
 const DB_CONFIG = {
   user: 'TFGUBU',
   password: '1234',

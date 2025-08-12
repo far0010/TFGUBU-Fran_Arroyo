@@ -1,5 +1,5 @@
 import { Selector } from 'testcafe';
-import {NOMINAMENU, BUTTON, USERNAME, PASSW, TOGICON4, BT_CONNOM, VTOMENU } from './constanst.js';
+import {BUTTON, USERNAME, PASSW, TOGICON4, VTOMENU } from './constanst.js';
 
 fixture`Test Suite-25`.page("https://192.168.2.61:8443/apex/f?p=100:LOGIN_DESKTOP:12651011480748:::::")
      .meta({TEST_RUN:'Informe de contratos entre fechas',FEATURE: 'Informes', STORY: 'US25-Zube #23'});

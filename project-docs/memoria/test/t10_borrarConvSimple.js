@@ -39,7 +39,6 @@ test('Borrar Convocatoria simple', async t => {
         .click(searchButton);
 
      // Localizar directamente el <td> con el enlace del lápiz
-    const editLinkCell = Selector('td.a-IRR-linkCol').withText(titBORRAR);
     const editIcon = Selector('img.apex-edit-pencil-alt');
 
     await t
@@ -55,10 +54,6 @@ test('Borrar Convocatoria simple', async t => {
     await t
         .click(botonEliminar)
         .click(Selector('button').withText('Delete').filterVisible()); 
-
-    // Seleccion del iframe dentro del diálogo
-    const iframe2 = Selector('iframe[src*="f?p=100:9"]');
-
     // Salimos del iframe 
     await t.switchToMainWindow();
 

@@ -18,19 +18,19 @@ def generar_titulo():
     return f"Proyecto de Investigación - {sufijo}"
 
 # Función para generar fecha fin según fecha inicio y duración
-def calcular_fecha_fin(fecha_ini, años_duracion):
+def calcular_fecha_fin(fecha_ini, anos_duracion):
     # Si empieza el 01/01, termina el 31/12 X años después
     if fecha_ini.month == 1 and fecha_ini.day == 1:
-        return datetime(fecha_ini.year + años_duracion, 12, 31)
+        return datetime(fecha_ini.year + anos_duracion, 12, 31)
     # Si empieza el 01/07, acaba el 30/06
     elif fecha_ini.month == 7:
-        return datetime(fecha_ini.year + años_duracion, 6, 30)
+        return datetime(fecha_ini.year + anos_duracion, 6, 30)
     # 01/09 → 31/08
     elif fecha_ini.month == 9:
-        return datetime(fecha_ini.year + años_duracion, 8, 31)
+        return datetime(fecha_ini.year + anos_duracion, 8, 31)
     # 01/11 → 31/10
     elif fecha_ini.month == 11:
-        return datetime(fecha_ini.year + años_duracion, 10, 31)
+        return datetime(fecha_ini.year + anos_duracion, 10, 31)
 
 # Crear archivo CSV
 with open('datos_proyectos_extendido.csv', 'w', newline='') as archivo:
@@ -43,16 +43,16 @@ with open('datos_proyectos_extendido.csv', 'w', newline='') as archivo:
 
         # Elegimos una fecha de inicio válida que no pase del año actual
         while True:
-            año = random.choice(anios_validos)
+            anno = random.choice(anios_validos)
             if año <= datetime.now().year:
                 break
         dia_mes = random.choice(dias_validos)
-        fecha_ini_str = f"{dia_mes}/{año}"
+        fecha_ini_str = f"{dia_mes}/{anno}"
         fecha_ini = datetime.strptime(fecha_ini_str, "%d/%m/%Y")
 
         # Calcular fecha fin
         años_duracion = random.choice([1, 2, 3, 4])
-        fecha_fin = calcular_fecha_fin(fecha_ini, años_duracion)
+        fecha_fin = calcular_fecha_fin(fecha_ini, anos_duracion)
 
         # Escribir la fila
         writer.writerow([
