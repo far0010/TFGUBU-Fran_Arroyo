@@ -48,8 +48,6 @@ test('Borrar responsable', async t => {
     await t
         .expect(editIcon.exists).ok('No se encontró el icono del lápiz', { timeout: 5000 })
         .click(editIcon);
-
-        //await t.debug();
     
     // En la página de edición, hacer clic en Delete
     const botonEliminar = Selector('button').withText('Delete');
