@@ -1,4 +1,3 @@
-//import { Selector, ClientFunction } from 'testcafe';
 import {BUTTON, USERNAME, PASSW, TITPAGPAL} from './constanst.js';
 
 fixture`Test Suite`.page("http://localhost:8080/apex/f?p=100:LOGIN_DESKTOP:12651011480748:::::");
