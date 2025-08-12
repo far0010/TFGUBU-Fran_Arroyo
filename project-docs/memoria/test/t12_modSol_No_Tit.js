@@ -1,6 +1,5 @@
 import { Selector} from 'testcafe';
-import {BUTTON, USERNAME, PASSW, FILASANTES, FILASDESPUES, CONFILASTABLA, TOGICON2,
-    SOLICITANTEMENU, SOLICITHEAD, SELECTITSOL, SOLICDIPLO, SELECONVSOL,SOLICNOTIT} from './constanst.js';
+import {BUTTON, USERNAME, PASSW,  TOGICON2,SOLICITANTEMENU, SOLICITHEAD,  SELECONVSOL,SOLICNOTIT} from './constanst.js';
 
 fixture`Test Suite`.page("https://192.168.2.61:8443/apex/f?p=100:LOGIN_DESKTOP:12651011480748:::::");
 
@@ -41,8 +40,7 @@ test('Crear Solicitante a convocatoria sin titulación', async t => {
 
     await t
         .click(iconoEditar);
-
-    //const TITULO = Selector('#P7_TITULO');
+    
     const iframe = Selector('iframe[title="Datos"]');
     //para la selección del botón ok
     const okButton = Selector('button.js-confirmBtn').withText('OK');
