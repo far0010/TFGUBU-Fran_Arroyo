@@ -61,11 +61,8 @@ test.meta({SEVERITY:'critical', ISSUE_URL: 'https://github.com/far0010/TFGUBU-Fr
         .click(Selector('span.t-Button-label').withText('Create').parent('button'))
 
     // CLIC EN CONFIRMACIÓN
-    const CreateButton = Selector('button.js-confirmBtn').withText('Create');
     await t
         .switchToMainWindow()
-        
-    const ConfirmCreateBtn = Selector('button.js-confirmBtn').withText('Create');
 
     // Espera el botón 2ª confirmación es visible
     const ConfirmCreate = Selector('button.js-confirmBtn').withText('Create');
