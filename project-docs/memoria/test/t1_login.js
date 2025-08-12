@@ -14,8 +14,6 @@ test('Validar si login exitoso', async t => {
         .typeText(PASSW, 'user01')
        
     await BUTTON();
-
-     //await t.debug();
     
     // Validar que el título de la página principal aparece
     await t.expect(TITPAGPAL.exists).ok({ timeout: 5000 });
