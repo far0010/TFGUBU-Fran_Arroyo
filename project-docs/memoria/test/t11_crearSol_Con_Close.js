@@ -37,7 +37,6 @@ test('Crear Solicitante a convocatoria cerrada', async t => {
     // Espera a que cargue la tabla o el botón
     await t.click(Selector('span.t-Button-label').withText('Create').parent('button'));
 
-    //const TITULO = Selector('#P7_TITULO');
     const iframe = Selector('iframe[title="Datos"]');
     //para la selección del botón ok
     const okButton = Selector('button.js-confirmBtn').withText('OK');
