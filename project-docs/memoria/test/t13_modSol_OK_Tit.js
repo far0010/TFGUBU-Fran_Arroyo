@@ -1,5 +1,5 @@
 import { Selector} from 'testcafe';
-import {BUTTON, USERNAME, PASSW, TOGICON2,SOLICITANTEMENU, SOLICITHEAD, SELECONVSOL,SOLICSITIT} from './constanst.js';
+import {BUTTON, USERNAME, PASSW, TOGICON3, RENOVARMENU,SOLICIRENOVAR,SEL_FEC_REN, BT_VERIFICA} from './constanst.js';
 
 fixture`Test Suite`.page("https://192.168.2.61:8443/apex/f?p=100:LOGIN_DESKTOP:12651011480748:::::");
 
