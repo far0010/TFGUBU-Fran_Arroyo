@@ -39,4 +39,8 @@ Este proyecto forma parte del Trabajo de Fin de Grado (TFG) de Ingeniería Infor
 - **Oracle23ai**: Gestión de la base de datos relacional.
 - **SQL Developer**: Creación de la tablas.
 - **APEX 2402**: Creación de formularios e informes web para Oracle.
+- **AOP-Apex Office Print**: Generación de informes personalizados en PDF
+- **TestCafe**: Test de verificación
+- **Oracle Cloud Free Tier**: Despliegue en la nube
+- **TeXstudio**: Generación de memoria del trabajo
   
