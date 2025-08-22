@@ -10,6 +10,8 @@
 \usepackage{placeins}
 % Añado paquete para poder añadir TODO's
 \usepackage{todonotes}
+\usepackage{tabularx}
+\usepackage{makecell}
 
 \RequirePackage{booktabs}
 \RequirePackage[table]{xcolor}
@@ -35,8 +37,42 @@
 	showspaces=false,                   % No mostrar espacios
 	showstringspaces=false,             % No mostrar espacios en las cadenas
 	showtabs=false,                     % No mostrar tabulaciones
-	language=Python                     % Se usa el estilo de Python como base
+	language=Python		                % Se usa el estilo de Python como base
 }
+
+\lstdefinelanguage{JavaScript}{
+	keywords={break, case, catch, continue, debugger, default, delete, do, else, finally, for, function, if, in, instanceof, new, return, switch, this, throw, try, typeof, var, let, const, while, with},
+	keywordstyle=\color{purple}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{blue}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=true,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{orange}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstdefinestyle{jsStyle}{
+	language=JavaScript,
+	basicstyle=\ttfamily\footnotesize,
+	keywordstyle=\color{purple},
+	commentstyle=\color{gray},
+	stringstyle=\color{orange},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	stepnumber=1,
+	frame=single,
+	breaklines=true,
+	captionpos=b,
+	tabsize=2,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false
+}
+
 
 \renewcommand\lstlistlistingname{Índice de Códigos}
 \renewcommand\lstlistingname{Código}
@@ -59,15 +95,69 @@
 \newacronym{TFG}{TFG}{\textit{Trabajo de Fin de Grado}}
 \newacronym{ODB}{ODB}{\textit{ORACLE 23ai}}
 \newacronym{FN}{FN}{\textit{Forma Normal}}
-\newacronym{AGBD}{AGBD}{\textit{Aplicaciones de Gestión de BD}}
+\newacronym{SGBD}{SGBD}{\textit{Sistemas de Gestión de BD}}
 \newacronym{HTTPS}{HTTPS}{\textit{Secure Hipertext Transfer Protocol}}
 \newacronym{VYP}{VYP}{\textit{Validación y Pruebas}}
+\newacronym{BDR}{BDR}{\textit{Base de Datos Relacional}}
+\newacronym{PK}{PK}{\textit{Primary Key-Clave Primaria}}
+\newacronym{FK}{FK}{\textit{Foreing Key-Clave Externa}}
+\newacronym{IDE}{IDE}{\textit{Entorno de Desarrollo Integrado}}
+\newacronym{DDL}{DDL}{\textit{Lenguaje de Definición de Datos}}
+\newacronym{DML}{DML}{\textit{Lenguaje de Manipulación de Datos}}
+\newacronym{SQL}{SQL}{\textit{Structured Query Language}}
+\newacronym{MPV}{MPV}{\textit{Mínimo Producto Viable}}
+\newacronym{ODS}{ODS}{\textit{Objetivos de Desarrollo Sostenible}}
+\newacronym{ORDS}{ORDS}{Oracle REST Data Services}
+\newacronym{REST}{REST}{REpresentational State Transfer}
+\newacronym{SSL}{SSL}{Secure Sockets Layer}
+\newacronym{OCI}{OCI}{Oracle Cloud Infrastructure}
+\newacronym{VM}{VM}{Máquina Virtual}
+\newacronym{AOP}{AOP}{APEX Office Print}
+\newacronym{PL/SQL}{PL/SQL}{Procedural Language/Structured Query Language}
+\newacronym{IA}{IA}{Inteligencia Artificial}
+\newacronym{ACL}{ACL}{Listas de Control de Acceso}
+\newacronym{JS}{JS}{JavaScript}
+\newacronym{UXXI}{UXXI}{Universitas XXI}
 
 % Glosario
+\newglossaryentry{Milestone}{
+	name=Milestone,
+	description={Punto de control o evento significativo dentro de un proyecto que marca la finalización de una fase importante o la consecución de un objetivo específico}
+}
+
+\newglossaryentry{Copilot}{
+	name=Copilot,
+	description={Asistente de inteligencia artificial desarrollado por Microsoft, diseñado para ayudar a los usuarios en diversas tareas a través de diferentes aplicaciones}
+}
+
+\newglossaryentry{Datos MOCK}
+{
+	name=Datos MOCK,
+	description={Datos ficticios para probar aplicaciones, bases de datos, interfaces, sin necesidad de usar datos reales o confidenciales}
+}
+
 \newglossaryentry{LATEX}
 {
 	name=LATEX,
 	description={Sistema de composición de textos orientado a la creación de documentos escritos, genralmente científicos que presenten una alta calidad tipográfica}
+}
+
+\newglossaryentry{Cardinalidad}
+{
+	name=Cardinalidad,
+	description={Relación entre el número de instancias de una entidad con respecto a otra entidad con la que se relaciona}
+}
+
+\newglossaryentry{CasodeUso}
+{
+	name=Caso de Uso,
+	description={Descripción de cómo los actores(usuarios), interactúan con el sistema para lograr un objetivo específico}
+}
+
+\newglossaryentry{Atomicidad}
+{
+	name=Atomicidad,
+	description={Propiedad de un campo, por el cual no puede ser descompuesto en pedazos más pequeños por el DBMS}
 }
 
 \newglossaryentry{Normalización}
@@ -88,6 +178,23 @@
 	description={protocolo de seguridad que cifra la comunicación entre un navegador web y un servidor, protegiendo la información transmitida}
 }
 
+\newglossaryentry{Release}
+{
+	name= Release,
+	description={Versión específica de un software que ha sido completada, probada y puesta a disposición para su uso por los usuarios finales.}
+}
+
+\newglossaryentry{Kanban}
+{
+	name= Kanban,
+	description={Método de gestión visual del flujo de trabajo que se caracteriza por el uso de tableros visuales y tarjetas para representar las tareas y su progreso a través de diferentes etapas, promoviendo la transparencia y la mejora continua.}
+}
+
+\newglossaryentry{Metodología Ágil}
+{
+	name= Metodología ágil,
+	description={Enfoque iterativo e incremental para la gestión de proyectos, especialmente popular en el desarrollo de software, que se centra en la flexibilidad, la colaboración y la entrega continua de valor. En lugar de adherirse rígidamente a un plan predefinido, agile abraza el cambio y la adaptación a medida que avanza el proyecto.}
+}
 
 % Ecuaciones
 \usepackage{amsmath}
@@ -393,7 +500,7 @@
   \vfill
   
   % Título proyecto y escudo informática ----------------
-  \colorbox{white}{%
+  \colorbox{cpardoBox}{%
     \begin{minipage}{.8\textwidth}
       \vspace{.5cm}\Large
       \begin{center}
@@ -431,7 +538,7 @@
 	\fontsize{16pt}{18pt}\selectfont Aplicación APEX sobre Oracle, para la gestión de contratos del Personal contratado con cargo a proyectos de Investigación}
 \author{\nombre}
 \tutor{Pedro Renedo Fernández}
-\date{\today}
+\date{Septiembre 2025}
 
 \begin{document}
 
@@ -477,13 +584,13 @@ En Burgos, {\large \today}
 % Abstract en castellano
 \renewcommand*\abstractname{Resumen}
 \begin{abstract}
-Gestión de Contratos GeNomIn, es una aplicación web desarrollada en \acrfull{APEX} 24.2 para la gestión de contratos de  Investigación que actualmente se gestionan a través de una hoja de cálculo. Estos contratos se vinculan a convocatorias y éstas a proyectos de investigación, pretendiendo unificar todas estas actividades en un único aplicativo más sencillo de gestionar por el personal del Servicio.
+Gestión de Contratos GeNomIn, es una aplicación web desarrollada unen \acrfull{APEX} 24.2 para el control y gestión de los pagos de contratos de  Investigación que actualmente se gestionan a través de una hoja de cálculo. Estos contratos se vinculan a convocatorias y éstas a proyectos de investigación, pretendiendo ificar todas estas actividades en un único aplicativo más sencillo de gestionar por el personal del Servicio y que permita a través de un informe de nómina mensual cotejar los datos remitidos por retribuciones para ese mismo mes, con los calculados por el Servicio.
 
 \end{abstract}
 
 \renewcommand*\abstractname{Descriptores}
 \begin{abstract}
-Gestión de Contratos, Convocatorias, Investigación.
+Gestión de Pagos, Contratos, Convocatorias, Investigación, Oracle, Apex, GeNomIn
 \end{abstract}
 
 \clearpage
@@ -491,12 +598,12 @@ Gestión de Contratos, Convocatorias, Investigación.
 % Abstract en inglés
 \renewcommand*\abstractname{Abstract}
 \begin{abstract}
-Contract Management GeNomIn, is a web application developed in \acrfull{APEX} 24.2, for the management of Research contracts that are currently managed through a spreadsheet. These contracts are linked to calls and these to research projects, seeking to unify all these activities into a single application.
+GeNomIn Contract Management is a web application developed in APEX 24.2 for the control and management of research contract payments, currently managed through a spreadsheet. These contracts are linked to calls for proposals, and these are linked to research projects. The aim is to integrate all these activities into a single application that is easier for Service staff to manage and that allows, through a monthly payroll report, to compare the data submitted for remuneration for that same month with the data calculated by the Service.
 \end{abstract}
 
 \renewcommand*\abstractname{Keywords}
 \begin{abstract}
-	Contract Management, Calls, Research
+Payment Management, Contracts, Calls, Research, Oracle, Apex, GeNomIn
 \end{abstract}
 
 

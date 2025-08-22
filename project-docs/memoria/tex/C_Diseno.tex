@@ -1,0 +1,840 @@
+\apendice{Diseño GeNomIn}
+\section{Introducción}
+En este Anexo C, voy a explicar como se ha realizado la aplicación \textbf{GeNomIn} a través de la plataforma \acrfull{APEX} 2402.
+Se datallará como se han implementado las diferentes páginas para obtener las funcionalidades y requisitos exigidos por los usuarios.
+
+Como ya se indicó en el \textbf{apartado 4.2} de la memoria, una vez instalado \acrshort{APEX} y la base de datos \acrfull{ODB}, es preciso crear los usuarios que utilizarán la aplicación, en este caso a parte del \textbf{Administrador}, se crearon un \textbf{desarrollador} y un \textbf{usuario} final.
+
+\section{App Builder}
+La herramienta para construcción de aplicaciones de apex ~\cite{OracleAPEXAdministration}, es un acrshort{IDE} con poco código, a través de páginas y componentes compartidos (\textbf{shared components}).
+Inicialmente podemos crear nuestra apliación a través de varias fuentes; con ficheros (XML, CSV XLSX, JSON, SQL), copiando aplicaciones existentes o directamente con el asistente, que nos creará una página de lógin y nos irá permitiendo añadir páginas y componentes para personalizar nuestro diseño.
+\imagen{appbuilder}{Creación de app APEX}
+
+En los siguientes apartados se irán detallando los aspectos fundamentales para el desarrollo de las páginas necesarias e importantes en este proyecto y el código asociado, ya sea en \acrshort{SQL}, \acrshort{PL/SQL} o \acrshort{JS}. Todo este código también está disponible en el repositorio \href{https://github.com/far0010/TFGUBU-Fran_Arroyo/tree/main/project-docs/memoria/sql}{Código de GeNomIn}
+
+\section{Página Proyectos}
+En esta página se detallan todos los proyectos que existen en la base de datos a través de una consulta simple \acrshort{SQL}. El gestor de \textbf{acciones} de \acrshort{APEX}, permite ejecutar búsquedas y diversos filtros, además de añadir, eliminar registros y actualizar datos.
+\begin{lstlisting}[language=SQL, caption={Informe de todos los Proyectos}]
+	SELECT 
+	p.ORGANICA, 
+	p.TITULO, 
+	r.NOMBRE || ' ' || r.ape1 || ' ' || r.ape2 AS REPONSABLE,
+	p.fecha_ini, 
+	p.fecha_fin  
+	FROM proyecto p
+	JOIN responsable r ON p.responsable = r.dni;
+\end{lstlisting}
+
+\section{Página Responsables}
+Al igual que la página anterior usa una consulta \acrshort{SQL}, para mostrar todos los responsables, tengan o no, proyectos abiertos. También permite realizar \textbf{Acciones}.
+\begin{lstlisting}[language=SQL, caption={Informe de todos los Responsables}]
+	SELECT 
+	R."DNI", 
+	R."APE1",
+	R."APE2",
+	R."NOMBRE",
+	D."NOMBRE" AS "DEPARTAMENTO"
+	FROM RESPONSABLE R
+	JOIN DEPTOS D
+	ON R."DEPTO" = D."REF";
+\end{lstlisting}
+
+\section{Página Mantenimiento Convocatorias}
+En esta página se hace una consulta \acrshort{SQL} que devuelve el detalle de todas las convocatorias y su responsable asociado, incluyendo \textbf{Acciones}.
+\begin{lstlisting}[language=SQL, caption={Informe de todas las Convocatorias}]
+	SELECT C.REFERENCIA,
+	C.TITULO,
+	C.TIT_REQUERIDA,
+	CASE C.ABIERTO WHEN 1 THEN 'S\'{i}' ELSE 'No' END AS ABIERTO,
+	R.APE1 || ' ' || R.APE2 || ', ' || R.NOMBRE AS INVESTIGADOR,
+	C.REF_PROY,
+	C.NUM_PLAZAS
+	FROM CONVOCATORIA C
+	LEFT JOIN RESPONSABLE R ON C.REF_INV = R.DNI
+\end{lstlisting}
+\subsection{Crear Convocatoria}
+Para crear una nueva convocatoria ha sido preciso el uso de; 
+primero, una consulta \acrshort{SQL}, que no muestra todos los investigadores:
+\begin{lstlisting}[language=SQL, caption={Presenta de todos las Investigadores}]
+	SELECT APE1 || ' ' || APE2 || ', ' || NOMBRE AS DISPLAY_VALUE, DNI AS RETURN_VALUE
+	FROM RESPONSABLE
+	ORDER BY APE1, APE2
+\end{lstlisting}
+segundo, una consulta que una vez escogido el investigador, muestre los proyectos abiertos:
+\begin{lstlisting}[language=SQL, caption={Presenta informe proyectos abiertos para el investigador seleccionado}]
+	SELECT P.TITULO, P.ORGANICA
+	FROM PROYECTO P
+	WHERE P.RESPONSABLE = :P9_REF_INV
+	AND (P.FECHA_FIN IS NULL OR P.FECHA_FIN >= TRUNC(SYSDATE))
+	ORDER BY P.TITULO;
+\end{lstlisting}
+Y dos acciones dinámicas en \acrshort{JS}, en la que se controla: 
+primera, si el investigador tiene proyectos abiertos desde la fecha actual, si no, muestra mensaje de aviso:
+\begin{lstlisting}[language=JavaScript, caption={Control y aviso de proyecto abiertos de investigador seleccionado}]
+	apex.message.clearErrors();
+	
+	// Esperamos brevemente a que el combo termine de cargarse
+	setTimeout(function() {
+		const opciones = $("#P9_REF_PROY option");
+		const seleccionado = $v("P9_REF_PROY");
+		
+		// Si solo hay una opcion la nula o ninguna
+		if (opciones.length <= 1 || !opciones[1]?.value) {
+			apex.message.alert("AVISO: El investigador seleccionado no tiene proyectos abiertos.");
+		}
+	}, 300);
+\end{lstlisting}
+y la segunda, nos muestra el tiempo restante del proyecto para tener en cuenta en la duración de contratos.
+\begin{lstlisting}[language=JavaScript, caption={Informa de la duración restante del proyecto elegido}]
+	apex.message.clearErrors();
+	
+	var duracion = $v("P9_DURACION");
+	if (duracion && duracion.trim() !== "") {
+		apex.message.alert("AVISO: La duracion del proyecto es: " + duracion);
+	}
+\end{lstlisting}
+
+\section{Página de Solicitantes}
+Al igual que las anteriores, muestra una búsqueda \acrshort{SQL}, simple, con todos los solicitantes y si tienen o no una convocatoria asignada:
+\begin{lstlisting}[language=SQL, caption={Presenta informe de solicitantes}]
+		select "DNI_SOL", 
+		"APE1_SOL",
+		"APE2_SOL",
+		"NOM_SOL",
+		"TIT_SOL",
+		"REF_CON"
+		from "#OWNER#"."SOLICITANTE" 
+\end{lstlisting}
+\subsection{Crear solicitante}
+Para la creación de un nuevos solicitantes, hay que tener en cuenta varios aspectos, como son;
+si quedan plazas disponibles en la convocatoria, esto se ha resuelto con una búsqueda \acrshort{SQL} que cuenta los solicitantes de las convocatorias y las muestra si son mayores de 0:
+\begin{lstlisting}[language=SQL, caption={Presenta informe de solicitantes}]
+	SELECT C.TITULO, C.REFERENCIA
+	FROM CONVOCATORIA C
+	LEFT JOIN (
+	SELECT REF_CON, COUNT(*) AS NUM_SOLICITANTES
+	FROM SOLICITANTE
+	GROUP BY REF_CON
+	) S ON C.REFERENCIA = S.REF_CON
+	WHERE NVL(S.NUM_SOLICITANTES, 0) < C.NUM_PLAZAS
+	ORDER BY C.TITULO, C.REFERENCIA;
+\end{lstlisting}
+Luego es preciso verificar si la convocatoria está abierta y que envíe un mensaje de aviso en caso de estar cerrada. Esto se ha resuelto con una primera \textbf{acción dinámica}, con consulta \acrshort{SQL} que guarda el campo abierto en un \textbf{textbox} oculto. Para ello, se utilizan las opciones de la página \acrshort{APEX}: \textbf{ítems to submit} y \textbf{Affected Elements}, que nos permiten enviar y guardar los datos.
+\begin{lstlisting}[language=SQL, caption={Comprueba campo abierto de convocatoria}]
+	SELECT ABIERTO
+	FROM CONVOCATORIA 
+	WHERE REFERENCIA = :P7_REF_CON 
+\end{lstlisting}
+Una vez guardado el resultado en el campo oculto \textbf{P7\_CON\_OPEN}, comprobamos con la siguiente parte de esta primera acción, a través de \acrshort{JS}:
+\begin{lstlisting}[language=JavaScript, caption={Control y aviso de convocatoria cerrada}]
+	apex.message.clearErrors();
+	
+	const abierto = $v('P7_CON_OPEN');
+	
+	if (abierto == '0') {
+		const mensaje = 'Esta convocatoria esta cerrada: ';
+		apex.message.alert("AVISO: "+mensaje);
+		$s('P7_REF_CON', ''); // Limpia la convocatoria para que elijan otra
+	} 
+\end{lstlisting}
+El último paso es para comprobar si el solicitante tiene la titulación que requiere la convocatoria, procediendo de forma similar, con otra \textbf{acción dinámica}. Primero una consulta sencilla \acrshort{SQL} que guarda la titulación requerida en un campo oculto, \textbf{\textbf{P7\_TIT-REQ}}.
+\begin{lstlisting}[language=SQL, caption={Comprueba campo de titulación requerida}]
+	SELECT TIT_REQUERIDA
+	FROM CONVOCATORIA 
+	WHERE REFERENCIA = :P7_REF_CON
+\end{lstlisting}
+y luego mostramos un aviso con \acrshort{JS}, en el caso de que la titulación del solicitante no sea igual o superior a la requerida en la convocatoria.
+\begin{lstlisting}[language=JavaScript, caption={Control y aviso de titulación insuficiente}]
+	apex.message.clearErrors();
+	if ($v('P7_CON_OPEN') == '1'){
+		// compruebo que la convocatoria esta abierta
+		const valReq = $v('P7_TIT-REQ');
+		const valSol = $v('P7_TIT_SOL');
+		
+		if (valReq !== '' && valSol !== '') {
+			const tit_requerido = parseInt(valReq, 10);
+			const tit_usuario = parseInt(valSol, 10);
+			
+			if (tit_usuario < tit_requerido) {
+				// Buscar el texto asociado al valor requerido
+				const select = document.getElementById('P7_TIT_SOL');
+				const textoRequerido = Array.from(select.options).find(opt => opt.value === valReq)?.text || 'nivel superior';
+				const mensaje = 'Nivel academico insuficiente. Se requiere al menos: ' + textoRequerido;
+				apex.message.alert("AVISO: "+mensaje);
+				$s('P7_REF_CON', ''); // Limpia la convocatoria para que elijan otra
+			}
+		} 
+	}
+\end{lstlisting}
+
+\section{Página de Contratos}
+Este primer \textbf{informe interactivo}, no requiere de consultas adicionales ya que \acrshort{APEX}, realiza esta función son solo indicarle la tabla que queremos mostrar, en este caso CONTRATOS.
+\subsection{Página Nuevo Contrato}
+Para la realización de un nuevo contrato tendremos que realizar diversas comprobaciones. Inicialmente ofrecemos las convocatorias disponibles, \acrshort{APEX} también nos ofrece esta opción sin necesidad de programación adicional a través de \textbf{List of Values: CONVOCATORIA.TITULO}, en  (shared componentes).
+En una primera consulta \acrshort{SQL}, obtendremos los solicitantes que participan en la convocatoria elegida anteriormente:
+\begin{lstlisting}[language=SQL, caption={Comprueba campo de titulación requerida}]
+	SELECT NOM_SOL || ' ' || APE1_SOL || ' ' || APE2_SOL AS DISPLAY_VALUE,
+	DNI_SOL AS RETURN_VALUE
+	FROM SOLICITANTE S
+	WHERE REF_CON = :P12_CONVOCATORIA
+	AND NOT EXISTS (
+	SELECT 1
+	FROM CONTRATOS C
+	WHERE C.CONTRATADO = S.DNI_SOL
+	AND C.F_FIN >= SYSDATE -- compruebo si esta activo
+	)
+	ORDER BY APE1_SOL;
+\end{lstlisting}
+Y ahora necesitamos tres \textbf{acciones dinámicas}, una que va a cargar las fechas de inicio y fin del proyecto, en campos ocultos, P12\_F\_INI\_OCULTO y P12\_F\_FIN\_OCULTO  a través de dos consultas \acrshort{SQL}:
+\begin{lstlisting}[language=SQL, caption={Carga fecha inicio proyecto}]
+	SELECT TO_CHAR(P.FECHA_INI, 'YYYY-MM-DD') AS FECHA_INI_PROYECTO
+	FROM CONVOCATORIA C 
+	JOIN PROYECTO P ON P.ORGANICA = C.REF_PROY
+	WHERE C.REFERENCIA = :P12_CONVOCATORIA
+\end{lstlisting}
+
+\begin{lstlisting}[language=SQL, caption={Carga fecha fin proyecto}]
+	SELECT TO_CHAR(P.FECHA_FIN, 'YYYY-MM-DD') AS FECHA_FIN_PROYECTO
+	FROM CONVOCATORIA C 
+	JOIN PROYECTO P ON P.ORGANICA = C.REF_PROY
+	WHERE C.REFERENCIA = :P12_CONVOCATORIA
+\end{lstlisting}
+
+y \acrshort{JS}, para forzar de nuevo la comprobación en caso de error:
+\begin{lstlisting}[language=JavaScript, caption={Fuerza nueva petición de fechas si son erróneas}]
+	apex.event.trigger('#P12_F_INI', 'change');
+	apex.event.trigger('#P12_F_FIN', 'change');
+\end{lstlisting}
+
+Una vez cargadas las fechas de inicio y fin de los proyectos es preciso cotejarlas con las introducidas por el usuario, para comprobar si están dentro del margen del proyecto a través de dos \textbf{acciones dinámicas} en \acrshort{JS}:
+\begin{lstlisting}[language=JavaScript, caption={Controla que la fecha inicio sea posterior al inicio del proyecto}]
+	const fechaContratoStr = $v('P12_F_INI');
+	const fechaProyectoStr = $v('P12_F_INI_OCULTO');
+	const fechaContratoIni = new Date(fechaContratoStr);
+	const fechaProyectoIni = new Date(fechaProyectoStr);
+	console.log('INI_OCULTO:', $v('P12_F_INI_OCULTO'));
+	console.log('FIN_OCULTO:', $v('P12_F_FIN_OCULTO'));
+	
+	
+	if (!isNaN(fechaContratoIni) && !isNaN(fechaProyectoIni)) {
+		if (fechaContratoIni < fechaProyectoIni) {
+			const mensaje = 'La fecha de inicio debe ser igual o posterior a: ' +
+			fechaProyectoIni.toLocaleDateString('es-ES');
+			apex.message.alert("AVISO: " + mensaje);
+			$s('P12_F_INI', '');
+			$('#P12_F_INI').trigger('change');
+		}
+	}
+\end{lstlisting}
+
+Y ahora comprobamos si la fecha de fin de contrato, es posterior a la de inicio y si sobrepasa al proyecto:
+\begin{lstlisting}[language=JavaScript, caption={Controla que la fecha fin sea posterior a inicio y anterior al fin del proyecto}]
+	const fechaContratoFinStr = $v('P12_F_FIN');
+	const fechaContratoIniStr = $v('P12_F_INI');
+	const fechaProyectoFinStr = $v('P12_F_FIN_OCULTO');
+	const fechaContratoIni = new Date(fechaContratoIniStr);
+	const fechaContratoFin = new Date(fechaContratoFinStr);
+	const fechaProyectoFin = new Date(fechaProyectoFinStr);
+	
+	if (!isNaN(fechaContratoFin) && !isNaN(fechaContratoIni)) {
+		if(fechaContratoFin<fechaContratoIni){
+			const mensaje1 = 'La fecha de fin debe ser igual o posterior a la de inicio';
+			apex.message.alert("AVISO: " + mensaje1);
+			$s('P12_F_FIN', $v('P12_F_INI'));
+			$('#P12_F_FIN').trigger('change');
+		}
+	}
+	if (!isNaN(fechaContratoFin) && !isNaN(fechaProyectoFin)) {
+		if (fechaContratoFin > fechaProyectoFin) {
+			const mensaje2 = 'La fecha de fin debe ser igual o anterior a: ' + fechaProyectoFin.toLocaleDateString('es-ES');
+			apex.message.alert("AVISO: " + mensaje2);
+			$s('P12_F_FIN', '');
+			$('#P12_F_FIN').trigger('change');
+		}
+	}
+\end{lstlisting}
+
+Una vez realizadas las comprobaciones, es preciso el paso más importante generar las nóminas para el contrato en la tabla nómina. Para ello se requiere un \textbf{proceso} en \acrshort{PL/SQL}:
+\begin{lstlisting}[language=PLSQL, caption={Proceso que genera las nóminas relativas a un nuevo contrato}]
+	DECLARE
+	v_fecha_ini DATE := :P12_F_INI;
+	v_fecha_fin DATE := :P12_F_FIN;
+	v_total_meses      PLS_INTEGER;
+	v_meses_generados  PLS_INTEGER := 0;
+	v_mes_actual       DATE;
+	
+	v_ret_mes NUMBER := :P12_RET_MES;
+	v_ss_mes NUMBER := :P12_SS_MES;
+	v_indemnizacion NUMBER := :P12_INDEMNIZACION;
+	
+	BEGIN
+	EXECUTE IMMEDIATE 'ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '',.''';
+	
+	v_total_meses := MONTHS_BETWEEN(TRUNC(v_fecha_fin, 'MM'), TRUNC(v_fecha_ini, 'MM')) + 1;
+	
+	WHILE v_meses_generados < v_total_meses LOOP
+	v_mes_actual := ADD_MONTHS(TRUNC(v_fecha_ini, 'MM'), v_meses_generados);
+	
+	INSERT INTO NOMINA (
+	dni_nom, mes, anno, mensualidad, seg_soc, observaciones
+	) VALUES (
+	:P12_CONTRATADO,
+	TO_NUMBER(TO_CHAR(v_mes_actual, 'MM')),
+	TO_NUMBER(TO_CHAR(v_mes_actual, 'YYYY')),
+	v_ret_mes,
+	CASE
+	WHEN v_meses_generados = 0 THEN 0
+	ELSE v_ss_mes
+	END,
+	NULL
+	);
+	
+	v_meses_generados := v_meses_generados + 1;
+	END LOOP;
+	
+	-- Mes extra con indemnizacion
+	v_mes_actual := ADD_MONTHS(TRUNC(v_fecha_ini, 'MM'), v_total_meses);
+	
+	INSERT INTO NOMINA (
+	dni_nom, mes, anno, mensualidad, seg_soc, observaciones
+	) VALUES (
+	:P12_CONTRATADO,
+	TO_NUMBER(TO_CHAR(v_mes_actual, 'MM')),
+	TO_NUMBER(TO_CHAR(v_mes_actual, 'YYYY')),
+	v_indemnizacion,
+	v_ss_mes,
+	'indemnizacion '
+	);
+	
+	EXCEPTION
+	WHEN OTHERS THEN
+	RAISE_APPLICATION_ERROR(-20099, 'Error interno: ' || SQLERRM);
+	END;
+\end{lstlisting}
+
+\subsection{Página Renovación}
+La renovación de un contrato requiere de varios controles. Inicialmente tendremos que seleccionar los contratos con fecha fin posterior a la actual,  a través de una consulta \acrshort{SQL}, en el campo P13\_SEL\_CONT
+\begin{lstlisting}[language=SQL, caption={Selección de contratos abiertos}]
+	SELECT 
+	C.REF_CONTRATO || ' - ' || S.NOM_SOL || ' ' || S.APE1_SOL || ' ' || S.APE2_SOL AS DISPLAY_VALUE,
+	C.REF_CONTRATO AS RETURN_VALUE
+	FROM CONTRATOS C
+	JOIN SOLICITANTE S ON C.CONTRATADO = S.DNI_SOL
+	WHERE C.F_FIN >= TRUNC(SYSDATE)
+	ORDER BY C.REF_CONTRATO
+\end{lstlisting}
+Seguidamente a través de una \textbf{acción dinámica} mostraremos los campos de ese contrato seleccionado anteriormente con otra consulta \acrshort{SQL}:
+\begin{lstlisting}[language=SQL, caption={Obtención de datos del contrato a renovar}]
+	SELECT 
+	C.REF_CONTRATO,
+	S.NOM_SOL || ' ' || S.APE1_SOL || ' ' || S.APE2_SOL AS NOMBRE_COMPLETO,
+	TO_CHAR(C.F_INI, 'DD-MM-YYYY') AS F_INI,
+	TO_CHAR(C.F_FIN, 'DD-MM-YYYY') AS F_FIN,
+	TO_CHAR(C.RET_MES, '999G999G990D00') AS RET_MES,
+	TO_CHAR(C.SS_MES, '999G999G990D00') AS SS_MES,
+	TO_CHAR(C.INDEMNIZACION, '999G999G990D00') AS INDEMNIZACION
+	FROM CONTRATOS C
+	JOIN SOLICITANTE S ON C.CONTRATADO = S.DNI_SOL
+	WHERE C.REF_CONTRATO = :P13_SEL_CONT
+\end{lstlisting}
+Y posteriormente guardaremos dentro de esta misma acción dinámica la fecha fin en un campo oculto P13\_NEW\_FECHA, para su posterior comparación. Como en anteriores ocasiones esto es posible por la propiedad de \acrshort{APEX}, Affected elements.
+\begin{lstlisting}[language=SQL, caption={Obtención de fecha fin del contrato a renovar}]
+	SELECT P.FECHA_FIN
+	FROM CONTRATOS C
+	JOIN CONVOCATORIA V ON C.CONVOCATORIA = V.REFERENCIA
+	JOIN PROYECTO P ON V.REF_PROY = P.ORGANICA
+	WHERE C.REF_CONTRATO = :P13_SEL_CONT
+\end{lstlisting}
+
+Una vez obtenidos los datos del contrato en vigor, se introduce la fecha de la renovación, que tiene que comprobarse a través de otra \textbf{acción dinámica} asociada a un botón \textbf{verifica-fecha}, que cambiará a color verde si es correcta y mostrará error en caso contrario. Esta acción dinámica es verificada por dos códigos \acrshort{JS}:
+Este primer código es bastante más complejo, ya que ha requerido la conversión de fechas.
+\begin{lstlisting}[language=JavaScript, caption={Verifica la fecha de renovación se posterior a la actual y anterior a fin proyecto}]
+	//  parsear fechas en formato 'DD-MM-YYYY' o 'DD-MON-YYYY'
+	function parseFechaFlexible(fechaStr) {
+		if (!fechaStr) {
+			console.warn('Fecha vacia o null:', fechaStr);
+			return null;
+		}
+		
+		const partes = fechaStr.trim().split('-');
+		if (partes.length !== 3) {
+			console.error('Formato inesperado:', fechaStr);
+			return null;
+		}
+		
+		const dia = parseInt(partes[0], 10);
+		const año = parseInt(partes[2], 10);
+		
+		// Detectar si el mes es numero o texto
+		const mesTexto = partes[1].toUpperCase();
+		const meses = {
+			'ENE': 0, 'FEB': 1, 'MAR': 2, 'ABR': 3,
+			'MAY': 4, 'JUN': 5, 'JUL': 6, 'AGO': 7,
+			'SEP': 8, 'OCT': 9, 'NOV': 10, 'DIC': 11
+		};
+		
+		let mes;
+		if (!isNaN(parseInt(mesTexto, 10))) {
+			mes = parseInt(mesTexto, 10) - 1; // formato numerico
+		} else {
+			mes = meses[mesTexto]; // formato texto
+		}
+		
+		if (mes === undefined || isNaN(dia) || isNaN(año)) {
+			console.error(' Problema al interpretar partes de la fecha:', partes);
+			return null;
+		}
+		
+		return new Date(año, mes, dia);
+	}
+	
+	// Leer valores 
+	const fechaInicioStr         = $v('P13_F_INI');
+	const fechaContratoFinStr    = $v('P13_F_FIN');
+	const nuevaFechaFinStr       = $v('P13_NEW_F_FIN');
+	const fechaProyectoFinStr    = $v('P13_NEW_FECHA');
+	
+	// Parsear las fechas
+	const fechaInicio            = parseFechaFlexible(fechaInicioStr);
+	const fechaContratoFin       = parseFechaFlexible(fechaContratoFinStr);
+	const nuevaFechaFin          = parseFechaFlexible(nuevaFechaFinStr);
+	const fechaProyectoFin       = parseFechaFlexible(fechaProyectoFinStr);
+	// semaforo
+	let estadoVerificacion = 'ok';
+	// nueva fecha debe ser posterior a actual
+	if (nuevaFechaFin && fechaContratoFin) {
+		if (nuevaFechaFin <= fechaContratoFin) {
+			apex.message.alert("AVISO: La nueva fecha debe ser posterior a la actual");
+			$s('P13_NEW_F_FIN', '');
+			$('#P13_NEW_F_FIN').trigger('change');
+			estadoVerificacion = 'fail';
+		}
+	}
+	
+	// nueva fecha no debe pasar la fecha fin de proyecto
+	if (nuevaFechaFin && fechaProyectoFin) {
+		if (nuevaFechaFin > fechaProyectoFin) {
+			apex.message.alert("AVISO: La nueva fecha debe ser igual o anterior a: " + fechaProyectoFin.toLocaleDateString('es-ES'));
+			$s('P13_NEW_F_FIN', '');
+			$('#P13_NEW_F_FIN').trigger('change');
+			estadoVerificacion = 'fail';
+		}
+	}
+	
+	// cambio color si ok
+	const $boton = $('#btn_verifica');
+	
+	if ($boton.length) {
+		// Elimina clases anteriores
+		$boton.removeClass('t-Button--success t-Button--hot t-Button--danger');
+		
+		// Aplica color segUn estado
+		if (estadoVerificacion === "ok") {
+			$boton.addClass('t-Button--success');
+		}
+	}
+\end{lstlisting}
+
+Como en anteriores casos, si la fecha fuera errónea, habría que reactivar el campo de fecha:
+\begin{lstlisting}[language=JavaScript, caption={Reactiva fecha renovación se es errónea}]
+	apex.event.trigger('#P13_NEW_F_FIN', 'change');
+\end{lstlisting}
+
+Finalmente como en el caso inicial de creación de nóminas, necesitamos ejecutar un \textbf{procedimiento} en \acrshort{PL/SQL}, que genere las nuevas nóminas adicionales:
+\begin{lstlisting}[language=PLSQL, caption={Genera las nuevas nóminas tras la renovación}]
+	DECLARE
+	v_fecha_ini DATE := :P13_F_FIN; 
+	v_fecha_fin DATE := :P13_NEW_F_FIN;
+	v_total_meses      PLS_INTEGER;
+	v_meses_generados  PLS_INTEGER := 0;
+	v_mes_actual       DATE;
+	
+	v_ret_mes NUMBER := :P13_NEW_SAL;
+	v_ss_mes NUMBER := :P13_NEW_SS;
+	v_indemnizacion NUMBER := :P13_NEW_IND;
+	
+	v_dni VARCHAR2(9);
+	
+	v_ultimo_mes DATE;
+	
+	
+	BEGIN
+	EXECUTE IMMEDIATE 'ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '',.''';
+	
+	--  Obtengo el DNI desde la tabla CONTRATO
+	SELECT CONTRATADO
+	INTO v_dni
+	FROM CONTRATOS
+	WHERE REF_CONTRATO = :P13_SEL_CONT;
+	
+	-- Actualizo la nueva fecha fin del contrato e importes anado observacion de renovacion.
+	
+	UPDATE CONTRATOS
+	SET 
+	F_FIN = :P13_NEW_F_FIN,
+	RET_MES = :P13_NEW_SAL,
+	SS_MES = :P13_NEW_SS,
+	INDEMNIZACION = :P13_NEW_IND,
+	OBSERVACIONES = 'Renovado'
+	WHERE REF_CONTRATO = :P13_SEL_CONT;
+	
+	-- Buscamos el ultimo mes insertado anteriormente
+	SELECT TO_DATE(anno || LPAD(mes, 2, '0'), 'YYYYMM')
+	INTO v_ultimo_mes
+	FROM (
+	SELECT mes, anno
+	FROM NOMINA
+	WHERE dni_nom = v_dni
+	ORDER BY anno DESC, mes DESC
+	)
+	WHERE ROWNUM = 1;
+	
+	-- Actualizar nueva retribucion del primer nuevo mes
+	UPDATE NOMINA
+	SET mensualidad = v_ret_mes
+	WHERE dni_nom = v_dni
+	AND mes = TO_NUMBER(TO_CHAR(v_ultimo_mes, 'MM'))
+	AND anno = TO_NUMBER(TO_CHAR(v_ultimo_mes, 'YYYY'));
+	
+	-- Calculo de nuevos meses a generar
+	v_total_meses := MONTHS_BETWEEN(TRUNC(v_fecha_fin, 'MM'), ADD_MONTHS(TRUNC(v_ultimo_mes, 'MM'), 1)) + 1;
+	
+	-- Insercion nuevos meses con salario y SS
+	WHILE v_meses_generados < v_total_meses LOOP
+	v_mes_actual := ADD_MONTHS(TRUNC(v_ultimo_mes, 'MM'), v_meses_generados + 1);
+	
+	INSERT INTO NOMINA (
+	dni_nom, mes, anno, mensualidad, seg_soc, observaciones
+	) VALUES (
+	v_dni,
+	TO_NUMBER(TO_CHAR(v_mes_actual, 'MM')),
+	TO_NUMBER(TO_CHAR(v_mes_actual, 'YYYY')),
+	v_ret_mes,
+	v_ss_mes,
+	NULL
+	);
+	
+	v_meses_generados := v_meses_generados + 1;
+	END LOOP;
+	
+	-- Insertar el ultimo mes adicional solo con la indemnizacion
+	v_mes_actual := ADD_MONTHS(TRUNC(v_ultimo_mes, 'MM'), v_total_meses + 1);
+	
+	INSERT INTO NOMINA (
+	dni_nom, mes, anno, mensualidad, seg_soc, observaciones
+	) VALUES (
+	v_dni,
+	TO_NUMBER(TO_CHAR(v_mes_actual, 'MM')),
+	TO_NUMBER(TO_CHAR(v_mes_actual, 'YYYY')),
+	v_indemnizacion,
+	v_ss_mes,
+	'Indemnizacion final'
+	);
+	END;
+	
+\end{lstlisting}
+
+\subsection{Página Renuncia al contrato}
+Para realizar la renuncia de un contrato, primero se seleccionan aquellos contratos que tienen una fecha posterior a la actual con una \textbf{acción dinámica}, tal y como en el caso anterior de la \textbf{renovación} a través de una consulta \acrshort{SQL}, guardando el valor de la seg. social en un campo oculto P14\_SS\_OCULTA, ya que es un valor que necesitaremos después, mediante la segunda parte de esta acción en \acrshort{JS}:
+\begin{lstlisting}[language=JavaScript, caption={Guarda seguridad social en campo oculto}]
+	$s("P14_SS_OCULTA", $v("P14_SEG_SOG"));
+\end{lstlisting}
+
+Esta primera parte nos presentará los datos del contrato a renunciar, debiendo introducir después, la fecha de renuncia, que se verificará a través de otra acción dinámica asociada al botón, \textbf{Verificar Fecha}, que comprueba si la fecha de renuncia introducida es menor que la actual fecha fin y si es posterior a la actual, a través del siguiente código \acrshort{JS}:
+\begin{lstlisting}[language=JavaScript, caption={Verifica las fecha de renuncia del contrato}]
+//  parsear fechas en formato 'DD-MM-YYYY' o 'DD-MON-YYYY'
+function parseFechaFlexible(fechaStr) {
+	if (!fechaStr) {
+		console.warn('Fecha vacia o null:', fechaStr);
+		return null;
+	}
+	
+	const partes = fechaStr.trim().split('-');
+	if (partes.length !== 3) {
+		console.error('Formato inesperado:', fechaStr);
+		return null;
+	}
+	
+	const dia = parseInt(partes[0], 10);
+	const año = parseInt(partes[2], 10);
+	
+	// Detectar si el mes es numero o texto
+	const mesTexto = partes[1].toUpperCase();
+	const meses = {
+		'ENE': 0, 'FEB': 1, 'MAR': 2, 'ABR': 3,
+		'MAY': 4, 'JUN': 5, 'JUL': 6, 'AGO': 7,
+		'SEP': 8, 'OCT': 9, 'NOV': 10, 'DIC': 11
+	};
+	
+	let mes;
+	if (!isNaN(parseInt(mesTexto, 10))) {
+		mes = parseInt(mesTexto, 10) - 1; // formato numerico
+	} else {
+		mes = meses[mesTexto]; // formato texto
+	}
+	
+	if (mes === undefined || isNaN(dia) || isNaN(año)) {
+		console.error(' Problema al interpretar partes de la fecha:', partes);
+		return null;
+	}
+	
+	return new Date(año, mes, dia);
+}
+
+// Leer valores 
+const fechaInicioStr         = $v('P14_F_INI');
+const fechaContratoFinStr    = $v('P14_F_FIN');
+const nuevaFechaFinStr       = $v('P14_F_RENUNCIA');
+// obtenemos la fecha del actual
+const hoy = new Date();
+// Extrae año, mes y dia
+const añoHoy = hoy.getFullYear();
+const mesHoy = hoy.getMonth() + 1; 
+const diaHoy = hoy.getDate();
+const fechaHoy = new Date(añoHoy, mesHoy - 1, diaHoy); 
+
+// Parsear las fechas
+const fechaInicio            = parseFechaFlexible(fechaInicioStr);
+const fechaContratoFin       = parseFechaFlexible(fechaContratoFinStr);
+const nuevaFechaFin          = parseFechaFlexible(nuevaFechaFinStr);
+
+// Logs para verificar valores
+console.log('Fecha INICIO (raw):', fechaInicioStr);
+console.log('Fecha FIN actual (raw):', fechaContratoFinStr);
+console.log('Nueva fecha FIN (raw):', nuevaFechaFinStr);
+
+
+console.log('INICIO (obj):', fechaInicio?.toLocaleDateString('es-ES'), typeof fechaInicio);
+console.log('FIN actual (obj):', fechaContratoFin?.toLocaleDateString('es-ES'), typeof fechaContratoFin);
+console.log('Nueva FIN (obj):', nuevaFechaFin?.toLocaleDateString('es-ES'), typeof nuevaFechaFin);
+console.log('fechaHoy (obj):', nuevaFechaFin?.toLocaleDateString('es-ES'), typeof fechaHoy);
+// semaforo
+let estadoVerificacion = 'ok';
+// nueva fecha debe ser posterior a actual
+if (nuevaFechaFin && fechaContratoFin) {
+	if (nuevaFechaFin > fechaContratoFin) {
+		apex.message.alert("AVISO: La fecha de renuncia debe ser anterior a la fecha fin actual");
+		$s('P14_F_RENUNCIA', '');
+		$('#P14_F_RENUNCIA').trigger('change');
+		estadoVerificacion = 'fail';
+	}
+}
+// debe ser posterior a la de inicio y a la actual
+if (nuevaFechaFin && fechaContratoFin) {
+	if (nuevaFechaFin < fechaInicio || nuevaFechaFin < fechaHoy)  {
+		apex.message.alert("AVISO: La fecha de renuncia debe ser posterior a la fecha actual");
+		$s('P14_F_RENUNCIA', '');
+		$('#P14_F_RENUNCIA').trigger('change');
+		estadoVerificacion = 'fail';
+	}
+}
+
+// cambio color si ok
+const \$boton = \$('\#btn\_verifica2');
+
+if (\$boton.length) {
+	// Elimina clases anteriores
+	\$boton.removeClass('t-Button--success t-Button--hot t-Button--danger');
+	
+	// Aplica color segun estado
+	if (estadoVerificacion === "ok") {
+		\$boton.addClass('t-Button--success');
+		// HAY QUE CAMBIAR EL FORMATO DE LA SS MOSTRADA
+		var ssRaw = \$v("P14\_SEG\_SOG");                    
+		var ssClean = ssRaw.replace('E', '')            
+		.replace(/s/g, "");     
+		
+		\$s("P14\_SS\_OCULTA", ssClean);
+		
+	}
+}
+\end{lstlisting}
+
+Una vez verificada la fecha, con el botón en verde, y pulsado \textbf{Renunciar}, se ejecuta un proceso \acrshort{PL/SQL}, que reduce las nóminas hasta la nueva fecha fin, y también cambia la de fin del contrato:
+
+\begin{lstlisting}[language=PLSQL, caption={Genera las nuevas nóminas tras la renuncia}]
+	DECLARE
+	v_fecha_ini        DATE := :P14_F_FIN; 
+	v_fecha_fin        DATE := :P14_F_RENUNCIA;
+	v_total_meses      PLS_INTEGER;
+	v_meses_generados  PLS_INTEGER := 0;
+	v_mes_actual       DATE;
+	v_ss_mes           NUMBER := :P14_SS_OCULTA;
+	v_indemnizacion    NUMBER := :P14_NEW_IND;
+	
+	v_dni              VARCHAR2(9);
+	v_ultimo_mes       DATE;
+	
+	BEGIN
+	EXECUTE IMMEDIATE 'ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '',.''';
+	
+	-- Obtengo el DNI
+	SELECT CONTRATADO
+	INTO v_dni
+	FROM CONTRATOS
+	WHERE REF_CONTRATO = :P14_SEL_CONT;
+	DBMS_OUTPUT.PUT_LINE('DNI obtenido: ' || v_dni);
+	-- Actualizo la fecha fin del contrato
+	UPDATE CONTRATOS
+	SET 
+	F_FIN = :P14_F_RENUNCIA,
+	INDEMNIZACION = v_indemnizacion,
+	OBSERVACIONES = 'Renuncia'
+	WHERE REF_CONTRATO = :P14_SEL_CONT;
+	-- elimino nominas posteriores a la renuncia
+	DELETE FROM NOMINA
+	WHERE dni_nom = v_dni
+	AND TO_DATE(anno || LPAD(mes, 2, '0'), 'YYYYMM') > TRUNC(v_fecha_fin, 'MM');
+	
+	-- veo cual es ultimo mes de nomina
+	SELECT TO_DATE(anno || LPAD(mes, 2, '0'), 'YYYYMM')
+	INTO v_ultimo_mes
+	FROM (
+	SELECT mes, anno
+	FROM NOMINA
+	WHERE dni_nom = v_dni
+	ORDER BY anno DESC, mes DESC
+	)
+	WHERE ROWNUM = 1;
+	
+	-- Actualizo ultima numina con su nueva indemnizacion
+	UPDATE NOMINA
+	SET mensualidad = v_indemnizacion,
+	seg_soc = v_ss_mes,
+	observaciones = 'Ultimo mes con indemnizacion'
+	WHERE dni_nom = v_dni
+	AND TO_DATE(anno || LPAD(mes, 2, '0'), 'YYYYMM') = TRUNC(v_fecha_fin, 'MM');
+	
+	-- Annado el siguiente mes con solo ss
+	v_mes_actual := ADD_MONTHS(TRUNC(v_fecha_fin, 'MM'), 1);
+	
+	INSERT INTO NOMINA (
+	dni_nom, mes, anno, mensualidad, seg_soc, observaciones
+	) VALUES (
+	v_dni,
+	TO_NUMBER(TO_CHAR(v_mes_actual, 'MM')),
+	TO_NUMBER(TO_CHAR(v_mes_actual, 'YYYY')),
+	0,
+	v_ss_mes,
+	'ultima ss'
+	);
+	
+	END;
+\end{lstlisting}
+
+\section{Página de Informes}
+En las siguientes páginas se muestran los informes realizados.
+\subsection{Página Nómina-mes}
+Este informe es el objetivo final de la aplicación, para ello se solicitan primeramente un mes y un año y se realiza una consulta \acrshort{SQL}, al pulsar el botón \textbf{Consultar} y devuelve la suma total del mes para todas las aplicaciones en :
+\begin{lstlisting}[language=SQL, caption={Consulta informe nómina para un mes determinado}]
+	SELECT 
+	o.ORGANICA,
+	s.NOM_SOL || ' ' || s.APE1_SOL || ' ' || s.APE2_SOL AS NOMBRE,
+	n.MENSUALIDAD,
+	n.SEG_SOC,
+	n.MENSUALIDAD + n.SEG_SOC AS TOTAL,
+	n.OBSERVACIONES,
+	:P18_MES AS MES_PEDIDO,
+	:P18_ANNO AS ANNO_PEDIDO,
+	(
+	SELECT SUM(n2.MENSUALIDAD + n2.SEG_SOC)
+	FROM PROYECTO o2
+	JOIN CONVOCATORIA c2 ON c2.REF_PROY = o2.ORGANICA
+	JOIN CONTRATOS ct2 ON ct2.CONVOCATORIA = c2.REFERENCIA
+	JOIN SOLICITANTE s2 ON s2.DNI_SOL = ct2.CONTRATADO
+	JOIN NOMINA n2 ON n2.DNI_NOM = s2.DNI_SOL
+	WHERE n2.MES = :P18_MES
+	AND n2.ANNO = :P18_ANNO
+	AND (:P18_FILTRO IS NULL OR o2.ORGANICA = :P18_FILTRO)
+	) AS TOTAL_GENERAL
+	FROM PROYECTO o
+	JOIN CONVOCATORIA c ON c.REF_PROY = o.ORGANICA
+	JOIN CONTRATOS ct ON ct.CONVOCATORIA = c.REFERENCIA
+	JOIN SOLICITANTE s ON s.DNI_SOL = ct.CONTRATADO
+	JOIN NOMINA n ON n.DNI_NOM = s.DNI_SOL
+	WHERE n.MES = :P18_MES
+	AND n.ANNO = :P18_ANNO
+	AND (:P18_FILTRO IS NULL OR o.ORGANICA = :P18_FILTRO)
+\end{lstlisting}
+
+De este informe se guarda el total en P18\_T\_GEN, a través de una \textbf{acción dinámica} en \acrshort{JS}. Esto lo podría hacer el propio informe dinámico, pero nos interesa para imprimir el informe en pdf:
+\begin{lstlisting}[language=JavaScript, caption={Guarda y muestra el total del listado}]
+	 $("td[headers='TOTAL_GENERAL']").first().text().trim();
+	total = total.replace(",", ".");
+	$s("P18_T_GEN", total);
+\end{lstlisting}
+
+Mostrado el informe, podemos filtrar la orgánica que queramos y que vuelva a calcular el importe total. Primero mostramos todas las referencias que salen en el informe del mes, con una consulta \acrshort{SQL}:
+\begin{lstlisting}[language=SQL, caption={Muestra las referencias de proyectos del informe para seleccionar}]
+	SELECT NULL AS display_value, NULL AS return_value
+	UNION
+	SELECT DISTINCT o.ORGANICA AS display_value, o.ORGANICA AS return_value
+	FROM PROYECTO o
+	JOIN CONVOCATORIA c ON c.REF_PROY = o.ORGANICA
+	JOIN CONTRATOS ct ON ct.CONVOCATORIA = c.REFERENCIA
+	JOIN SOLICITANTE s ON s.DNI_SOL = ct.CONTRATADO
+	JOIN NOMINA n ON n.DNI_NOM = s.DNI_SOL
+	WHERE n.MES = :P18_MES
+	AND n.ANNO = :P18_ANNO
+	ORDER BY 1
+\end{lstlisting}
+Y con la acción dinámica anterior se vuelve a refrescar el importe total.
+
+Para poder imprimir el informe a PDF a través de \acrfull{AOP}, es precisa otra acción dinámica que dispare el \textbf{plug-in} \textit{UC-APEX OfficePrint(AOP)-DA}, al pulsar el botón \textbf{Generar PDF}. Indicándole cual es nuestra plantilla personalizada, guardada en shared components: \textbf{plantilla\_informe\_nomina.docx}
+
+\subsection{Página Vencimientos}
+En este informe interactivo, se presentarán los vencimientos de contratos entre dos fechas, para su control, a través de una consulta \acrshort{SQL}, al pulsar el botón \textbf{Consulta} que activará la acción dinámica de submit al informe.
+\begin{lstlisting}[language=SQL, caption={Muetra de contratatos que vencen en periodo de fechas}]
+	SELECT 
+	S.APE1_SOL || ' ' || S.APE2_SOL || ', ' || S.NOM_SOL AS CONTRATADO,
+	CT.REF_CONTRATO AS CONTRATO, 
+	CT.F_FIN AS FIN,
+	P.ORGANICA AS ORGANICA
+	FROM SOLICITANTE S
+	INNER JOIN CONTRATOS CT ON CT.CONTRATADO = S.DNI_SOL
+	INNER JOIN CONVOCATORIA CV ON CV.REFERENCIA = CT.CONVOCATORIA
+	INNER JOIN PROYECTO P ON P.ORGANICA = CV.REF_PROY
+	WHERE CT.F_FIN BETWEEN TO_DATE(:P17_FDESDE, 'DD/MM/YYYY') AND TO_DATE(:P17_FHASTA, 'DD/MM/YYYY')
+\end{lstlisting}
+
+\subsection{Página Contratos}
+Esta página es un informe interactivo simple que muestra los datos de todos los contratos a través de una consulta \acrshort{SQL}, pudiendo realizar los filtros predeterminados que ofrece \textbf{Actions}:
+\begin{lstlisting}[language=SQL, caption={Consulta para todos los contratos}]
+	SELECT 
+	S.APE1_SOL || ' ' || S.APE2_SOL || ', ' || S.NOM_SOL AS CONTRATADO,
+	CT.REF_CONTRATO AS CONTRATO, 
+	CT.F_INI AS INICIO, 
+	CT.F_FIN AS FIN,
+	CV.REFERENCIA AS REF_CONV,  
+	P.ORGANICA AS ORGANICA, 
+	P.FECHA_INI AS INI_PROY, 
+	P.FECHA_FIN AS FIN_PROY
+	FROM SOLICITANTE S
+	INNER JOIN CONTRATOS CT ON CT.CONTRATADO = S.DNI_SOL
+	INNER JOIN CONVOCATORIA CV ON CV.REFERENCIA = CT.CONVOCATORIA
+	INNER JOIN PROYECTO P ON P.ORGANICA = CV.REF_PROY
+\end{lstlisting}
+\subsection{Página Nóminas-Periodo}
+Aquí se presentan para un contratado las nóminas que se han pagado en un periodo de tiempo solicitado. Para ello se realiza una primera consulta \acrshort{SQL}, que muestra los contratados:
+\begin{lstlisting}[language=SQL, caption={Consulta de contratados para selección}]
+	SELECT
+	NOM_SOL || ' ' || APE1_SOL || ' ' || APE2_SOL AS display_value,
+	DNI_SOL AS return_value
+	FROM SOLICITANTE
+	JOIN CONTRATOS C ON C.CONTRATADO = DNI_SOL
+	ORDER BY NOM_SOL;
+\end{lstlisting}
+Una vez seleccionado el contratado e introducidas las fechas de inicio y fin se realiza otra consulta \acrshort{SQL}, para rellenar el informe y mostrando el total pagado en ese periodo. En este caso se ha suprimido la opción \textbf{Actions}, ya que el informe es único:
+\begin{lstlisting}[language=SQL, caption={Consulta de nóminas para un contratado en un intervalo de tiempo}]
+	SELECT 
+	n.MES,
+	n.ANNO AS ANIO,
+	n.MENSUALIDAD AS MENSUALIDAD,
+	n.SEG_SOC AS SEG_SOC,
+	n.MENSUALIDAD + n.SEG_SOC AS TOTAL,
+	n.OBSERVACIONES
+	FROM SOLICITANTE s
+	JOIN CONTRATOS ct ON s.DNI_SOL = ct.CONTRATADO
+	JOIN NOMINA n ON n.DNI_NOM = s.DNI_SOL
+	WHERE s.DNI_SOL=:P19_CONTRATADO AND ct.F_INI>= :P19_DESDE AND ct.F_FIN <= :P19_HASTA;
+\end{lstlisting}

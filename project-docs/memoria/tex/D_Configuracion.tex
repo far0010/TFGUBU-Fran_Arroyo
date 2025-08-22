@@ -1,0 +1,103 @@
+\apendice{Configuración}
+
+En esta sección se indicarán los parámetros principales para la configuración, tanto de la \acrshort{BDR}, \acrshort{ORDS}, \acrshort{APEX}, \acrshort{AOP} y \textbf{Oracle Cloud}.
+
+\section{Oracel 23ai}
+El proceso de instalación se realiza siguiendo las instrucciones de Oracle 23ai ~\cite{DattaInstallingOracleDatabasea}.
+Esto contiene una \acrfull{PBD}, \textbf{\textbf{FREEPDB1}} donde creamos el esquema de trabajo para nuestro proyecto \textbf{TFGUBU} en "\textit{C:/app/User/product23ai/oradata/FREE/FREEPDB}1"
+
+Una vez instalado y a través de \textbf{SQL plus}, procedemos a crear nuestro entorno conectados como sys as sysdba/1234.
+\begin{lstlisting}[language=SQL, caption={Creación de Esquema TFGUBU}]
+	-- cambiamos de contenedor
+	ALTER SESSION SET CONTAINER = FREEPDB1;
+	
+	-- creamos nuestro usuario-esquema
+	CREATE USER TFGUBU IDENTIFIED BY "tu passwd"
+	DEFAULT TABLESPACE USERS
+	TEMPORARY TABLESPACE TEMP
+	QUOTA UNLIMITED ON USERS;
+	
+	-- concedemos permisos
+	GRANT CONNECT, RESOURCE TO TFGUBU;
+	GRANT CREATE SESSION TO TFGUBU;
+	GRANT CREATE TABLE, CREATE VIEW, CREATE PROCEDURE TO TFGUBU;
+\end{lstlisting}
+
+vemos en la imagen cómo queda configurada la conexión, en nuestro caso para \textbf{FREEPDB1}:
+\imagen{tsnamesora}{Configuración conexión a FREEPDB1}
+Este archivo permite definir un alias de conexión para acceder al servicio y en la siguiente imagen, vemos como quedaría la configuración del \textbf{listener} que gestiona las solicitudes de conexión entrantes:
+\imagen{listener}{Configuración Listener a FREEPDB1}
+
+Hay que tener en cuenta que los servicios de Oracle y Listener deben estar activos, si no, no se podrá realizar la conexión.
+
+\imagen{services}{Servicios activados de Oracle}
+
+Lo que podremos comprobar con el estatus del lister con \textbf{lsnrctl status}:
+
+\imagen{statuslsnr}{Verificación de Listner activo}
+
+A partir de este momento podríamos empezar a crear nuestras tablas con \textbf{SQL Developer}, con la conexión indicada, nuestro usuario: \textbf{TFGUBU} y la contraseña establecida.
+
+\section{Oracle REST Data Service}
+\acrfull{ORDS} es una herramienta desarrollada por Oracle que permite acceder a sus bases de datos a traves de servicios (RESFULL) \gls{RESTFUL}, esto permite acceder a la BD como si fuera una web sin usar \acrshort{SQL}, si no con peticiones \acrshort{HTTPS}, pudiendo realizar las operaciones \textbf{CRUD}, fácilmente.
+
+Una vez realizada la descarga e instalación (\href{https://www.oracle.com/database/sqldeveloper/technologies/db-actions/download/}{Oracle REST}), lo instalamos localmente, en mi caso: 
+\imagen{dirords}{Directorio de instalación ORDS}{.6}
+
+En el cual destacamos:
+\begin{itemize}
+	\item \textbf{ords.war}:Archivo ejecutable principal
+	\item \textbf{dir bin}: Scrips de instalación
+	\item \textbf{dir databases}:
+		\subitem{dir default}: Contiene la configuración por defecto, el subdirectorio \textbf{images} que contiene las imágenes de \acrfull{APEX} y el fichero de configuración de la conexión a la BD \textbf{pool.xml}		
+\end{itemize}
+Así la conexión entre ORDS y la base de datos se define es este fichero pool.xml donde especificamos el puerto \textbf{1521}
+\imagen{pool}{Fichero de configuración pool.xml}
+
+Para el despliegue de la aplicación y una vez que se decidió hacerlo en \acrfull{OCI}, fue necesaria la configuración del \acrshort{HTTPS}. Así se generó un certificado autofirmado privado, con OpenSSL, para ello seguimos los siguientes pasos:
+\begin{itemize}
+	\item Descargar OpenSSL
+	\item Generar la clave privada: \textbf{openssl genrsa -out key.pem 2048}
+	\item Crear solicitud de certificado: \textbf{openssl req -new -key key.pem -out cert.csr}
+	\item Generar el cert autofirmado: \textbf{openssl x509 -req -in cert.csr -signkey key.pem -out cert.pem -days 365
+	}
+	\item Crear un archivo combinado: \textbf{\textbf{cat cert.pem key.pem > combinado.pem}} (Requerido por APEX)
+\end{itemize}
+
+Una vez hecho esto tendremos que configurar el fichero \textbf{settings.xml}, para que tome este certificado y el puerto 8443.
+\imagen{settings}{Configuración del fichero settings.xml}
+
+Una vez configurado todo podemos acceder a traves del navegador a los servicios \acrshort{ORDS} con \acrshort{HTTPS}:
+\imagen{webords}{Imagen de acceso web a servicios ORDS}
+
+\section{Apex Office Print AOP}
+
+Como uno de los objetivos de la aplicación era crear un informe personalizado desde \acrshort{APEX} en formato \textbf{PDF}, se procedió a instalar la herramienta creada por Oracle para este propósito.~\cite{OverviewAPEXOffice}
+Una vez descargada desde \href{https://www.apexofficeprint.com/}{Web AOP}, tendremos que instalar los plug-ins necesarios en nuestra aplicación \textbf{GeNomIn}. Para ello accedemos a \textbf{Shared Components/Plug-ins} y procedemos a importar los ficheros:
+\imagen{plugins}{Vista de la instalación de plug-ins de AOP}
+
+Una vez instalados, deberemos proceder a la configuración de cada plug-in para su correcto funcionamiento, en \textbf{Shared Components/Component Settings} escogeremos cada plug-in y e introduciremos la web (en este caso al ser local http) y la \textbf{API key}, que nos identifica en el servicio y el modo de AOP, en este caso ya en Producción para que no inserte marca de agua.
+\imagen{aopconfig}{Confiuguración de los plug-ins AOP}
+
+Solamente nos quedaría realizar nuestra plantilla personalizada en \textbf{Word}, indicando los campos que deben aparecer:
+\imagen{plantillaAOP}{Visualización de la plantilla AOP}
+y luego relacionándolo en le informe correspondiente (\textbf{Informe-nomina})
+
+\imagen{accioninforme}{Asociación de la plantilla al informe}
+
+\section{Oracle Cloud Infraestructura}
+Como ya se comentó en el \textbf{Capítulo 4.5} de la memoria, el mayor problema de \acrshort{OCI}, es el registro, que no lleva asociada más capacidad intelectual que la paciencia.
+Una vez conseguido este propósito, procederíamos a crear nuestra instancia de la base de datos como \textbf{Base de datos autónoma} ~\cite:
+\imagen{bdautonoma}{Menu Oracle Database Infraestructure}
+
+En el siguiente paso deberemos configurar los datos principales, teniendo especial cuidado con la región de creación, en nuestro caso \textbf{Spain Central (Madrid)}.
+Estableceremos el nombre de la base de datos y la carga de trabajo. Como nosotros vamos a utilizar \acrshort{APEX}, es lo que escogemos.
+\imagen{instanciabd}{Creacion de la Instancia de BD-1 en Cloud}
+Finalizaremos la configuración escogiendo la opción \textbf{siempre gratis}, seleccionando la versión \textbf{23ai}, como en nuestro modo local, introduciendo la contraseña de Administrador y el modo \textbf{Acceso seguro desde cualquier lugar}, para permitir a los usuarios con credenciales acceso desde Internet.
+\imagen{instanciabd2}{Creacion de la Instancia de BD-1 en Cloud}
+
+Una vez creada la base de datos, procederemos a crear la Instancia de \acrshort{APEX}, con similares parámetros:
+
+\imagen{instanciaAPEX}{Creación de Instancia APEX en Cloud}
+
+A partir de este momento podríamos iniciar la instancia de \acrshort{APEX}, importar nuestra base de datos y la aplicación locales y se habría realizado el despliegue. Hay que tener en cuenta que los plug-ins de \acrshort{AOP}, hay que volver a instalar y configurarlos. 

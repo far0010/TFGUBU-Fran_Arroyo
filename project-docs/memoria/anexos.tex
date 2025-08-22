@@ -1,0 +1,603 @@
+\documentclass[a4paper,12pt,twoside]{memoir}
+
+% Castellano
+\usepackage[spanish,es-tabla]{babel}
+\selectlanguage{spanish}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % scalable font
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage{float}
+\usepackage{needspace}
+\usepackage{listings}
+\usepackage{textcomp}
+\RequirePackage{booktabs}
+\RequirePackage[table]{xcolor}
+\RequirePackage{xtab}
+\RequirePackage{multirow}
+
+\RequirePackage{todonotes}
+
+% Añado listings para ver el código en la memoria mejor
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+
+\lstdefinelanguage{JavaScript}{
+	keywords={const, let, var, function},
+	keywordstyle=\color{blue}\bfseries,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{orange}\ttfamily,
+	morestring=[b]",
+	morestring=[b]',
+	literate={ñ}{{\~n}}1
+}
+
+
+\lstdefinelanguage{PLSQL}{
+	keywords={
+		BEGIN, END, EXCEPTION, CURSOR, PROCEDURE, FUNCTION, RETURN, IS, LOOP, WHILE, IF, THEN, ELSE, ELSIF,
+		DECLARE, OPEN, FETCH, CLOSE, EXIT, GOTO, NULL, RAISE, WHEN, CASE, SELECT, INSERT, UPDATE, DELETE,
+		INTO, FROM, WHERE, AND, OR, NOT, COMMIT, ROLLBACK
+	},
+	keywordstyle=\color{purple}\bfseries,
+	ndkeywords={
+		NUMBER, VARCHAR2, DATE, BOOLEAN, INTEGER, SYS_REFCURSOR, OUT, IN, AS
+	},
+	ndkeywordstyle=\color{blue}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=true,
+	comment=[l]{--},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{orange}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstdefinelanguage{SQL}{
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	commentstyle=\color{gray},
+	stringstyle=\color{orange},
+	literate={€}{{\euro}}1
+}
+
+
+% Links
+\PassOptionsToPackage{hyphens}{url}\usepackage[colorlinks]{hyperref}
+\hypersetup{
+	allcolors = {red}
+}
+
+% Acrónimos
+\usepackage[acronym]{glossaries}
+\makenoidxglossaries
+\newacronym{APEX}{APEX}{\textit{Application Express}}
+\newacronym{TFG}{TFG}{\textit{Trabajo de Fin de Grado}}
+\newacronym{ODB}{ODB}{\textit{ORACLE 23ai}}
+\newacronym{FN}{FN}{\textit{Forma Normal}}
+\newacronym{SGBD}{SGBD}{\textit{Sistemas de Gestión de BD}}
+\newacronym{HTTPS}{HTTPS}{\textit{Secure Hipertext Transfer Protocol}}
+\newacronym{PBD}{PBD}{Plugable Data Base}
+\newacronym{VYP}{VYP}{\textit{Validación y Pruebas}}
+\newacronym{BDR}{BDR}{\textit{Base de Datos Relacional}}
+\newacronym{PK}{PK}{\textit{Primary Key-Clave Primaria}}
+\newacronym{FK}{FK}{\textit{Foreing Key-Clave Externa}}
+\newacronym{IDE}{IDE}{\textit{Entorno de Desarrollo Integrado}}
+\newacronym{DDL}{DDL}{\textit{Lenguaje de Definición de Datos}}
+\newacronym{DML}{DML}{\textit{Lenguaje de Manipulación de Datos}}
+\newacronym{SQL}{SQL}{\textit{Structured Query Language}}
+\newacronym{MPV}{MPV}{\textit{Mínimo Producto Viable}}
+\newacronym{ODS}{ODS}{\textit{Objetivos de Desarrollo Sostenible}}
+\newacronym{ORDS}{ORDS}{Oracle REST Data Services}
+\newacronym{REST}{REST}{REpresentational State Transfer}
+\newacronym{SSL}{SSL}{Secure Sockets Layer}
+\newacronym{OCI}{OCI}{Oracle Cloud Infrastructure}
+\newacronym{VM}{VM}{Máquina Virtual}
+\newacronym{AOP}{AOP}{APEX Office Print}
+\newacronym{PL/SQL}{PL/SQL}{Procedural Language/Structured Query Language}
+\newacronym{IA}{IA}{Inteligencia Artificial}
+\newacronym{ACL}{ACL}{Listas de Control de Acceso}
+\newacronym{JS}{JS}{JavaScript}
+\newacronym{UXXI}{UXXI}{Universitas XXI}
+\newacronym{RGPD}{RGPD}{Reglamento General de Protección de Datos}
+\newacronym{ESG}{ESG}{Ambientales, Sociales y de Gobernanza}
+
+\newglossaryentry{Milestone}{
+	name=Milestone,
+	description={Punto de control o evento significativo dentro de un proyecto que marca la finalización de una fase importante o la consecución de un objetivo específico}
+}
+
+\newglossaryentry{RESTFUL}{
+	name=Representational State Transfer,
+	description={Estilo de arquitectura para diseñar servicios web que se comunican a través de HTTP}
+}
+
+\newglossaryentry{Copilot}{
+	name=Copilot,
+	description={Asistente de inteligencia artificial desarrollado por Microsoft, diseñado para ayudar a los usuarios en diversas tareas a través de diferentes aplicaciones}
+}
+
+\newglossaryentry{Datos MOCK}{
+	name=Datos MOCK,
+	description={Datos ficticios para probar aplicaciones, bases de datos, interfaces, sin necesidad de usar datos reales o confidenciales}
+}
+
+\newglossaryentry{LATEX}
+{
+	name=LATEX,
+	description={Sistema de composición de textos orientado a la creación de documentos escritos, genralmente científicos que presenten una alta calidad tipográfica}
+}
+
+\newglossaryentry{Cardinalidad}
+{
+	name=Cardinalidad,
+	description={Relación entre el número de instancias de una entidad con respecto a otra entidad con la que se relaciona}
+}
+
+\newglossaryentry{CasodeUso}
+{
+	name=Caso de Uso,
+	description={Descripción de cómo los actores(usuarios), interactúan con el sistema para lograr un objetivo específico}
+}
+
+\newglossaryentry{Atomicidad}
+{
+	name=Atomicidad,
+	description={Propiedad de un campo, por el cual no puede ser descompuesto en pedazos más pequeños por el DBMS}
+}
+
+\newglossaryentry{Normalización}
+{
+	name=Normalización,
+	description={Proceso de estructuración los datos en una BD relacional, eliminando redundancia de datos y manteniendo la integridad a través de Formas Normales}
+}
+
+\newglossaryentry{MER}
+{
+	name=Modelo Relacional,
+	description={Herramienta que permite organizar los datos en tablas y las relaciones entre las mismas}
+}
+
+\newglossaryentry{SLL}
+{
+	name=Secure Sockets Layer,
+	description={protocolo de seguridad que cifra la comunicación entre un navegador web y un servidor, protegiendo la información transmitida}
+}
+
+\newglossaryentry{Release}
+{
+	name= Release,
+	description={Versión específica de un software que ha sido completada, probada y puesta a disposición para su uso por los usuarios finales.}
+}
+
+\newglossaryentry{Kanban}
+{
+	name= Kanban,
+	description={Método de gestión visual del flujo de trabajo que se caracteriza por el uso de tableros visuales y tarjetas para representar las tareas y su progreso a través de diferentes etapas, promoviendo la transparencia y la mejora continua.}
+}
+
+\newglossaryentry{Metodología Ágil}
+{
+	name= Metodología ágil,
+	description={Enfoque iterativo e incremental para la gestión de proyectos, especialmente popular en el desarrollo de software, que se centra en la flexibilidad, la colaboración y la entrega continua de valor. En lugar de adherirse rígidamente a un plan predefinido, agile abraza el cambio y la adaptación a medida que avanza el proyecto.}
+}
+
+\newglossaryentry{Scrum}
+{
+	name= Scrum,
+	description={Marco de trabajo ágil diseñado para gestionar y completar proyectos de manera eficiente y colaborativa.}
+}
+
+\newglossaryentry{Sprint}
+{
+	name= Sprint,
+	description={Período de tiempo corto y fijo (generalmente de una a cuatro semanas) durante el cual un equipo trabaja para completar un conjunto específico de tareas.}
+}
+
+\newcommand{\autor}{Francisco José Arroyo Redondo}
+
+% Ecuaciones
+\usepackage{amsmath}
+
+% Rutas de fichero / paquete
+\newcommand{\ruta}[1]{{\sffamily #1}}
+
+% Párrafos
+\nonzeroparskip
+
+% Huérfanas y viudas
+\widowpenalty100000
+\clubpenalty100000
+
+% Evitar solapes en el header
+\nouppercaseheads
+
+% Imagenes
+\usepackage{graphicx}
+\newcommand{\imagen}[2]{
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=0.9\textwidth]{#1}
+		\caption{#2}\label{fig:#1}
+	\end{figure}
+	\FloatBarrier
+	
+}
+
+\newcommand{\imagenflotante}[2]{
+	\begin{figure}%[!h]
+		\centering
+		\includegraphics[width=0.9\textwidth]{#1}
+		\caption{#2}\label{fig:#1}
+	\end{figure}
+}
+
+\newcommand{\imagenminipage}[2]{
+	\centering
+	\includegraphics[width=0.9\textwidth]{#1}
+	\textbf{Figura:} #2
+}
+
+
+
+% El comando \figura nos permite insertar figuras comodamente, y utilizando
+% siempre el mismo formato. Los parametros son:
+% 1 -> Porcentaje del ancho de página que ocupará la figura (de 0 a 1)
+% 2 --> Fichero de la imagen
+% 3 --> Texto a pie de imagen
+% 4 --> Etiqueta (label) para referencias
+% 5 --> Opciones que queramos pasarle al \includegraphics
+% 6 --> Opciones de posicionamiento a pasarle a \begin{figure}
+\newcommand{\figuraConPosicion}[6]{%
+  \setlength{\anchoFloat}{#1\textwidth}%
+  \addtolength{\anchoFloat}{-4\fboxsep}%
+  \setlength{\anchoFigura}{\anchoFloat}%
+  \begin{figure}[#6]
+    \begin{center}%
+      \Ovalbox{%
+        \begin{minipage}{\anchoFloat}%
+          \begin{center}%
+            \includegraphics[width=\anchoFigura,#5]{#2}%
+            \caption{#3}%
+            \label{#4}%
+          \end{center}%
+        \end{minipage}
+      }%
+    \end{center}%
+  \end{figure}%
+}
+
+%
+% Comando para incluir imágenes en formato apaisado (sin marco).
+\newcommand{\figuraApaisadaSinMarco}[5]{%
+  \begin{figure}%
+    \begin{center}%
+    \includegraphics[angle=90,height=#1\textheight,#5]{#2}%
+    \caption{#3}%
+    \label{#4}%
+    \end{center}%
+  \end{figure}%
+}
+% Para las tablas
+\newcommand{\otoprule}{\midrule [\heavyrulewidth]}
+%
+% Nuevo comando para tablas pequeñas (menos de una página).
+\newcommand{\tablaSmall}[5]{%
+ \begin{table}
+  \begin{center}
+   \rowcolors {2}{gray!35}{}
+   \begin{tabular}{#2}
+    \toprule
+    #4
+    \otoprule
+    #5
+    \bottomrule
+   \end{tabular}
+   \caption{#1}
+   \label{tabla:#3}
+  \end{center}
+ \end{table}
+}
+
+%
+%Para el float H de tablaSmallSinColores
+%\usepackage{float}
+
+%
+% Nuevo comando para tablas pequeñas (menos de una página).
+\newcommand{\tablaSmallSinColores}[5]{%
+ \begin{table}[H]
+  \begin{center}
+   \begin{tabular}{#2}
+    \toprule
+    #4
+    \otoprule
+    #5
+    \bottomrule
+   \end{tabular}
+   \caption{#1}
+   \label{tabla:#3}
+  \end{center}
+ \end{table}
+}
+
+\newcommand{\tablaApaisadaSmall}[5]{%
+\begin{landscape}
+  \begin{table}
+   \begin{center}
+    \rowcolors {2}{gray!35}{}
+    \begin{tabular}{#2}
+     \toprule
+     #4
+     \otoprule
+     #5
+     \bottomrule
+    \end{tabular}
+    \caption{#1}
+    \label{tabla:#3}
+   \end{center}
+  \end{table}
+\end{landscape}
+}
+
+%
+% Nuevo comando para tablas grandes con cabecera y filas alternas coloreadas en gris.
+\newcommand{\tabla}[6]{%
+  \begin{center}
+    \tablefirsthead{
+      \toprule
+      #5
+      \otoprule
+    }
+    \tablehead{
+      \multicolumn{#3}{l}{\small\sl continúa desde la página anterior}\\
+      \toprule
+      #5
+      \otoprule
+    }
+    \tabletail{
+      \hline
+      \multicolumn{#3}{r}{\small\sl continúa en la página siguiente}\\
+    }
+    \tablelasttail{
+      \hline
+    }
+    \bottomcaption{#1}
+    \rowcolors {2}{gray!35}{}
+    \begin{xtabular}{#2}
+      #6
+      \bottomrule
+    \end{xtabular}
+    \label{tabla:#4}
+  \end{center}
+}
+
+%
+% Nuevo comando para tablas grandes con cabecera.
+\newcommand{\tablaSinColores}[6]{%
+  \begin{center}
+    \tablefirsthead{
+      \toprule
+      #5
+      \otoprule
+    }
+    \tablehead{
+      \multicolumn{#3}{l}{\small\sl continúa desde la página anterior}\\
+      \toprule
+      #5
+      \otoprule
+    }
+    \tabletail{
+      \hline
+      \multicolumn{#3}{r}{\small\sl continua en la pagina siguiente}\\
+    }
+    \tablelasttail{
+      \hline
+    }
+    \bottomcaption{#1}
+    \begin{xtabular}{#2}
+      #6
+      \bottomrule
+    \end{xtabular}
+    \label{tabla:#4}
+  \end{center}
+}
+
+%
+% Nuevo comando para tablas grandes sin cabecera.
+\newcommand{\tablaSinCabecera}[5]{%
+  \begin{center}
+    \tablefirsthead{
+      \toprule
+    }
+    \tablehead{
+      \multicolumn{#3}{l}{\small\sl continúa desde la página anterior}\\
+      \hline
+    }
+    \tabletail{
+      \hline
+      \multicolumn{#3}{r}{\small\sl continúa en la página siguiente}\\
+    }
+    \tablelasttail{
+      \hline
+    }
+    \bottomcaption{#1}
+  \begin{xtabular}{#2}
+    #5
+   \bottomrule
+  \end{xtabular}
+  \label{tabla:#4}
+  \end{center}
+}
+
+
+
+\definecolor{cgoLight}{HTML}{EEEEEE}
+\definecolor{cgoExtralight}{HTML}{FFFFFF}
+
+%
+% Nuevo comando para tablas grandes sin cabecera.
+\newcommand{\tablaSinCabeceraConBandas}[5]{%
+  \begin{center}
+    \tablefirsthead{
+      \toprule
+    }
+    \tablehead{
+      \multicolumn{#3}{l}{\small\sl continúa desde la página anterior}\\
+      \hline
+    }
+    \tabletail{
+      \hline
+      \multicolumn{#3}{r}{\small\sl continúa en la página siguiente}\\
+    }
+    \tablelasttail{
+      \hline
+    }
+    \bottomcaption{#1}
+    \rowcolors[]{1}{cgoExtralight}{cgoLight}
+
+  \begin{xtabular}{#2}
+    #5
+   \bottomrule
+  \end{xtabular}
+  \label{tabla:#4}
+  \end{center}
+}
+
+
+
+
+\graphicspath{ {./img/} }
+
+% Capítulos
+\chapterstyle{bianchi}
+\newcommand{\capitulo}[2]{
+	\setcounter{chapter}{#1}
+	\setcounter{section}{0}
+	\setcounter{figure}{0}
+	\setcounter{table}{0}
+	\chapter*{#2}
+	\addcontentsline{toc}{chapter}{#2}
+	\markboth{#2}{#2}
+}
+
+% Apéndices
+\renewcommand{\appendixname}{Apéndice}
+\renewcommand*\cftappendixname{\appendixname}
+
+\newcommand{\apendice}[1]{
+	%\renewcommand{\thechapter}{A}
+	\chapter{#1}
+}
+
+\renewcommand*\cftappendixname{\appendixname\ }
+\renewcommand\lstlistlistingname{Índice de Códigos}
+\renewcommand\lstlistingname{Código}
+% Formato de portada
+\makeatletter
+\usepackage{xcolor}
+\newcommand{\tutor}[1]{\def\@tutor{#1}}
+\newcommand{\course}[1]{\def\@course{#1}}
+\definecolor{cpardoBox}{HTML}{E6E6FF}
+\def\maketitle{
+  \null
+  \thispagestyle{empty}
+  % Cabecera ----------------
+\noindent\includegraphics[width=\textwidth]{cabecera}\vspace{1cm}%
+  \vfill
+  % Título proyecto y escudo informática ----------------
+  \colorbox{cpardoBox}{%
+    \begin{minipage}{.8\textwidth}
+      \vspace{.5cm}\Large
+      \begin{center}
+      \textbf{TFG del Grado en Ingeniería Informática}\vspace{.6cm}\\
+      \textbf{\LARGE\@title{}}
+      \end{center}
+      \vspace{.2cm}
+    \end{minipage}
+
+  }%
+  \hfill\begin{minipage}{.20\textwidth}
+    \includegraphics[width=\textwidth]{escudoInfor}
+  \end{minipage}
+  \vfill
+  % Datos de alumno, curso y tutores ------------------
+  \begin{center}%
+ 	{%
+ 		\noindent\LARGE
+ 		Presentado por \@author{}\\ 
+ 		en Universidad de Burgos --- \@date{}\\
+ 		Tutor: \@tutor{}\\
+ 	}%
+ \end{center}%
+ \null
+ \cleardoublepage
+ }
+ \makeatother
+ 
+ \newcommand{\nombre}{Francisco J. Arroyo Redondo}
+ 
+ 
+ % Datos de portada
+ \title{\fontsize{18pt}{22pt}\selectfont Gestión de Contratos GeNomIn\\
+ \fontsize{16pt}{18pt}\selectfont Aplicación APEX sobre Oracle, para la gestión de contratos del Personal contratado con cargo a proyectos de Investigación}
+ \author{\nombre}
+ \tutor{Pedro Renedo Fernández}
+ \date{Septiembre 2025}
+\setcounter{tocdepth}{4}
+\begin{document}
+
+\maketitle
+
+
+
+\cleardoublepage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\frontmatter
+
+
+\clearpage
+
+% Indices
+\tableofcontents
+
+\clearpage
+
+\listoffigures
+
+\clearpage
+
+\listoftables
+
+\clearpage
+
+\lstlistoflistings
+\clearpage
+
+\mainmatter
+
+\appendix
+
+\include{./tex/A_Plan_proyecto}
+\include{./tex/B_Requisitos}
+\include{./tex/C_Diseno}
+\include{./tex/D_Configuracion}
+\include{./tex/E_Manual_usuario}
+\include{./tex/F_ODS}
+
+\printnoidxglossary[type=\acronymtype]
+\printnoidxglossary[]
+
+\bibliographystyle{plain}
+\bibliography{bibliografia}
+
+\end{document}
