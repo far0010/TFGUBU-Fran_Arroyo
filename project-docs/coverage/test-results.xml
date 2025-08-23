@@ -1,0 +1,242 @@
+<testsuites>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US15-Zube #15: Crear un contrato de un solicitante y nóminas asociadas" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US10-Zube #12: Borrar convocatoria creada" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US27-Zube #23: Informe de contratos entre fechas" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US07-Zube #11: Crear un Nuevo Responsable" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US14-Zube #12: Borra el solicitante creado" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US11-Zube #12: Crea solicitante en conv cerrada" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US08-Zube #11: Borrar Responsable creado" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US05-Zube #11: Login y desplegar Proyectos" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US25-Zube #23: Informe de contratos entre fechas" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US16-Zube #15: Se validan fechas de ini fin contrato" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US13-Zube #12: Intenta asignar solicitante con tit suficiente" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US19-Zube #15: Se efectúa renovación de contrato 3 meses" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US03-Zube #11: Login y desplegar Administracion" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US12-Zube #12: Intenta asignar solicitante sin tit suficiente" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US01-Zube #11 -  Inicio de sesión con user01" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US04-Zube #11: Login y desplegar Responsable" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US02-Zube #11: Inicio de sesión con user erróneo" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US17-Zube #15: Comprobación de si se han creado las nóminas del contrato" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US22-Zube #16: Se validan fechas de ini fin renuncia de contrato" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US25-Zube #23: Informe de contratos entre fechas" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US26-Zube #23: Informe de contratos extenso" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US22-Zube #16: Se validan fechas de ini fin renuncia de contrato" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US23-Zube #16: Generación nomina mes/año determinado e informe en PDF" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US06-Zube #11: Login y desplegar Solicitante" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US16-Zube #15: Se validan fechas de ini fin contrato" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US09-Zube #12: Crear una nueva convocatoria" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US20-Zube #16: Comprobación de si se han creado las nóminas de la renovación" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US18-Zube #16: Se validan fechas de ini fin renovación de contrato" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US21-Zube #18: Se efectúa la renuncia del contrato de 12345678M" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Test Suite" tests="1" failures="1" errors="0" skipped="0">
+    <testcase classname="Test Suite" name="US23-Zube #16: Comprobación si elimina las nóminas después renuncia y la fecha contrato" time="0">
+      <failure>
+        <message>This test has been passed.</message>
+        <stack-trace>no error</stack-trace>
+      </failure>
+    </testcase>
+  </testsuite>
+</testsuites>
