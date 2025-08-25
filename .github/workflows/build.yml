@@ -50,4 +50,3 @@ jobs:
             -Dsonar.projectKey="far0010_TFGUBU-Fran_Arroyo"
             -Dsonar.host.url="https://sonarcloud.io"
             -Dsonar.token="${{ secrets.SONAR_TOKEN }}"
-	    -Dproject.settings=sonar-project.properties

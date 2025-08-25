@@ -44,3 +44,16 @@ Este proyecto forma parte del Trabajo de Fin de Grado (TFG) de Ingeniería Infor
 - **Oracle Cloud Free Tier**: Despliegue en la nube
 - **TeXstudio**: Generación de memoria del trabajo
   
+---
+
+
+## Licencia
+
+Este proyecto, **GeNomIn**, está licenciado bajo la Licencia MIT, una licencia de software libre aprobada por la Open Source Initiative (OSI). 
+Esto significa que cualquier persona puede:
+
+- Usar el software con cualquier propósito.
+- Modificarlo y adaptarlo a sus necesidades.
+- Redistribuirlo, incluso con fines comerciales.
+
+La única condición es mantener el aviso de copyright original y la licencia en cualquier copia o derivado del software.
