@@ -22,6 +22,8 @@
 % Añado listings para ver el código en la memoria mejor
 \usepackage{listings}
 \usepackage[utf8]{inputenc}
+\usepackage{array}
+\renewcommand{\arraystretch}{1.1} 
 
 \lstdefinelanguage{JavaScript}{
 	keywords={const, let, var, function},
@@ -105,6 +107,13 @@
 \newacronym{UXXI}{UXXI}{Universitas XXI}
 \newacronym{RGPD}{RGPD}{Reglamento General de Protección de Datos}
 \newacronym{ESG}{ESG}{Ambientales, Sociales y de Gobernanza}
+\newacronym{MVC}{MVC}{Modelo Vista Controlador}
+\newacronym{SOA}{SOA}{Arquitectura Orientada a Servicios}
+
+\newglossaryentry{Persistencia desacoplada}{
+	name=Persistencia desacoplada,
+	description={Modelo donde el almacenamiento se gestiona de forma independiente a la lógica de negocio, permitiendo flexibilidad en la infraestructura}
+}
 
 \newglossaryentry{Milestone}{
 	name=Milestone,
@@ -198,6 +207,12 @@
 	description={Período de tiempo corto y fijo (generalmente de una a cuatro semanas) durante el cual un equipo trabaja para completar un conjunto específico de tareas.}
 }
 
+\newglossaryentry{Licencia MIT}
+{
+	name= Licencia MIT,
+	description={Licencia de software libre y permisiva, desarrollada por el MIT, que permite a cualquiera usar, copiar, modificar, distribuir y vender el software con muy pocas restricciones, siempre y cuando se incluya la nota de copyright y la copia de la licencia en las distribuciones}
+}
+
 \newcommand{\autor}{Francisco José Arroyo Redondo}
 
 % Ecuaciones
@@ -218,8 +233,9 @@
 
 % Imagenes
 \usepackage{graphicx}
+
 \newcommand{\imagen}[2]{
-	\begin{figure}[!h]
+	\begin{figure}[!!htbp]
 		\centering
 		\includegraphics[width=0.9\textwidth]{#1}
 		\caption{#2}\label{fig:#1}
@@ -228,8 +244,17 @@
 	
 }
 
+\newcommand{\imagenDos}[3]{
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=#3\textwidth]{#1}
+		\caption{#2}\label{fig:#1}
+	\end{figure}
+	\FloatBarrier
+}
+
 \newcommand{\imagenflotante}[2]{
-	\begin{figure}%[!h]
+	\begin{figure}%[!t]
 		\centering
 		\includegraphics[width=0.9\textwidth]{#1}
 		\caption{#2}\label{fig:#1}

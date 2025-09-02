@@ -74,8 +74,8 @@
 }
 
 
-\renewcommand\lstlistlistingname{Índice de Códigos}
-\renewcommand\lstlistingname{Código}
+%\renewcommand\lstlistlistingname{Índice de Códigos}
+%\renewcommand\lstlistingname{Código}
 
 
 
@@ -123,6 +123,11 @@
 \newglossaryentry{Milestone}{
 	name=Milestone,
 	description={Punto de control o evento significativo dentro de un proyecto que marca la finalización de una fase importante o la consecución de un objetivo específico}
+}
+
+\newglossaryentry{XHR}{
+	name=XHR,
+	description={Objeto JavaScript que permite al navegador web enviar solicitudes HTTP a un servidor y recibir respuestas de forma asíncrona, sin necesidad de recargar la página completa}
 }
 
 \newglossaryentry{Copilot}{
@@ -558,12 +563,12 @@
 
 \noindent Expone:
 
-\noindent Que el alumno D. \nombre, con DNI 13130859, ha realizado el Trabajo final de Grado en Ingeniería Informática. 
+\noindent Que el alumno D. \nombre, con DNI 13130859K, ha realizado el Trabajo final de Grado en Ingeniería Informática. 
 
 \noindent Y que dicho trabajo ha sido realizado por el alumno bajo la dirección del que suscribe, en virtud de lo cual se autoriza su presentación y defensa.
 
 \begin{center} %\large
-En Burgos, {\large \today}
+En Burgos, 
 \end{center}
 
 \vfill\vfill\vfill
@@ -584,7 +589,7 @@ En Burgos, {\large \today}
 % Abstract en castellano
 \renewcommand*\abstractname{Resumen}
 \begin{abstract}
-Gestión de Contratos GeNomIn, es una aplicación web desarrollada unen \acrfull{APEX} 24.2 para el control y gestión de los pagos de contratos de  Investigación que actualmente se gestionan a través de una hoja de cálculo. Estos contratos se vinculan a convocatorias y éstas a proyectos de investigación, pretendiendo ificar todas estas actividades en un único aplicativo más sencillo de gestionar por el personal del Servicio y que permita a través de un informe de nómina mensual cotejar los datos remitidos por retribuciones para ese mismo mes, con los calculados por el Servicio.
+Gestión de Contratos GeNomIn, es una aplicación web desarrollada en \acrfull{APEX} 24.2 para el control y gestión de los pagos de contratos de  Investigación que actualmente se gestionan a través de una hoja de cálculo. Estos contratos se vinculan a convocatorias y éstas a proyectos de investigación, pretendiendo unificar todas estas actividades en un único aplicativo más sencillo de gestionar por el personal del Servicio y que permita a través de un informe de nómina mensual cotejar los datos remitidos por Retribuciones para ese mismo mes, con los calculados por el Servicio.
 
 \end{abstract}
 
@@ -622,8 +627,8 @@ Payment Management, Contracts, Calls, Research, Oracle, Apex, GeNomIn
 \listoftables
 \clearpage
 
-\lstlistoflistings
-\clearpage
+%\lstlistoflistings
+%\clearpage
 
 \mainmatter
 \include{./tex/1_Introduccion}
