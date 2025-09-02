@@ -1,22 +1,22 @@
 \capitulo{4}{Técnicas y herramientas}
 
-Otro de los aspectos a tener en cuenta en la realización de cualquier proyecto, ya sea de albañilería o de desarrollo informático, son las herramientas con las que se realiza, ya que de ello dependerá mucho tanto el resultado como la planificación de la ejecución.
+Otro de los aspectos a tener en cuenta en la realización de cualquier proyecto, ya sea de albañilería o de desarrollo informático, son las herramientas con las que se realiza, ya que de ello dependerá mucho, tanto el resultado como la planificación de la ejecución.
 En este capítulo se detallarán las herramientas escogidas para el desarrollo de la aplicación \textbf{GeNomIn} y su justificación.
 
-Puesto que la aplicación se desarrolla sobre BD, la primera elección tenía que estar condicionada por qué \acrshort{SGBD} elegir. Como se indica en el capítulo anterior (\ref{sec:SGBD}) entre los más usados comercialmente están; \textbf{MySQL}, \textbf{PostgreSQL}, \textbf{SQL Server} y \textbf{Oracle}. Puesto que este \acrshort{TFG} pretende ser un reflejo de las competencias adquiridas durante el Grado y dado que en la asignatura de \acrshort{SGBD}, se usa también Oracle 9 parece una opción elegible. También se estudió el sistema empleado por la Universidad de Burgos para el almacenamiento de sus BD, siendo también Oracle, con lo cual fue la opción elegida.
+Puesto que la aplicación se desarrolla sobre BD, la primera elección tenía que estar condicionada por qué \acrshort{SGBD} elegir. Entre los más usados comercialmente están; \textbf{MySQL}, \textbf{PostgreSQL}, \textbf{SQL Server} y \textbf{Oracle}. Puesto que este \acrshort{TFG} pretende ser un reflejo de las competencias adquiridas durante el Grado y dado que en la asignatura de \acrshort{SGBD}, se usa también Oracle 9 parece una opción elegible. También se estudió el sistema empleado por la Universidad de Burgos para el almacenamiento de sus BD, siendo también Oracle, con lo cual fue la opción elegida.
 Siguiendo este mismo criterio de continuidad, para el desarrollo de la aplicación se escogió \acrshort{APEX} 5.1, ya que era la plataforma utilizada en el Grado.
 
-Expuesto el proyecto al Tutor y puesto que los objetivos de los \acrshort{TFG} deben ser también una mejora en las competencias adquiridas, se optó por una versión más moderna que permitiera el despliegue completo en cloud, por lo que definitivamente se escogieron como principales herramientas Oracle23ai Free y \acrshort{APEX}2402.
+Expuesto el proyecto al Tutor y puesto que los objetivos de los \acrshort{TFG} deben ser también una mejora en las competencias adquiridas, se optó por una versión más moderna que permitiera el despliegue completo en cloud, por lo que definitivamente se escogieron como principales herramientas Oracle23ai Free y \acrshort{APEX} 24.02.
 
 Con esta decisión también fue necesaria la configuración de \acrshort{ORDS} y \acrshort{HTTPS}, como se detallará más adelante.
-
+\newpage
 \section{Oracle23ai}
 \imagen{Oracle23ai}{Esquema de Oracle23ai}{.6}
 
 \textbf{Oracle23ai Free} es una de las plataformas más usadas en el panorama comercial y que sigue ofreciendo su \acrshort{IDE}, SQL Developer y varias funcionalidades de forma gratuita para desarrolladores.
 Entre las principales características se encuentran:
 \begin{itemize}
-	\item \textbf{AI Vector Search:} (búsqueda vectorial de AI) es una colección de funciones que incluye un nuevo tipo de datos vectoriales, índices vectoriales y operadores SQL de búsqueda vectorial que permiten a \acrfull{ODB} almacenar el contenido semántico de documentos, imágenes y otros datos no estructurados como vectores y utilizarlos para ejecutar consultas de similitud rápidas.
+	\item \textbf{AI Vector Search:} (búsqueda vectorial en AI) es una colección de funciones que incluye un nuevo tipo de datos e índices vectoriales, así como  operadores SQL de búsqueda vectorial que permiten a \acrfull{ODB} almacenar el contenido semántico de documentos, imágenes y otros datos no estructurados como vectores y utilizarlos para ejecutar consultas de similitud rápidas.
 	\item \textbf{JSON Relational Duality Views:} las vistas de dualidad relacional de JSON unifican los modelos de datos relacionales y documentales para ofrecer lo mejor de ambos mundos.
 	\item \textbf{Gráficos de propiedades operativas:} Ofrece soporte nativo para estructuras de datos de gráficos de propiedades y consultas de gráficos.
 	\item \textbf{SQL Firewall:} función de seguridad de base de datos integrada en el núcleo de \acrfull{ODB} que inspecciona todas las conexiones entrantes a la base de datos y sentencias SQL, y permite/registra/bloquea actividades no autorizadas de acuerdo con políticas específicas del usuario de base de datos.
@@ -25,12 +25,12 @@ Entre las principales características se encuentran:
 	\item \textbf{Mejoras en la escalabilidad y disponibilidad}
 \end{itemize}
 
-El proceso de desarrollo fue instalar localmente ~\cite{DattaInstallingOracleDatabasea} para una vez finalizado el producto desplegarlo en la nube.
+El proceso de desarrollo fue instalar localmente~\cite{DattaInstallingOracleDatabasea} para una vez finalizado el producto desplegarlo en la nube.
 
 \section{Apex 24.02} \label{sec: apex}
 Para el desarrollo de \textbf{GeNomIn} se ha utilizado, como se ha comentado anteriormente \acrshort{APEX} 2402, instalado inicialmente también de forma local ~\cite{JenningsInstallingConfiguringAPEX}
 \imagen{apex}{Home Apex TFGUBU-GeNomIn}{.6}
-Oracle Apex 24 es una plataforma \textbf{low-code} para desarrollos empresariales más utilizada que permite crear aplicaciones móviles y web escalables y seguras, pudiéndose implementar en la nube o localmente de forma gratuita.
+Oracle Apex 24 es una plataforma \textbf{low-code} para desarrollos empresariales más utilizada, que permite crear aplicaciones móviles, web escalables y seguras, pudiéndose implementar en la nube o localmente de forma gratuita.
 
 Sus principales características son:
 \begin{itemize}
@@ -42,7 +42,7 @@ Sus principales características son:
 \end{itemize}
 
 \section{\acrshort{ORDS}}
-Oracle \acrshort{REST} Data Service Oracle REST Data Services sirve de puente entre \acrshort{HTTPS} y tu Oracle Database. ORDS, una aplicación Java de nivel medio, proporciona una API REST de gestión de bases de datos, SQL Developer Web, una puerta de enlace PL/SQL, SODA para REST y la capacidad de publicar servicios web RESTful para interactuar con los datos y los procedimientos almacenados en su Oracle Database.
+Oracle \acrshort{REST} Data Service sirve de puente entre \acrshort{HTTPS} y Oracle Database. ORDS, es una aplicación Java de nivel medio, proporciona una API REST de gestión de bases de datos, SQL Developer Web, una puerta de enlace PL/SQL, SODA para REST y la capacidad de publicar servicios web RESTful para interactuar con los datos y los procedimientos almacenados en Oracle Database.
 
 Puesto que era necesario el acceso \acrshort{HTTPS}, fue necesaria la generación e instalación de \acrshort{SSL}, para ello se generó un certificado con OpenSSL y su posterior con configuración, como se muestra en la imagen.
 \imagen{ords_cfg}{Configuración ORDS-HTTPS}{.5}
@@ -55,77 +55,29 @@ Las principales características que ofrece son:
 	\item \textbf{Grabación de pruebas y captura de imágenes}: TestCafe permite la grabación y toma de imágenes de las pruebas efectuadas, pero en la práctica, se limita a unos pocos frames inicales.
 	\item \textbf{Habilitado para distintos navegadores}: las pruebas pueden ser ejecutadas en diversos navegadores, chrome, edge, firefox, safari, etc..
 	\item \textbf{Conjunto completo de Assertions}: en cualquier momento se puede comprobar el estado de un elemento, contenido, posición, valores de retorno y demás propiedades.
-	\item \textbf{Espera automática}: está diseñado para la web asíncrona moderna. Identifica correctamente eventos como la carga de páginas, la representación de elementos y las solicitudes XHR, y espera a que se resuelvan antes de continuar con la prueba.
+	\item \textbf{Espera automática}: está diseñado para la web asíncrona moderna. Identifica correctamente eventos como la carga de páginas, la representación de elementos y las solicitudes \gls{XHR}, y espera a que se resuelvan antes de continuar con la prueba.
 	\item \textbf{Selectores automáticos}: Las acciones y aserciones de prueba utilizan consultas de selector para identificar elementos por su clase, atributos, ID u otras propiedades. Cuando se registra una prueba, se genera consultas de selector automáticamente.
-	\item \textbf{Informes completos}:  genera informes de pruebas completos que incluyen resúmenes de las ejecuciones, así como información detallada sobre cada prueba. En nuestro desarrollo se han utilizado los informes \textbf{Allure}, ver imagen(\ref{img: kanban})
+	\item \textbf{Informes completos}:  genera informes de pruebas completos que incluyen resúmenes de las ejecuciones, así como información detallada sobre cada prueba. En nuestro desarrollo se han utilizado los informes \textbf{Allure}, ver imagen \imagen{allure}{Informe de Test en Allure}{1}
 \end{itemize}
-
-En la código siguiente vemos un ejemplo de test 25 que comprueba si se muestra el informe entre fechas y en la imagen su ejecución:
-
-\begin{lstlisting}[language=JavaScript, caption={Codigo en js para prueba en TestCafe}]
-	import { Selector } from 'testcafe';
-	import {NOMINAMENU, BUTTON, USERNAME, PASSW, TOGICON4, BT_CONNOM, VTOMENU } from './constanst.js';
-	
-	fixture`Test Suite-25`.page("https://192.168.2.61:8443/apex/f?p=100:LOGIN_DESKTOP:12651011480748:::::")
-	.meta({TEST_RUN:'Informe de contratos entre fechas',FEATURE: 'Informes', STORY: 'US25-Zube #23'});
-	
-	test.meta({SEVERITY:'critical', ISSUE_URL: 'https://github.com/far0010/TFGUBU-Fran_Arroyo/issues/16',
-		STORY: 'US25-Zube #23'})
-	('US25-Zube #23: Informe de contratos entre fechas', async t => {
-		const INI = '01-ENE-2025'; 
-		const FIN = '31-DIC-2025';
-		// Espera a que los campos esten disponibles
-		await t.expect(USERNAME.exists).ok({ timeout: 5000 });
-		await t.expect(PASSW.exists).ok({ timeout: 5000 });
-		
-		// Interaccion con los elementos
-		await t
-		.typeText(USERNAME, 'user01')
-		.typeText(PASSW, 'user01')
-		
-		await BUTTON();;
-		await t
-		.click(TOGICON4)  // Hace clic en el icono de despliegue
-		// Esperar a que aparezca Nomina mes
-		await t.expect(VTOMENU.exists).ok();
-		
-		// Hace clic en el enlace Nomina mes
-		await t.click(VTOMENU);
-		// introducir fechas inicio - fin
-		const BT_VTOS = Selector('#B18949343265529115')
-		await t
-		.typeText(Selector('input[name="P17_FDESDE"]'), INI)
-		.typeText(Selector('input[name="P17_FHASTA"]'), FIN)
-		.click(BT_VTOS);
-		
-		// comprobamos que ofrece las filas deseadas 3
-		const filasDatos = Selector('#R18949894423529120_data_panel tbody tr')
-		.filter(node => node.querySelectorAll('td').length > 0);
-		await t
-		.expect(filasDatos.count)
-		.eql(3, 'La tabla no muestra exactamente 3 filas de datos');        
-	});
-\end{lstlisting}
-
-\imagen{test25}{Resultado del Test 25:comprueba el informe entre fechas}{.6}
+Ahora vemos un ejemplo de la ejecución del test 25 que comprueba si se muestra el informe entre fechas y el resultado de su ejecución.
+\imagen{test25}{Resultado del Test 25:comprueba el informe entre fechas}{1}
 
 Una vez realizado el desarrollo y completadas las pruebas establecidas en los \gls{CasodeUso}, se realiza el despliegue. Así, siguiendo la misma operativa en el desarrollo del \acrshort{TFG}, se opta por el despliegue en herramientas gratuitas, en este caso Oracle sigue ofreciendo su versión \textbf{cloud free tier}, para desarrolladores \href{https://www.oracle.com/es/cloud/free/}{\acrfull{OCI}}).
 
 \section{Oracle Cloud Free Tier}\label{sec: OFT}
-Como se ha indicado anteriormente \acrshort{OCI}, ofrece una serie de servicios "\textit{gratuitos}" para desarrolladores en su nube. Tras el proceso de registro, que no es nada sencillo, ya que es preciso aportar una tarjeta física en vigor (con un cobro de 0,73€) y los datos son revisados. Para este trabajo especialmente se accede a:
+Como se ha indicado anteriormente \acrshort{OCI}, ofrece una serie de servicios `\textit{gratuitos}´ para desarrolladores en su nube. Tras el proceso de registro, que no es nada sencillo, ya que es preciso aportar una tarjeta física en vigor (con un cobro de 0,73€) y los datos son revisados. Para este trabajo especialmente se accede a:
 \begin{itemize}
-	\item \textbf{Autonomus Data Base}: Base de datos autónoma sin costo que se gestiona automáticamente (aprovisionamiento, seguridad, disponibilidad, rendimiento, etc.)
+	\item \textbf{Autonomus Data Base}: Base de datos autónoma sin costo que se gestiona autónomamente (aprovisionamiento, seguridad, disponibilidad, rendimiento, etc.)
 	\item \textbf{AMD Compute Instance}: 2 \acrshort{VM} basadas en AMD, con 1/8 de OCPU y 1 GB de memoria cada una.
 	\item \textbf{\acrshort{APEX}}: plataforma para el desarrollo de aplicaciones low-code 
 \end{itemize}
-
-\imagen{OracleCloud}{Base de Datos Autónoma en Oracle Cloud}{.6} \label{img: OCloud}
-
-Una vez creada la instancia de la base de datos autónoma, es preciso crear la instancia de \acrshort{APEX} e iniciar el servicio y así poder proceder a la importación tanto de la BD como la aplicación generada localmente.
-Para el proceso de exportación se utilizó el asistente de SqlDeveloper e importando los datos en Cloud a través de las acciones de la BD, sql en su hoja de trabajo. Se intentó realizar el proceso a través de pump de datos (que realiza una copia especular), pero principalmente por compatibilidades de configuración (zona horaria) resultó imposible.
+\label{img: OCloud}
+\imagen{OracleCloud}{Base de Datos Autónoma en Oracle Cloud}{1} 
+Una vez creada la instancia de la base de datos autónoma, es preciso crear la de \acrshort{APEX} e iniciar el servicio y así poder proceder a la importación tanto de la BD como la aplicación generada localmente.
+Para el proceso de exportación se utilizó el asistente de SqlDeveloper para luego importar los datos en Cloud a través de las acciones \acrshort{SQL}  de la BD en su hoja de trabajo. Se intentó realizar el proceso a través de \textbf{pump de datos} (que realiza una copia especular), pero principalmente por compatibilidades de configuración (zona horaria) resultó imposible.
 
 \section{Apex Office Print}
-Uno de los objetivos principales de la aplicación, además de la gestión de los contratos, es ofrecer informe detallado de las nóminas que se pagan en un mes determinado. Queriendo ofrecer una personalización de los mismo se utiliza el servicio \acrshort{AOP}, que permite generar informes Office y PDF, pudiendo personalizar éstos ~\cite{OverviewAPEXOffice}.
+Uno de los objetivos principales de la aplicación, además de la gestión de los contratos, es ofrecer informe detallado de las nóminas que se pagan en un mes determinado. Queriendo ofrecer una personalización de los mismos se utiliza el servicio \acrshort{AOP}, que permite generar informes Office y PDF, pudiendo personalizar éstos ~\cite{OverviewAPEXOffice}.
 Para ello es necesario darse de alta en el servicio y generar una plantilla, en la que se detallen los campos del informe a imprimir:
 \\
 \imagen{infAOP}{Plantilla de informes-Informe AOP}{.6} \label{img:plantilla}
@@ -133,26 +85,27 @@ Para ello es necesario darse de alta en el servicio y generar una plantilla, en 
 \section{GitHub}
 Es una plataforma para alojamiento y gestión de código fuente que se basa en el sistema de control de versiones Git, siendo una herramienta fundamental en el desarrollo de proyectos ~\cite{ChaconProGitTodo}
 Para este proyecto se ha utilizado junto con la versión de escritorio \textbf{GitHub Desktop}, haciendo commits tanto del nuevo software como de las actualizaciones y subiéndolas al repositorio (push).
-\imagen{github}{GitHub del Proyecto GeNomIn}{.6}
-\subsubsection{Control de Versiones}:
-las diferentes versiones del desarrollo realizado, están disponibles a través de los commits. Principalmente se han actualizado código \textbf{SQL}, \textbf{PL/SQL} y \textbf{JavaScript}, además de la diversa documentación generada. 
+\imagen{github}{GitHub del Proyecto GeNomIn}{1}
+\subsubsection{Control de Versiones}
+Las diferentes versiones del desarrollo realizado, están disponibles a través de los commits. Principalmente se han actualizado código \textbf{SQL}, \textbf{PL/SQL} y \textbf{JavaScript}, además de la diversa documentación generada. 
 Es posible la solicitud de cambios de código al resto de colaboradores (pull-requests), aunque en el ámbito de este desarrollo individual no tiene mucho sentido.
 \subsubsection{Integración de Herramientas}
-Como se puede observar en la imagen anterior, \textbf{github}, permite la integración de diversas herramientas que permiten un mayor control del proyecto, tales como \textbf{SonarCloud}, para verificar el código a través de \textit{Actions}, \textbf{Zube} e informes de \textbf{Allure}
+Como se puede observar en la imagen anterior \textbf{github}, permite la integración de diversas herramientas que permiten un mayor control del proyecto, tales como \textbf{SonarCloud}, para verificar el código a través de \textit{Actions}, \textbf{Zube} e informes de \textbf{Allure}
 \subsubsection{Documentación}
 El repositorio permite la organización de la documentación de forma estructurada, así como la creación de \textit{Wikis}, para facilitar la comprensión del proyecto.
 \subsection{\gls{Release}}
 Una de las partes importantes de un proyecto, es la generación de versiones que indican el progreso del mismo. GitHub facilita esta tarea con su funcionalidad de \textit{releases} que permiten empaquetar y distribuir las distintas versiones del producto de forma organizada y documentada.
-\imagen{release}{Vista de un release}{.6}
+\imagen{release}{Vista de un release}{.50}
 
 \href{https://github.com/far0010/TFGUBU-Fran_Arroyo}{Proyecto GeNomIn en GitHub}
 
 \section{Zube}
-Zube es una plataforma para gestión de proyectos colaborativos. Se basa en tableros \gls{Kanban} que facilitan la planificación, la gestión de \textbf{sprints}, \gls{Milestone} y demás herramientas gráficas que permiten un análisis del trabajo a realizar y realizado. Ver imagen(\ref{img: kanban})
+Zube es una plataforma para gestión de proyectos colaborativos. Se basa en tableros \gls{Kanban} que facilitan la planificación, la gestión de \textbf{sprints}, \gls{Milestone} y demás herramientas gráficas que permiten un análisis del trabajo a realizar y realizado. 
+\imagen{kanban1}{Tablero kanban}{1}
 
 Zube está perfectamente integrado con \textbf{GitHub} permitiendo una sincronización de tareas y código fundamentales para la planificación del proyecto.
 
 \section{TextStudio}
 
 TextStudio es una herramienta especializada en la edición de textos \textbf{\gls{LATEX}} que facilita la redacción de trabajos académicos y científicos mediante características como el resaltado de sintáxis, corrección ortográfica y semántica en tiempo real y fundamentalmente, la \textit{compilación automática}, la cual permite previsaulizar el documento mientras se trabaja. 
-Es cierto que al estar acostumbrados a los productos office, inicialmente resulta "inquietante", pero los resultados son más profesionales ~\cite{BibliotecaComplutenseLaTeXTuTFG2024}.
+Es cierto que al estar acostumbrados a los productos office, inicialmente resulta `\textit{inquietante}´, pero los resultados son más profesionales ~\cite{BibliotecaComplutenseLaTeXTuTFG2024}.

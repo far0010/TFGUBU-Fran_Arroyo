@@ -1,558 +1,449 @@
-\apendice{Requisitos y Casos de Uso}
+\apendice{Conceptos teóricos}
 \section{Introducción}
-En este anexo B, se presentarán los requisitos de la aplicación, que definen su comportamiento, detallándolo a través de tablas y diagramas para facilitar su comprensión.
-Sin perder de vista el objetivo principal de esta aplicación  \textbf{GeNomIn}, que es la de ofrecer una alternativa a al uso de una hoja de cálculo para la gestión de pagos en contratos vinculados a proyectos de investigación, vamos a ir desgranando cada una de las actuaciones para llegar a este objetivo.
+En este capítulo se definen los conceptos teóricos que se ha utilizado para la conversión de un hoja de cálculo Excel en una \acrfull{BDR}, y la consecución de la aplicación web \textbf{GeNomIn}.
 
-Como podemos ver a la siguiente imagen siguiente, en el proceso de la realización de un contrato habría tres actores principales; \textbf{Investigador}, que es quien realiza la solicitud de contratación, \textbf{Solicitante}, que son las personas que presentan una solicitud para participar y los actores principales de la aplicación, los \textbf{Gestores} de \textbf{GeNomIn}, que son los que realizan todas las acciones en la aplicación.
-\imagen{secuence}{Diagrama de secuencia del proceso General}
+Como podemos ver en la siguiente imagen, en el proceso de la realización de un contrato habría tres actores principales; \textbf{Investigador}, que es quien realiza la solicitud de contratación, \textbf{Solicitante}, que son las personas que presentan una solicitud para participar y los actores principales de la aplicación, los \textbf{Gestores} de \textbf{GeNomIn}, que son los que realizan todas las acciones en la aplicación.
+\imagenDos{secuence}{Diagrama de secuencia del proceso General}{1}
 
-Así, una vez realizada la solicitud y resuelta la convocatoria se realizan el contrato con el solicitante seleccionado y es aquí cuando se iniciaba el traslado de datos a la tabla de Excel, y que ahora, el \textbf{Gestor}, realizará a través de la aplicación y reflejamos en los requisitos, los casos de uso y test ejecutados siguientes.
-\Needspace{20\baselineskip}
-\section{Requisitos Funcionales}
-\subsection{RF01:} El Gestor debe poder acceder al sistema, con su \textbf{usuario} y \textbf{\textbf{contraseña}}
+\section{Casos de Uso}
+
+Las parte fundamental a la hora de desarrollar una aplicación es la entrevista con el usuario, de nada sirve una aplicación visualmente perfecta si no cumple con la función que requiere el usuario final.
+Los \gls{CasodeUso} sirven para modelar el sistema, entender las funcionalidades y establecer los requisitos que luego serán testados.
+
+Los \textbf{actores} identificados en el análisis previo corresponden a uno principal, el \textbf{Gestor}, usuario final que realiza las acciones en la aplicación, y cuyo objetivo es tener una serie de informes de los contratos de nómina, para poder controlar los pagos, y otros dos `secundarios' \textbf{Investigador}, que realiza la solicitud de una convocatoria y el \textbf{Interesado} o solicitante, que es al final el beneficiario del contrato y sobre los que recaen las nóminas. Éstos últimos no tienen especial relevancia en el desarrollo de la aplicación ya que sus datos son gestionados por el Gestor, por lo que la aplicación también deberá permitir, la gestión de sus datos, la solicitud de convocatorias y creación de nóminas.
+Vemos un resumen en la siguiente imagen de la entrevista previa, en la que, en una primera toma de contacto podamos entender qué quiere el usuario:
+\imagen{casos_de_uso}{Casos de Uso del Proceso}{.5}
+
+En una entrevista posterior se detallan con más precisión los requerimientos del usuario, realizando una gráfica más completa.
+
+\imagenDos{casoUso}{Caso de Uso detallado}{1}
+\section{Requisitos Funcionales y pruebas}
+De las conversaciones mantenidas con los usuarios (\textbf{Gestores}) de la futura aplicación, obtenemos una serie de requisitos funcionales que deberá cumplir la aplicación y que recogemos en las siguientes tablas.
+\clearpage
+\subsection*{RF01:} El Gestor debe poder acceder al sistema, con su \textbf{usuario} y \textbf{\textbf{contraseña}}
+
+\setlength{\tabcolsep}{6pt}      
+
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-01 \\
-		\hline
-		\textbf{Título} & Inicio de sesión con usuario ''user01´´ y contraseña ''user01´´ \\
-		\hline
-		\textbf{Requisito vinculado} & R.F.01 \\
-		\hline
-		\textbf{Precondiciones} & El usuario ''user01´´ ha sido registrado en el sistema. \\
-		\hline
-		\textbf{Postcondiciones} & El usuario accede a su cuenta de usuario. \\
-		\hline
-		\textbf{Proceso} & El usuario se loguea en el sistema. \\
-		\hline
-		\textbf{Datos de prueba} & Usuario: ''user01´´ Contraseña: ''user01´´ \\
-		\hline
-		\textbf{Resultados esperados} & El usuario accede a la página de inicio de la aplicación correctamente. \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t01\_login.js \\
-		\hline
-	\end{tabularx}
+	\small % Fuente más compacta
 	\caption{Caso de prueba US-01}
 	\label{tab:caso_us01}
+	\begin{tabular}{>{\bfseries}l p{11cm}} % Columna izquierda en negrita
+		Identificador & US-01 \\
+		Título & Inicio de sesión con usuario “user01” y contraseña “user01” \\
+		Requisito vinculado & R.F.01 \\
+		Precondiciones & El usuario “user01” ha sido registrado en el sistema. \\
+		Postcondiciones & El usuario accede a su cuenta de usuario. \\
+		Proceso & El usuario se loguea en el sistema. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01” \\
+		Resultados esperados & El usuario accede a la página de inicio de la aplicación correctamente. \\
+		Estado & Realizado: Test `t01\_login.js' \\
+	\end{tabular}
 \end{table}
-\Needspace{20\baselineskip}
-\subsection{RF02:} Un usuario sin estar dado de alta no puede acceder al sistema.
+
+%\Needspace{20\baselineskip}
+\subsection*{RF02:} Un usuario sin estar dado de alta no puede acceder al sistema.
 
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-02 \\
-		\hline
-		\textbf{Título} & Inicio de sesión con usuario ''no existe'' y contraseña ''ninguna'' \\
-		\hline
-		\textbf{Requisito vinculado} & R.F.02 \\
-		\hline
-		\textbf{Precondiciones} & El usuario ''no existe'' no ha sido registrado en el sistema. \\
-		\hline
-		\textbf{Postcondiciones} & El usuario no accede a su cuenta de usuario. \\
-		\hline
-		\textbf{Proceso} & El usuario intenta loguearse con usuario y contraseña erróneos \\
-		\hline
-		\textbf{Datos de prueba} & Usuario: ''no existe'' Contraseña: ''ninguna'' \\
-		\hline
-		\textbf{Resultados esperados} & El usuario no accede a la página de inicio de la aplicación correctamente y se presenta rechazado \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t02\_loginfail.js \\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-02}
 	\label{tab:caso_us02}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-02 \\
+		Título & Inicio de sesión con usuario “no existe” y contraseña “ninguna” \\
+		Requisito vinculado & R.F.02 \\
+		Precondiciones & El usuario “no existe” no ha sido registrado en el sistema. \\
+		Postcondiciones & El usuario no accede a su cuenta de usuario. \\
+		Proceso & El usuario intenta loguearse con usuario y contraseña erróneos \\
+		Datos de prueba & Usuario: “no existe” — Contraseña: “ninguna” \\
+		Resultados esperados & El usuario no accede a la página de inicio de la aplicación correctamente y se presenta rechazado \\
+		Estado & Realizado: Test `t02\_loginfail.js' \\
+	\end{tabular}
 \end{table}
-\Needspace{20\baselineskip}
-\subsection{RF03, RF04, RF05 y RF06:} El Gestor accede a con su usuario y contraseña y puede desplegar los distintos menús de la aplicación.
+
+%\Needspace{20\baselineskip}
+\subsection*{RF03, RF04, RF05 y RF06:} El Gestor accede a con su usuario y contraseña y puede desplegar los distintos menús de la aplicación.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-03, US-04, US-05 y US-06 \\
-		\hline
-		\textbf{Título} & El Gestor accede al sistema y despliega distintos menús \\
-		\hline
-		\textbf{Requisito vinculado} & RF03, RF04, RF06 y RF06 \\
-		\hline
-		\textbf{Precondiciones} & El usuario ''user01´´ ha sido registrado en el sistema.\\
-		\hline
-		\textbf{Postcondiciones} & El Usuario accede a su cuenta. \\
-		\hline
-		\textbf{Proceso} & El usuario se loguea y despliega Administración, Responsables, Proyectos, Solicitantes\\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´ \\
-		\hline
-		\textbf{Resultados esperados} & El usuario accede a la página de inicio de la aplicación y despliega correctamente los distintos menús \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t03\_menuAdmin.js, t04\_logyresp.js, t05\_logypro.js, t06\_logysol.js\\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-03/06}
 	\label{tab:caso_us03}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-03, US-04, US-05 y US-06 \\
+		Título & El Gestor accede al sistema y despliega distintos menús \\
+		Requisito vinculado & RF03, RF04, RF05 y RF06 \\
+		Precondiciones & El usuario “user01” ha sido registrado en el sistema. \\
+		Postcondiciones & El usuario accede a su cuenta. \\
+		Proceso & El usuario se loguea y despliega Administración, Responsables, Proyectos, Solicitantes \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01” \\
+		Resultados esperados & El usuario accede a la página de inicio de la aplicación y despliega correctamente los distintos menús \\
+		Estado & Realizado: Test `t03\_menuAdmin.js', `t04\_logyresp.js', `t05\_logypro.js', `t06\_logysol.js' \\
+	\end{tabular}
 \end{table}
-\Needspace{20\baselineskip}
-\subsection{RF07:} El Gestor accede a con su usuario y contraseña y puede crear un nuevo responsable.
+
+%\Needspace{20\baselineskip}
+\subsection*{RF07:} El Gestor accede a con su usuario y contraseña y puede crear un nuevo responsable.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-07 \\
-		\hline
-		\textbf{Título} & El Gestor accede y crea uno nuevo responsable \\
-		\hline
-		\textbf{Requisito vinculado} & R.F.07\\
-		\hline
-		\textbf{Precondiciones} & El usuario ''user01´´ ha sido registrado en el sistema.\\
-		\hline
-		\textbf{Postcondiciones} & Debe haber un responsable más \\
-		\hline
-		\textbf{Proceso} & El usuario se loguea y despliega Responsables pulsa en crea y añade el nuevo responsable\\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´, DNI: 00000005E, Pérez López, Juan \\
-		\hline
-		\textbf{Resultados esperados} & El usuario accede a la página de inicio de la aplicación correctamente y despliega Responsable y crea uno nuevo. Debe haber una fila más en la tabla de responsables. \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t07\_crearResp.js\\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-07}
 	\label{tab:caso_us07}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-07 \\
+		Título & El Gestor accede y crea uno nuevo responsable \\
+		Requisito vinculado & R.F.07 \\
+		Precondiciones & El usuario “user01” ha sido registrado en el sistema. \\
+		Postcondiciones & Debe haber un responsable más \\
+		Proceso & El usuario se loguea, despliega “Responsables”, pulsa en “Crear” y añade el nuevo responsable \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, DNI: 00000005E, Pérez López, Juan \\
+		Resultados esperados & El usuario accede a la página de inicio de la aplicación correctamente, despliega “Responsables” y crea uno nuevo. Debe haber una fila más en la tabla de responsables. \\
+		Estado & Realizado: Test `t07\_crearResp.js'\\
+	\end{tabular}
 \end{table}
-\Needspace{20\baselineskip}
-\subsection{RF08:} El Gestor accede a con su usuario y contraseña y puede borrar un responsable.
+
+%\Needspace{20\baselineskip}
+\subsection*{RF08:} El Gestor accede a con su usuario y contraseña y puede borrar un responsable.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-08 \\
-		\hline
-		\textbf{Título} & El Gestor accede y borra el responsable creado \\
-		\hline
-		\textbf{Requisito vinculado} & R.F.08 \\
-		\hline
-		\textbf{Precondiciones} & El usuario ''user01´´ ha sido registrado en el sistema.\\
-		\hline
-		\textbf{Postcondiciones} & Debe haber un responsable menos \\
-		\hline
-		\textbf{Proceso} & El usuario se loguea y accede al menú de responsables, pulsa en el campo de búsqueda e introduce el NIF: 00000005E, pulsa en el lapicero y luego en el botón Delete.\\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´, DNI: 00000005E \\
-		\hline
-		\textbf{Resultados esperados} & El usuario accede a la página de inicio de la aplicación correctamente y despliega Responsable y borra el responsable creado. Vuelve a buscar por DNI, debe obtener el mensaje Data not found. \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t08\_borrarResp.js\\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-08}
 	\label{tab:caso_us08}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-08 \\
+		Título & El Gestor accede y borra el responsable creado \\
+		Requisito vinculado & R.F.08 \\
+		Precondiciones & El usuario “user01” ha sido registrado en el sistema. \\
+		Postcondiciones & Debe haber un responsable menos \\
+		Proceso & El usuario se loguea y accede al menú de responsables, pulsa en el campo de búsqueda e introduce el NIF: 00000005E, pulsa en el lapicero y luego en el botón “Delete”. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, DNI: 00000005E \\
+		Resultados esperados & El usuario accede y despliega “Responsables” y borra el responsable creado. Vuelve a buscar por DNI y debe obtener el mensaje “Data not found”. \\
+		Estado & Realizado: Test `t08\_borrarResp.js' \\
+	\end{tabular}
 \end{table}
-\Needspace{20\baselineskip}
-\subsection{RF09:} El Gestor accede a con su usuario y puede crear una convocatoria.
+
+%\Needspace{20\baselineskip}
+\subsection*{RF09:} El Gestor accede a con su usuario y puede crear una convocatoria.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-09 \\
-		\hline
-		\textbf{Título} & El Gestor accede con su usuario y crea una Convocatoria \\
-		\hline
-		\textbf{Requisito vinculado} & R.F.09 \\
-		\hline
-		\textbf{Precondiciones} & El usuario ''user01´´ ha sido registrado en el sistema.\\
-		\hline
-		\textbf{Postcondiciones} & Debe haber una convocatoria nueva más \\
-		\hline
-		\textbf{Proceso} & El usuario se loguea accede a convocatorias y crea una nueva \\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´, Convocatoria: PRUEBA PARA BORRAR, Tit: Grado, abierta  \\
-		\hline
-		\textbf{Resultados esperados} & El usuario accede a la página de inicio de la aplicación correctamente y despliega Convocatorias-Mantenimiento y crea la convocatoria. Debe haber una fila más en la tabla \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t09\_crearConv.js\\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-09}
 	\label{tab:caso_us09}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-09 \\
+		Título & El Gestor accede con su usuario y crea una convocatoria \\
+		Requisito vinculado & R.F.09 \\
+		Precondiciones & El usuario “user01” ha sido registrado en el sistema. \\
+		Postcondiciones & Debe haber una convocatoria nueva más \\
+		Proceso & El usuario se loguea, accede a “Convocatorias” y crea una nueva \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, Convocatoria: PRUEBA PARA BORRAR, Titulación: Grado, Estado: abierta \\
+		Resultados esperados & El usuario accede y despliega “Convocatorias - Mantenimiento” y crea la convocatoria. Debe haber una fila más en la tabla \\
+		Estado & Realizado: Test `t09\_crearConv.js'\\
+	\end{tabular}
 \end{table}
 
-\Needspace{20\baselineskip}
-\subsection{RF10:} El Gestor accede a con su usuario y contraseña y puede borrar una convocatoria.
+%\Needspace{20\baselineskip}
+\subsection*{RF10:} El Gestor accede a con su usuario y contraseña y puede borrar una convocatoria.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-10 \\
-		\hline
-		\textbf{Título} & El Gestor accede y borra la convocatoria de prueba \\
-		\hline
-		\textbf{Requisito vinculado} & R.F.10 \\
-		\hline
-		\textbf{Precondiciones} & El usuario ''user01´´ ha sido registrado en el sistema y no hay ninguna convocatoria más abierta.\\
-		\hline
-		\textbf{Postcondiciones} & No Debe haber una convocatorias disponibles. \\
-		\hline
-		\textbf{Proceso} & El usuario se loguea y accede a convocatorias, pulsa en el icono del lápiz de la convocatoria a eliminar y pulsa en el botón Delete.\\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´, Convocatoria: PRUEBA PARA BORRAR \\
-		\hline
-		\textbf{Resultados esperados} & El usuario accede a la página de inicio de la aplicación correctamente y despliega Convocatorias-Mantenimiento y borra la convocatoria. Sale el mensaje Data not found, ya que no quedan más filas. \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t10\_borrarConvSimple.js\\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-10}
 	\label{tab:caso_us10}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-10 \\
+		Título & El Gestor accede y borra la convocatoria de prueba \\
+		Requisito vinculado & R.F.10 \\
+		Precondiciones & El usuario “user01” ha sido registrado en el sistema y no hay ninguna convocatoria más abierta. \\
+		Postcondiciones & No debe haber convocatorias disponibles. \\
+		Proceso & El usuario se loguea, accede a “Convocatorias”, pulsa en el icono del lápiz de la convocatoria a eliminar y luego en el botón “Delete”. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, Convocatoria: PRUEBA PARA BORRAR \\
+		Resultados esperados & El usuario accede a la página de inicio de la aplicación correctamente, despliega “Convocatorias - Mantenimiento” y borra la convocatoria. Al volver a buscar, aparece el mensaje “Data not found”, ya que no quedan más filas. \\
+		Estado & Realizado: Test `t10\_borrarConvSimple.js' \\
+	\end{tabular}
 \end{table}
 
-\Needspace{20\baselineskip}
-\subsection{RF11:} No debe poderse asociar un solicitante a una convocatoria cerrada.
+
+%\Needspace{20\baselineskip}
+\subsection*{RF11:} No debe poderse asociar un solicitante a una convocatoria cerrada.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-11 \\
-		\hline
-		\textbf{Título} & El Gestor accede e intenta crea un solicitante e intenta asociarlo a convocatoria cerrada\\
-		\hline
-		\textbf{Requisito vinculado} & R.F.11 \\
-		\hline
-		\textbf{Precondiciones} & El usuario ''user01´´ debe haber una convocatoria cerrada para poder probar.\\
-		\hline
-		\textbf{Postcondiciones} & No se asocia el solicitante a ninguna convocatoria. \\
-		\hline
-		\textbf{Proceso} & El usuario se loguea he intenta asociar un solicitante a una convocatoria cerrada\\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´,solicitante: “00001FAKE”, Pérez López, Juan, Convocatoria: Prueba convocatoria 3 cerrada
-		 \\
-		\hline
-		\textbf{Resultados esperados} & El usuario accede a la página de inicio de la aplicación correctamente y despliega Convocatorias-Solicitantes crea el solicitante, pero sin asignar convocatoria \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t11\_crearSol\_Con\_Close.js\\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-11}
 	\label{tab:caso_uso11}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-11 \\
+		Título & El Gestor accede e intenta crear un solicitante y asociarlo a una convocatoria cerrada \\
+		Requisito vinculado & R.F.11 \\
+		Precondiciones & El usuario “user01” debe tener al menos una convocatoria cerrada disponible para realizar la prueba. \\
+		Postcondiciones & El solicitante no se asocia a ninguna convocatoria. \\
+		Proceso & El usuario se loguea e intenta asociar un solicitante a una convocatoria cerrada. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, Solicitante: “00001FAKE”, Pérez López, Juan, Convocatoria: Prueba convocatoria 3 (cerrada) \\
+		Resultados esperados & El usuario accede, despliega “Convocatorias - Solicitantes”, crea el solicitante, pero no se asigna ninguna convocatoria. \\
+		Estado & Realizado: Test `t11\_crearSol\_Con\_Close.js' \\
+	\end{tabular}
 \end{table}
 
-\Needspace{20\baselineskip}
-\subsection{RF12:} No puede crear y asociarse un solicitante a una convocatoria sin tener la titulación adecuada.
+
+%\Needspace{20\baselineskip}
+\subsection*{RF12:} No puede crear y asociarse un solicitante a una convocatoria sin tener la titulación adecuada.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-12 \\
-		\hline
-		\textbf{Título} & Inicio de sesión con usuario "user01" y contraseña "user01" y crear solicitante e intentar asociar a convocatoria sin tener la titulación cerrada\\
-		\hline
-		\textbf{Requisito vinculado} & R.F.12 \\
-		\hline
-		\textbf{Precondiciones} & El usuario ''user01´´ debe haber una convocatoria para poder probar.\\
-		\hline
-		\textbf{Postcondiciones} & No se asocia el solicitante a ninguna convocatoria. \\
-		\hline
-		\textbf{Proceso} & Loguea el usuario y accede e intenta asignar una convocatoria con titulación superior a la que posee\\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´,Solicitante: “00001FAKE”, Pérez López, Juan -Diplomado, Convocatoria: prueba de convocatoria 1- grado\\
-		\hline
-		\textbf{Resultados esperados} & El usuario accede a la página de inicio de la aplicación correctamente y despliega Convocatorias-Solicitantes edita el solicitante, pero sin asignar convocatoria por la titulación incorrecta. \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t12\_modSol\_No\_Tit.js\\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-12}
 	\label{tab:caso_uso12}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-12 \\
+		Título & Inicio de sesión con usuario “user01” y contraseña “user01” y creación de solicitante intentando asociarlo a una convocatoria sin tener la titulación requerida \\
+		Requisito vinculado & R.F.12 \\
+		Precondiciones & El usuario “user01” debe tener al menos una convocatoria disponible para realizar la prueba. \\
+		Postcondiciones & El solicitante no se asocia a ninguna convocatoria. \\
+		Proceso & El usuario se loguea, accede al módulo de solicitantes e intenta asignar una convocatoria con titulación superior a la que posee. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, Solicitante: “00001FAKE”, Pérez López, Juan — Titulación: Diplomado, Convocatoria: Prueba de convocatoria 1 — Grado \\
+		Resultados esperados & El usuario accede, despliega “Convocatorias - Solicitantes”, edita el solicitante, pero no se asigna ninguna convocatoria debido a la titulación incorrecta. \\
+		Estado & Realizado: Test `t12\_modSol\_No\_Tit.js' \\
+	\end{tabular}
 \end{table}
 
-\Needspace{20\baselineskip}
-\subsection{RF13:} Se debe poder asociar un solicitante con titulación adecuada a una solicitud.
+
+%\Needspace{20\baselineskip}
+\subsection*{RF13:} Se debe poder asociar un solicitante con titulación adecuada a una solicitud.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-13 \\
-		\hline
-		\textbf{Título} & Inicio de sesión con usuario "user01" y contraseña "user01" y modificar solicitante e intentar asociar a convocatoria con tit. correcta\\
-		\hline
-		\textbf{Requisito vinculado} & R.F.13 \\
-		\hline
-		\textbf{Precondiciones} & El usuario ''user01´´ debe haber una convocatoria para poder probar y solicitante con titulación adecuada.\\
-		\hline
-		\textbf{Postcondiciones} & Se le asocia al solicitante la convocatoria. \\
-		\hline
-		\textbf{Proceso} & Una vez logueado el usuario selecciona Solicitantes y pulsa en el lápiz del usuario a modificar la convocatoria adecuada y lo asigna\\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´,Solicitante: “00001FAKE”, Pérez López, Juan Convocatoria: CONV017
-		\\
-		\hline
-		\textbf{Resultados esperados} & Al solicitante Juan, se le asigna la convocatoria: CONVO017 \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t13\_modSol\_OK\_Tit.js\\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-13}
 	\label{tab:caso_uso13}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-13 \\
+		Título & Inicio de sesión con usuario “user01” y contraseña “user01” y modificación de solicitante para asociarlo a convocatoria con titulación correcta \\
+		Requisito vinculado & R.F.13 \\
+		Precondiciones & El usuario “user01” debe tener una convocatoria disponible y un solicitante con titulación adecuada. \\
+		Postcondiciones & El solicitante queda asociado a la convocatoria. \\
+		Proceso & Una vez logueado, el usuario selecciona “Solicitantes”, pulsa en el lápiz del solicitante a modificar, selecciona la convocatoria adecuada y la asigna. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, Solicitante: “00001FAKE”, Pérez López, Juan, Convocatoria: CONV017 \\
+		Resultados esperados & Al solicitante Juan se le asigna correctamente la convocatoria CONV017. \\
+		Estado & Realizado: Test `t13\_modSol\_OK\_Tit.js' \\
+	\end{tabular}
 \end{table}
 
-\Needspace{20\baselineskip}
-\subsection{RF14:} Se debe poderse borrar un solicitante existente.
+
+%\Needspace{20\baselineskip}
+\subsection*{RF14:} Se debe poderse borrar un solicitante existente.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-14 \\
-		\hline
-		\textbf{Título} &Borra el solicitante creado\\
-		\hline
-		\textbf{Requisito vinculado} & R.F.14 \\
-		\hline
-		\textbf{Precondiciones} &  Debe existir un solicitante para borrar.\\
-		\hline
-		\textbf{Postcondiciones} & Se elimina el solicitante. \\
-		\hline
-		\textbf{Proceso} & Accedemos a la página de inicio de sesión log, se accede a solicitantes y se pulsa en botón editar del solicitante, luego se pulsa en borrar y se confirma.\\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´,Solicitante: “00001FAKE”, Pérez López
-		\\
-		\hline
-		\textbf{Resultados esperados} & El usuario accede a la página de inicio de la aplicación correctamente y despliega Convocatorias-Solicitantes edita el solicitante, y elimina el solicitante antes creado, mostrando el mensaje Action Processed. \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t14\_delSolicitante.js\\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-14}
 	\label{tab:caso_uso14}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-14 \\
+		Título & Borrado del solicitante creado \\
+		Requisito vinculado & R.F.14 \\
+		Precondiciones & Debe existir un solicitante para borrar. \\
+		Postcondiciones & Se elimina el solicitante. \\
+		Proceso & El usuario accede a la página de inicio de sesión, entra en “Solicitantes”, pulsa en el botón editar del solicitante, luego en “Borrar” y confirma la acción. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, Solicitante: “00001FAKE”, Pérez López \\
+		Resultados esperados & El usuario accede correctamente, despliega “Convocatorias - Solicitantes”, edita y elimina el solicitante creado, mostrando el mensaje “Action Processed”. \\
+		Estado & Realizado: Test `t14\_delSolicitante.js' \\
+	\end{tabular}
 \end{table}
 
-\Needspace{20\baselineskip}
-\subsection{RF15, RF16 y RF17:} Se debe poderse crear un contrato para un solicite asignado correctamente a una convocatoria, siempre y cuando las fechas estén dentro del periodo del proyecto. Deben generarse las nóminas correspondientes
+
+%\Needspace{20\baselineskip}
+\subsection*{RF15, RF16 y RF17:} Se debe poderse crear un contrato para un solicite asignado correctamente a una convocatoria, siempre y cuando las fechas estén dentro del periodo del proyecto. Deben generarse las nóminas correspondientes
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-15, US-16 y US-17 \\
-		\hline
-		\textbf{Título} &Crear un contrato a un solicitante	\\
-		\hline
-		\textbf{Requisito vinculado} & RF.15 \\
-		\hline
-		\textbf{Precondiciones} & Debe existir solicitante asignado a una convocatoria y que el contrato se encuentre entre las fechas del proyecto.\\
-		\hline
-		\textbf{Postcondiciones} & Se crea el contrato y se generan las nóminas correspondientes. \\
-		\hline
-		\textbf{Proceso} & El usuario accede a la página de inicio de la aplicación correctamente y despliega Contratos-Crear, ingresa los datos solicitados y se crea el contrato. \\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´Contratado: Juncal Álvarez Leal
-		Fechas: 01-NOV-2025 a 31-OCT-2027, Ret total:  49000, mes: 1500, ss: 500, indemnización: 1000, reserva: 49000, observaciones: PRUEBA TEST
-		\\
-		\hline
-		\textbf{Resultados esperados} & Debe haberse creado el contrato en la tabla correspondiente y 25 nóminas para ese DNI, en la tabla nómina \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t15\_crearContrato.js, t16\_valFechasContrato.js y t17\_compNominas.js \\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-15, US-16 y US-17}
 	\label{tab:caso_uso15}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-15, US-16 y US-17 \\
+		Título & Crear un contrato a un solicitante \\
+		Requisito vinculado & R.F.15 \\
+		Precondiciones & Debe existir un solicitante asignado a una convocatoria y el contrato debe estar dentro del rango de fechas del proyecto. \\
+		Postcondiciones & Se crea el contrato y se generan las nóminas correspondientes. \\
+		Proceso & El usuario accede, despliega “Contratos - Crear”, ingresa los datos solicitados y se crea el contrato. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, Contratado: Juncal Álvarez Leal.  
+		Fechas: 01-NOV-2025 a 31-OCT-2027.  
+		Retribución total: 49000, Mensual: 1500, SS: 500, Indemnización: 1000, Reserva: 49000.  
+		Observaciones: PRUEBA TEST \\
+		Resultados esperados & El contrato debe haberse creado en la tabla correspondiente y deben existir 25 nóminas para ese DNI en la tabla de nóminas. \\
+		Estado & Realizado: Test `t15\_crearContrato.js', `t16\_valFechasContrato.js' y `t17\_compNominas.js' \\
+	\end{tabular}
 \end{table}
 
-\Needspace{20\baselineskip}
-\subsection{RF18, RF19 y RF20:} Se debe poder renovar un contrato, siempre y cuando la fecha fin no exceda del fin del proyecto. Además deben añadirse las nóminas correspondientes.
+%\Needspace{20\baselineskip}
+\subsection*{RF18, RF19 y RF20:} Se debe poder renovar un contrato, siempre y cuando la fecha fin no exceda del fin del proyecto. Además deben añadirse las nóminas correspondientes.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-18, US-19 y US-20 \\
-		\hline
-		\textbf{Título} & Renovación de un contrato para el solicitante, se validan las fechas de la nueva renovación y se actualiza la fecha fin del contrato y las nuevas cantidades de nómina, seg. Social e indemnización	\\
-		\hline
-		\textbf{Requisito vinculado} & RF.18, RF.19, RF20 \\
-		\hline
-		\textbf{Precondiciones} & Debe existir solicitante con contrato que no haya llegado a la fecha fin del proyecto.\\
-		\hline
-		\textbf{Postcondiciones} & Se efectúa la renovación del contrato modificando su fecha fin y se generan las nóminas nuevas nóminas correspondientes. \\
-		\hline
-		\textbf{Proceso} & El usuario accede a la página de inicio de la aplicación correctamente y despliega Contratos selecciona el contrato a renovar e ingresa los nuevos datos solicitados. \\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´Contrato: CONT123, Fecha fin nueva: 30-sep-2026
-		\\
-		\hline
-		\textbf{Resultados esperados} & El contrato indicado tiene que haberse renovado hasta la fecha indicada con las nuevas cantidades, además de incluirse en Observaciones: RENOVADO. Se deben haber generado 16 nuevas nóminas adicionales. \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t18\_renovarContratoFechas copy.js, t19\_renovarContrato.js, t20\_compRenNominas.js \\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-18, US-19 y US-20}
 	\label{tab:caso_uso18}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-18, US-19 y US-20 \\
+		Título & Renovación de un contrato para el solicitante, validación de fechas y actualización de cantidades de nómina, seguridad social e indemnización \\
+		Requisito vinculado & R.F.18, R.F.19, R.F.20 \\
+		Precondiciones & Debe existir un solicitante con contrato activo que no haya alcanzado la fecha fin del proyecto. \\
+		Postcondiciones & Se renueva el contrato modificando su fecha fin y se generan las nuevas nóminas correspondientes. \\
+		Proceso & El usuario accede, despliega “Contratos”, selecciona el contrato a renovar e ingresa los nuevos datos solicitados. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, Contrato: CONT123, Fecha fin nueva: 30-sep-2026 \\
+		Resultados esperados & El contrato debe haberse renovado hasta la fecha indicada con las nuevas cantidades. En “Observaciones” debe figurar: RENOVADO. Se deben haber generado 16 nuevas nóminas adicionales. \\
+		Estado & Realizado: Test `t18\_renovarContratoFechas\_copy.js', `t19\_renovarContrato.js, `t20\_compRenNominas.js' \\
+	\end{tabular}
 \end{table}
 
-\Needspace{20\baselineskip}
-\subsection{RF21, RF22 y RF23:} Se debe poder renunciar a un contrato, siempre y cuando la fecha no sea posteriar al fin del mismo y eliminando las nóminas sobrantes.
+
+%\Needspace{20\baselineskip}
+\subsection*{RF21, RF22 y RF23:} Se debe poder renunciar a un contrato, siempre y cuando la fecha no sea posteriar al fin del mismo y eliminando las nóminas sobrantes.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-21, US-22 y US-23 \\
-		\hline
-		\textbf{Título} &Renuncia del contrato CONT141 con fecha 31-12-2025, eliminando nóminas y fecha fin.	\\
-		\hline
-		\textbf{Requisito vinculado} & RF.21, RF.22, RF23 \\
-		\hline
-		\textbf{Precondiciones} & Debe existir solicitante con contrato en vigor.\\
-		\hline
-		\textbf{Postcondiciones} & Se efectúa la renuncia del contrato modificando su fecha fin y se eliminan las nóminas correspondientes. \\
-		\hline
-		\textbf{Proceso} & El usuario accede a la página de inicio de la aplicación correctamente y despliega Contratos selecciona el contrato a renunciar e indica la nueva fecha fin correcta. \\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´, DNI =12345678M, fecha 21-12-2025 \\
-		\hline
-		\textbf{Resultados esperados} & El contrato indicado tiene que haberse reducido hasta la fecha indicada, además de incluirse en Observaciones: RENUNCIA. Se deben haber eliminado las nóminas sobrantes. \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t21\_renunciaContrato.js, t22\_renunciaContratoFechas.js, t23\_compRenunnNominas.js \\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-21, US-22 y US-23}
 	\label{tab:caso_uso21}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-21, US-22 y US-23 \\
+		Título & Renuncia del contrato CONT141 con fecha 31-12-2025, eliminando nóminas y fecha fin \\
+		Requisito vinculado & R.F.21, R.F.22, R.F.23 \\
+		Precondiciones & Debe existir un solicitante con contrato en vigor. \\
+		Postcondiciones & Se efectúa la renuncia del contrato modificando su fecha fin y se eliminan las nóminas correspondientes. \\
+		Proceso & El usuario accede, despliega “Contratos”, selecciona el contrato a renunciar e indica la nueva fecha fin correcta. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, DNI: 12345678M, Fecha: 21-12-2025 \\
+		Resultados esperados & El contrato indicado debe haberse reducido hasta la fecha especificada, incluir en “Observaciones” la palabra RENUNCIA, y eliminar las nóminas sobrantes. \\
+		Estado & Realizado: Test `t21\_renunciaContrato.js', `t22\_renunciaContratoFechas.js', `t23\_compRenunnNominas.js' \\
+	\end{tabular}
 \end{table}
 
-\Needspace{20\baselineskip}
-\subsection{RF24:} Se debe poder genera un informe de la nómina de un mes determinado y luego imprimirla en PDF.
+%\Needspace{20\baselineskip}
+\subsection*{RF24:} Se debe poder genera un informe de la nómina de un mes determinado y luego imprimirla en PDF.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-24 \\
-		\hline
-		\textbf{Título} &Comprobación si se genera informe de la nómina de un mes determinado y se puede imprimir dicho mes pdf.	\\
-		\hline
-		\textbf{Requisito vinculado} & RF.24 \\
-		\hline
-		\textbf{Precondiciones} & Deben existir contratos en vigor para el mes/años solicitados.\\
-		\hline
-		\textbf{Postcondiciones} & Se genera el informe en PDF \\
-		\hline
-		\textbf{Proceso} & El usuario accede a la sección de informes Nómina-mes, selecciona un mes y un año y pulsa “consultar”. 	Una vez listado podrá escoger filtrar por orgánica y volviendo a pulsar “consultar”
-		Pulsando Generar PDF descarga el informe personalizado.
-		 \\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´, Mes: “Diciembre” Año “2025” \\
-		\hline
-		\textbf{Resultados esperados} & Se lista los datos de nómina correspondientes al mes y año. Se puede realizar filtro por orgánica descargar un pdf personalizado. \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t24\_infNominaMesyPDF.js \\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-24}
 	\label{tab:caso_uso24}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-24 \\
+		Título & Comprobación de generación e impresión en PDF del informe de nómina de un mes determinado \\
+		Requisito vinculado & R.F.24 \\
+		Precondiciones & Deben existir contratos en vigor para el mes y año solicitados. \\
+		Postcondiciones & Se genera el informe en formato PDF. \\
+		Proceso & El usuario accede a la sección “Informes - Nómina por mes”, selecciona un mes y un año, y pulsa “Consultar”.  
+		Una vez listado, puede aplicar filtro por orgánica y volver a pulsar “Consultar”.  
+		Al pulsar “Generar PDF”, se descarga el informe personalizado. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, Mes: “Diciembre”, Año: “2025” \\
+		Resultados esperados & Se listan los datos de nómina correspondientes al mes y año seleccionados.  
+		Es posible aplicar filtro por orgánica y descargar un PDF personalizado. \\
+		Estado & Realizado: Test `t24\_infNominaMesyPDF.js' \\
+	\end{tabular}
 \end{table}
 
-\Needspace{20\baselineskip}
-\subsection{RF25:} Se debe poder comprobar los vencimientos de contratos entre fechas.
+%\Needspace{20\baselineskip}
+\subsection*{RF25:} Se debe poder comprobar los vencimientos de contratos entre fechas.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-25 \\
-		\hline
-		\textbf{Título} &Comprobación de vencimientos de contratos entre fechas.	\\
-		\hline
-		\textbf{Requisito vinculado} & RF.25 \\
-		\hline
-		\textbf{Precondiciones} & Deben existir contratos en vigor entre las fechas solicitadas.\\
-		\hline
-		\textbf{Postcondiciones} & Se visualiza el informe \\
-		\hline
-		\textbf{Proceso} & El usuario accede a la sección de informes Vencimientos y selecciona intervalo de fechas y pulsa botón Consulta
-		\\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´, 01-01-2020 a 31-12-2025 \\
-		\hline
-		\textbf{Resultados esperados} & Se listan los datos de vencimientos de contrato en el periodo solicitado. \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t25\_infVencimientos.js \\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-25}
 	\label{tab:caso_uso25}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-25 \\
+		Título & Comprobación de vencimientos de contratos entre fechas \\
+		Requisito vinculado & R.F.25 \\
+		Precondiciones & Deben existir contratos en vigor dentro del intervalo de fechas solicitado. \\
+		Postcondiciones & Se visualiza el informe correspondiente. \\
+		Proceso & El usuario accede a la sección “Informes - Vencimientos”, selecciona el intervalo de fechas y pulsa el botón “Consultar”. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, Intervalo: 01-01-2020 a 31-12-2025 \\
+		Resultados esperados & Se listan los datos de vencimiento de contratos dentro del periodo solicitado. \\
+		Estado & Realizado: Test `t25\_infVencimientos.js' \\
+	\end{tabular}
 \end{table}
 
-\Needspace{20\baselineskip}
-\subsection{RF26:} Se debe poder obtener un listado con todos los datos generales de contratos y aplicar filtros.
+%\Needspace{20\baselineskip}
+\subsection*{RF26:} Se debe poder obtener un listado con todos los datos generales de contratos y aplicar filtros.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-26 \\
-		\hline
-		\textbf{Título} &Listado de contratos. \\
-		\hline
-		\textbf{Requisito vinculado} & RF.26 \\
-		\hline
-		\textbf{Precondiciones} & Deben existir contratos en vigor.\\
-		\hline
-		\textbf{Postcondiciones} & Se visualiza el informe \\
-		\hline
-		\textbf{Proceso} & El usuario accede a la sección de informes Listado de contratos. \\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´ \\
-		\hline
-		\textbf{Resultados esperados} & Se listan los datos de vencimientos de contrato en el periodo solicitado. \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t26\_listaContratosFull.js \\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-26}
 	\label{tab:caso_uso26}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-26 \\
+		Título & Listado de contratos \\
+		Requisito vinculado & R.F.26 \\
+		Precondiciones & Deben existir contratos en vigor. \\
+		Postcondiciones & Se visualiza el informe correspondiente. \\
+		Proceso & El usuario accede a la sección “Informes - Listado de contratos”. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01” \\
+		Resultados esperados & Se listan los datos de vencimiento de contratos en el periodo solicitado. \\
+		Estado & Realizado: Test `t26\_listaContratosFull.js' \\
+	\end{tabular}
 \end{table}
 
-\Needspace{20\baselineskip}
-\subsection{RF27:} Se debe poder obtener un listado con las nóminas de un contratado en un periodo indicado. Debe ofrecer el total de remuneración en ese periodo.
+%\Needspace{20\baselineskip}
+\subsection*{RF27:} Se debe poder obtener un listado con las nóminas de un contratado en un periodo indicado. Debe ofrecer el total de remuneración en ese periodo.
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.3} 
-	\begin{tabularx}{\textwidth}{|l|X|}
-		\hline
-		\textbf{Identificador} & US-27 \\
-		\hline
-		\textbf{Título} &Listado de nóminas de contratado por periodo \\
-		\hline
-		\textbf{Requisito vinculado} & RF.27 \\
-		\hline
-		\textbf{Precondiciones} & Deben existir contratos en vigor para un solicitante en el periodo.\\
-		\hline
-		\textbf{Postcondiciones} & Se visualiza el informe \\
-		\hline
-		\textbf{Proceso} &El usuario accede a la sección de informes Nóminas-periodo. Selecciona un contratado de la selección e indica un intervalo de fechas y pulsa buscar. \\
-		\hline
-		\textbf{Datos de prueba} & usuario: ''user01´´ Contraseña: ''user01´´ Contratado: Juncal Álvarez Pérez, periodo: 01-01-2025 a 31-12-2025\\
-		\hline
-		\textbf{Resultados esperados} & Se ofrece un listado de las nóminas de ese contratado en el periodo solicitado junto con su total para comprobación = 4600.25 \\
-		\hline
-		\textbf{Estado} & Realizado: Test: t27\_infNomPeriodo.js \\
-		\hline
-	\end{tabularx}
+	\small
 	\caption{Caso de prueba US-27}
 	\label{tab:caso_uso27}
+	\begin{tabular}{>{\bfseries}l p{11cm}}
+		Identificador & US-27 \\
+		Título & Listado de nóminas de contratado por periodo \\
+		Requisito vinculado & R.F.27 \\
+		Precondiciones & Deben existir contratos en vigor para el solicitante dentro del periodo indicado. \\
+		Postcondiciones & Se visualiza el informe correspondiente. \\
+		Proceso & El usuario accede a la sección “Informes - Nóminas por periodo”, selecciona un contratado de la lista, indica un intervalo de fechas y pulsa “Buscar”. \\
+		Datos de prueba & Usuario: “user01” — Contraseña: “user01”, Contratado: Juncal Álvarez Pérez, Periodo: 01-01-2025 a 31-12-2025 \\
+		Resultados esperados & Se ofrece un listado de las nóminas del contratado en el periodo solicitado, junto con el total para comprobación: 4600.25 \\
+		Estado & Realizado: Test `t27\_infNomPeriodo.js' \\
+	\end{tabular}
 \end{table}
-\Needspace{20\baselineskip}
-En la siguiente tabla vemos a través del informe de Allure, los test pasados (informe completo \href{https://far0010.github.io/TFGUBU-Fran_Arroyo/informe/#} {aquí})
-El código de los test en \acrshort{JS} pueden verse: \href{project-docs/memoria/test}{aquí}
+
+%\Needspace{20\baselineskip}
+
+Siguiendo el ciclo de integración continua, por cada desarrollo de código que cumple los requisitos antes indicados, se actualiza el repositorio (\textbf{commit}) y se realizan las pruebas pertinentes. En la siguiente tabla vemos a través del informe de Allure, los test pasados (informe completo \href{https://far0010.github.io/TFGUBU-Fran_Arroyo/informe/#} {aquí}).
+El código de los test en \acrshort{JS} pueden verse: \href{https://github.com/far0010/TFGUBU-Fran_Arroyo/tree/main/project-docs/memoria/test}{aquí}
 \imagen{testTodos}{Informe Allure de Test}
+
+\section{Normalización}
+
+Cuando se inicia el análisis de los requerimientos para construir una \acrshort{BDR} a partir de una hoja de datos de Excel, el principal problema que nos encontramos al crear las tablas que contendrán los datos, es la duplicidad de éstos y la inconsistencia de los mismos. ~\cite{AbrahamSilberschatzFundamentosBasesDatos2006} 
+\imagen{c_excel}{Detalle anualidad de un contrato}\label{img: contrato}
+
+Así, como vemos en la imagen, para cada contratado, se realiza una fila, en la que se repiten los mismos datos personales y de sus mensualidades, tantas veces como contratos tenga, y creando una nueva tabla con todos los contratos cada año y añadiendo los nuevos.
+
+Esto, además de ser inmanejable con el paso del tiempo (en este caso se manejan más de 400 contratos/año), conlleva a diversos errores propiciados por el propio usuario, como son; la identificación diferente de una misma persona (Francisco J. vs F. José), cumplimentación errónea de importes reiterativos, asignaciones diferentes de tipos de contratos, borrados accidentales, etc.
+
+Por este motivo, realizaremos primeramente el proceso de \gls{Normalización} a través de las diferentes \acrfull{FN}.
+\begin{itemize}
+	\item \textbf{1ª\acrshort{FN}}: Con esta 1ª\acrshort{FN} detectaremos y eliminaremos los valores repetidos, garantizando la \gls{Atomicidad} de los datos para cada tabla, teniendo cada columna un tipo de dato único y con una clave principal \acrshort{PK}
+	Vemos en la hoja de excel, que por ejemplo el nombre y apellidos están en un único campo, siendo lo más lógico una tabla con los datos del solicitante (contratado) con campos: DNI, APE1, APE2, NOMBRE, OTROS
+	\item \textbf{2ª\acrshort{FN}}:	En esta segunda etapa comprobaremos que para cada \acrshort{PK}, cada atributo depende de toda ella y no sólo de una parte de la misma. Así creamos tablas independientes para conjuntos de valores y las relacionamos con \acrfull{FK}.
+	En nuestro caso tenemos \textbf{Responsables} con sus \textbf{proyectos}, en la misma línea, generaremos dos tablas; Proyectos, tendrá como \acrshort{FK}, la referencia de cada Responsable, pudiendo así determinar cuantos proyectos son dirigidos por un responsable, sin duplicidad de datos.
+	\item \textbf{3ª\acrshort{FN}}: Para finalizar, eliminaremos las dependencias transitivas de los campos de cada tabla,es decir, si una atributo no depende directamente de su \acrshort{PK}, deberá ir en otra tabla. En nuestro caso, no tiene sentido que cada mensualidad esté con el nombre de la persona, siendo más lógico crear su propia tabla.
+\end{itemize}
+
+Finalizada esta fase obtenemos varias tablas para organizar los datos recogidos en la hoja de cálculo; \textbf{Responsables}, \textbf{Departamentos}, \textbf{Proyectos}, \textbf{Convocatorias}, \textbf{Solicitante}, \textbf{Contratos}y \textbf{Nomina}.
+
+\section{Modelo E-R}
+En esta segunda fase del diseño se establece cómo se conectan entre sí los diferentes objetos (tablas) del sistema.Esto permite organizar visualmente la estructura de la información antes de crear la \acrshort{BDR} definitiva y entender cómo se almacenan y relacionan los datos.
+Estas tablas ya contienen los distintos atributos que las definen unívocamente así como las \acrshort{FK} que permiten establecer las relaciones con otras entidades. 
+Hablamos aquí del concepto de \textbf{\gls{Cardinalidad}}, por el que básicamente se indica cuántos elementos de una entidad puede relacionarse con los de otra, siendo una característica fundamental en el diseño de la \acrshort{BDR}
+Los tipos de relaciones \textbf{1:1} uno a uno, \textbf{1:N} uno a muchos, \textbf{N:M} muchos a muchos.
+
+Hay que tener en cuenta que la \gls{Cardinalidad}, es un elemento fundamental en el diseño ya que optimiza las consultas, ayuda a mantener la integridad y evita la redundancia de datos garantizando la consistencia de la información.
+
+\section{Diseño Físico}
+Una vez finalizada la parte lógica y conceptual de nuestro diseño es el momento de definir cómo serán nuestras tablas físicamente, qué campo será la \acrshort{PK} , tipos de datos y longitud de los mismos, como se relacionarán las tablas entre sí, qué campos servirán de enlace o \acrshort{FK}. Así, vemos en la imagen siguiente como queda nuestro diseño.
+\imagen{e-r}{Diagrama de Entidad Relación}{1}
+
+\section{Modelo Arquitectónico}
+Para la realización de es ese proyecto se ha utilizado el \acrfull{MVC}, para encapsular la lógica de datos de la capa de negocio, lo cual permite una mejor escalabilidad, seguridad y mantenimiento, dividiéndose en las siguientes capas:
+\imagenDos{dpaquetes}{Diagrama arquitectónico de paquetes}{1}
+\subsection{Modelo}
+Esta capa representa la estructura de datos y entidades donde la aplicación \textbf{GeNomIn} es el núcleo y \acrfull{ORDS} permite la conexión de los datos vía servicios \acrshort{RESTFUL} y \acrshort{SSL}, garantiza la seguridad de la comunicación.
+\subsection{Interfaz de usuario}
+Representa cómo los usuarios interactúan con el sistema debiendo seguir principios de usabilidad, navegación intuitiva y eficacia en las tareas a realizar en cada apartado. En este caso es muy importante el concepto de \textbf{Experiencia de Usuario}.
+\subsection{Lógica de Negocio}
+Capa intermedia que gestiona la lógica, validaciones y procesos que transforman los datos en información útil.
+Teóricamente esta capa representa el \acrshort{MVC}, debiendo estar desacoplada del interfaz y el modelo, para facilitar el mantenimiento y la escalabilidad.
+\subsection{Persistencia}
+Permite el almacenamiento de forma segura en la nube a través de \acrshort{OCI}. Es un modelo de \gls{Persistencia desacoplada}.
+\subsection{Servicios externos}
+Esta capa representa los servicios externos utilizados y es la responsable de de la gestión de informes. Esta forma de delegar la realización de funciones especializadas en en proveedores que mejoran el servicio y/o la calidad se conoce como \acrfull{SOA}.

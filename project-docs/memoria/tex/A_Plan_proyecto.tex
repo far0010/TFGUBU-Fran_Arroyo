@@ -4,121 +4,142 @@
 
 La realización de la planificación de este proyecto software ha sido gestionada a través de la \textit{\gls{Metodología Ágil}} dividiendo el trabajo en hitos, \textbf{\gls{Milestone}s}, y éstos a su vez en \textbf{\gls{Sprint}s}.
 
-Esta división del proyecto en tareas, permite desarrollo flexible y adaptativo, produciendo entregas parciales del producto en cada entrega de \gls{Sprint}.
+Esta división del proyecto en tareas, permite desarrollo flexible y adaptativo, produciendo entregas parciales del producto por cada finalización de \gls{Sprint}.
 
-En particular en este proyecto se ha utilizado una mezcla de metodologías; \textbf{\gls{Scrum}}, que prioriza el desarrollo en \gls{Sprint}s, con sus roles y eventos definidos y \textbf{\gls{Kanban}}, que se centra en la visualización de los flujos de trabajo en un tablero con columnas, etiquetadas con las diferentes fases del desarrollo, en las cuales se van colocando tarjetas con las tareas que se están realizando y que se han asociado a los \gls{Sprint}s.
+En particular en este proyecto se ha utilizado una mezcla de metodologías; \textbf{\gls{Scrum}} ~\cite{SchwaberGuiaDefinitivaScrum2020}, que prioriza el desarrollo en \gls{Sprint}s, con sus roles y eventos definidos y \textbf{\gls{Kanban}}, que se centra en la visualización de los flujos de trabajo en un tablero con columnas, etiquetadas con las diferentes fases del desarrollo, en las cuales se van colocando tarjetas con las tareas que se están realizando y que se han asociado a los \gls{Sprint}s.
 
 Para una mejor organización temporal, se han establecido una serie de hitos (\gls{Milestone}s), y éstos a su vez en \textbf{\gls{Sprint}s}, que agrupan un conjunto de \gls{Sprint}s reflejando las diferentes etapas del proyecto, como comprobamos en la planificación temporal siguiente:
 
 \section{Plan temporal}
 Como se ha indicado anteriormente para una mejor gestión de tiempos se ha dividido el proyecto en diferentes hitos, \gls{Sprint}s y todo ello gestionado a través del \gls{Kanban}:
-\subsection{\gls{Kanban}}
+\subsection{Kanban}
 El tablero \gls{Kanban} ha sido una de las herramientas fundamentales para el desarrollo de esta aplicación. Gestionado por la plataforma \textbf{Zube} e integrado con \textbf{GitHub}, permite un control de las diferentes tareas. Para ello se dividen en varios estados, en el caso de este proyecto; inbox (entrada por defecto), \textbf{backlog} (lista inicial de trabajos a realizar por el equipo), \textbf{ready} (marca el inicio del \gls{Sprint} para esa tarjeta), \textbf{in progress} (durante el desarrollo), \textbf{in review} (revisión del sprint) y finalmente \textbf{done}, cuando se cierra ese \gls{Sprint}.
 Vemos un ejemplo del \gls{Kanban} del proyecto.
-\imagen{kanban1}{Detalle del tablero kanban al inicio del proyecto}{.6}
+\imagen{kanban1}{Detalle del tablero kanban al inicio del proyecto}
 \subsection{\gls{Milestone}}
 \begin{itemize}
 	\item \textbf{Kick-off: Puesta en marcha del proyecto}:
 	Completado el 16 de junio. Una vez reunido con el tutor y definidas las líneas generales del proyecto se procede a recopilar e instalar las herramientas necesarias para el desarrollo y la documentación.
 	Este hito hubo que extender hasta el 23, por el upgrade a \textbf{\acrshort{APEX}2402}
-	\item \textbf{Prototipo}: Completado el 30 de junio. Aunque se han ido realizando diversas "entregas", se establece un prototipo que sirva de base para que el "usuario" verifique si se está yendo en la dirección correcta en el desarrollo. Simplemente se muestran las primeras funcionalidades y los diversos menús que se podrán usar. Queda reflejado como el \textbf{1er \gls{Release}}
-	\item \textbf{\acrshort{MPV}:Mínimo producto viable}: Completado el 14 de julio. Este \textbf{2º \gls{Release}}, ya presentan prácticamente todas las funcionalidades de la aplicación, pudiendo observar los usuarios, si es ajustado a sus requerimientos.
+	\item \textbf{Prototipo}: Completado el 30 de junio. Aunque se han ido realizando diversas `entregas', se establece un prototipo que sirva de base para que el `usuario' verifique si se está yendo en la dirección correcta en el desarrollo. Simplemente se muestran las primeras funcionalidades y los diversos menús que se podrán usar. Queda reflejado como el \textbf{1er \gls{Release}}
+	\item \textbf{\acrshort{MPV}:Mínimo producto viable}: Completado el 14 de julio. Este \textbf{2º \gls{Release}} ya presentan prácticamente todas las funcionalidades de la aplicación, pudiendo observar los usuarios, si es ajustado a sus requerimientos.
 	\item \textbf{Desarrollo completo}: Completado el 15 de agosto. Se ha finaliza la aplicación (\textbf{3er \gls{Release}}) y despliega en Oracle cloud, siendo funcional a todos los efectos.
 	\item \textbf{Documentación}: Se prepara, completa y revisa toda la documentación del proyecto; memoria, anexos, vídeos y el resto de documentos para presentar.
 \end{itemize}
-\subsection{\gls{Sprint}s}
+\subsection{Sprints}
 Para la ejecución del proyecto se han realizado los siguientes \gls{Sprint}s, algunos coincidentes en el tiempo dentro del mismo hito:
 \begin{itemize}
 	\item \textbf{Kick-off: Puesta en marcha del proyecto hasta 16 de junio}:
 	\subitem \textbf{Análisis}: en este \gls{Sprint} se realizaron las tareas de análisis de datos de la \textbf{hoja de cálculo excel} y su \textbf{\gls{Normalización}}, \textbf{definición las entidades} y sus \textbf{relaciones} para finalmente crear las distintas \textbf{tablas} con sus campos, definiendo \textbf{\acrshort{PK}} y \textbf{\acrshort{FK}} 
-	\subitem{\textbf{Instalación de herramientas}}: Se abrió el repositorio en \textbf{GitHub} para el proyecto, instalándose en modo local, \textbf{\acrshort{APEX} 5.01} y \textbf{Oracle 9}, herramientas que se habían utilizado en la asignatura de \textit{Sistemas de Gestión de Bases de Datos}. También se instaló \textbf{TestCafé} para la ejecución de test, con el complemento (Allure) así como el editor de LaTex, \textbf{TexStudio}.
-    \imagen{kickoff}{Milestone: Kick-Off}
-	\item{Prototipo: hasta el 30/06}:
-	\subitem{\textbf{Creación pantalla de inicio}}: Se crea la pantalla de \textbf{log-in} y la página de entrada principal, así como el primer módulo de Administración, que contendrá los datos de los \textbf{proyectos} de los \textbf{responsables}. Como los datos obrantes en el sistema son privados, es preciso la creación para las pruebas de \textbf{\gls{Datos MOCK}}.
-	\subitem{\textbf{Módulos y test}}: En este \gls{Sprint} se diseña un programa en Phyton para rellenar las tablas de responsables y proyectos con datos de prueba y se rellenas las tablas correspondientes para poder realizar los test. Se diseñan los primeros Test para los menús creados que son la base del prototipo. Se realiza la migración de \textbf{HTTP} a \textbf{\acrshort{HTTPS}}, debiéndose obtener un certificado a través de \textbf{OpenSSL}
+	\subitem{\textbf{Instalación de herramientas}}: Se abrió el repositorio en \textbf{GitHub} ~\cite{ChaconProGitTodo} para el proyecto, instalándose en modo local, \textbf{\acrshort{APEX} 5.01} (posteriormente v.23ai) ~\cite{DattaInstallingOracleDatabasea} y \textbf{Oracle 9} (posteriormente 24.2) ~\cite{JenningsInstallingConfiguringAPEX} , herramientas que se habían utilizado en la asignatura de \textit{Sistemas de Gestión de Bases de Datos}. También se instaló \textbf{TestCafé} ~\cite{TestCodeGuide} para la ejecución de test, con el complemento (Allure) así como el editor de LaTex, \textbf{TexStudio} ~\cite{BibliotecaComplutenseLaTeXTuTFG2024}.
+    \imagenDos{kickoff}{Milestone: Kick-Off}{1}
+	\item{\textbf{Prototipo: hasta el 30/06}}:
+	\subitem{\textbf{Creación pantalla de inicio}}: Se crea la pantalla de \textbf{log-in} y la página de entrada principal, así como el primer módulo de Administración, que contendrá los datos de los \textbf{proyectos} de los \textbf{responsables}. Como los datos obrantes en el sistema son privados, es preciso para la realización de las pruebas la creación de \textbf{\gls{Datos MOCK}}.
+	\subitem{\textbf{Módulos y test}}: En este \gls{Sprint} se diseña un programa en Phyton para rellenar las tablas de responsables y proyectos con datos de prueba y rellenar las tablas correspondientes para poder realizar los test. Se diseñan los primeros Test para los menús creados que son la base del prototipo. Se realiza la migración de \textbf{HTTP} a \textbf{\acrshort{HTTPS}}, debiéndose obtener un certificado a través de \textbf{OpenSSL}
 	\imagen{prototipo}{Milestone: Prototipo}
-	\item{MPV: hasta el 14/07}: 
-	\subitem{\textbf{Creación Contrato}}:Se crean la utilidad principal para efectuar un contrato a un solicitante. El proceso debe crear las nóminas correspondientes en la tabla \textbf{NOMINAS}.
+	\item{\textbf{MPV: hasta el 14/07}}: 
+	\subitem{\textbf{Creación Contrato}}: Se crean la utilidad principal para efectuar un contrato a un solicitante. El proceso debe crear las nóminas correspondientes en la tabla \textbf{NOMINAS}.
 	\subitem{\textbf{Creación de renovación y renuncias}}: Se crean los módulos de renovación, que amplía la fecha de fin de contrato y añade las nóminas correspondientes y el de renuncia, que recorta la fecha de contrato y elimina la nóminas desde esa fecha hasta el final del contrato anterior.
 	\subitem{\textbf{Test de usabilidad}}: Se testean estas nuevas funcionalidades, comprobando que se actualizan correctamente las fechas y las nóminas.
 	\imagen{mpv}{Mileston: MPV}
-	\item{Desarrollo Completo: hasta 15 de agosto}:
-	\subitem{\textbf{Creación de informes}}: Se crean los informes pendientes, \textbf{Nómina-mes},\textbf{Vencimientos} y \textbf{Nóminas periodo}.
+	\item{\textbf{Desarrollo Completo: hasta 15 de agosto}}:
+	\subitem{\textbf{Creación de informes}}: Se crean los informes pendientes, \textbf{Nómina-mes}, \textbf{Vencimientos} y \textbf{Nóminas periodo}.
 	\subitem{\textbf{Creación de cuenta Oracle Cloud}}: Se crea la cuenta de \acrshort{OCI} y las instancias para la BD y \acrshort{APEX}. Se efectúa el traspaso de la base de datos local a Cloud y se instala la aplicación MPV, para su prueba.
-	\subitem{\textbf{Revisión de Test e informes}}: Se crea e instala \acrfull{AOP}. Se realizan los test de éstos últimos informes, para comprobar que se generan correctamente y se emite el informe en PDF a través de \acrshort{AOP}
-	\subitem{\textbf{Creación de \acrfull{OCI}}}: Se finaliza el desarrollo de la aplicación y se despliega en \acrshort{OCI}. En este caso no hace falta certificado \acrshort{SSL} ni para Cloud y \acrshort{AOP}, ya que al ser el mismo proveedor confía en su entorno.
+	\subitem{\textbf{Revisión de Test e informes}}: Se crea e instala \acrfull{AOP} ~\cite{Oracle-maxParte122021}. Se realizan los test de éstos últimos informes, para comprobar que se generan correctamente y se emite el informe en PDF a través de \acrshort{AOP}
+	\subitem{\textbf{Creación de \acrfull{OCI}}}: Se finaliza el desarrollo de la aplicación y se despliega en \acrshort{OCI}. En este caso no hace falta certificado \acrshort{SSL} ni para Cloud ni para \acrshort{AOP}, ya que al ser el mismo proveedor confía en su entorno.
 	\imagen{kcloud}{Milestone: Desarrollo Completo}
 	\item{Documentación: hasta el 5 de septiembre}: 
-	\subitem{\textbf{Generación de documentación}}: Se finaliza La memoria del proyecto, documento creciente que se va desarrollando a lo largo del proyecto, pero es en este punto final cuando se invierte la mayoría del tiempo en su finalización, plasmándose los \acrfull{ODS}. Para la realización de la memoria y los anexos ha sido imprescindible el aprendizaje de \gls{LATEX}. Finalizado el proyecto se crea el manual de uso y se sube al \textbf{wiki} de GitHub.
-	Para finalizar la documentación se crean los vídeos de funcionamiento de la app \textbf{GeNomIn} y de presentación del \acrshort{TFG}
+	\subitem{\textbf{Generación de documentación}}: Se finaliza la memoria del proyecto, documento creciente que se va desarrollando a lo largo del proyecto, pero es en este punto final cuando se invierte la mayoría del tiempo en su finalización, plasmándose los \acrfull{ODS} ~\cite{MarkiegiIntegrandoODSGrado}. Para la realización de la memoria y los anexos, ha sido imprescindible el aprendizaje de \gls{LATEX}. Finalizado el proyecto se crea el manual de uso y se sube al \textbf{wiki} de GitHub.
+	Para completar la documentación se crean los vídeos de funcionamiento de la app \textbf{GeNomIn} y de presentación del \acrshort{TFG}
 	\imagen{kdocument}{Milestone: Documentación}
 	
-	\item{Gráfica de Velocidad}: en la siguiente gráfica podemos ver cómo se han ido realizando los diferentes \gls{Sprint}s, manteniendo una constancia relativa. Se puede observar, que la tarea de \textbf{verficación y despliegue} ha sido más laboriosa, ya que comprendía la finalización y trasvase de datos a Cloud.
+	\item{\textbf{Gráfica de Velocidad}}: en la siguiente gráfica podemos ver cómo se han ido realizando los diferentes \gls{Sprint}s, manteniendo una constancia relativa. Se puede observar, que la tarea de \textbf{verficación y despliegue} ha sido más laboriosa, ya que comprendía la finalización y trasvase de datos a Cloud.
 	\imagen{velocidad}{Gráfica de Velocidad de los Sprints}
 \end{itemize}
+\clearpage
+Vemos también en la imagen, como las tareas han sido sincronizadas con el repositorio de \textbf{GitHub}, incluyendo su \gls{Sprint} y \gls{Milestone} asignados.
 
-Vemos también, en la imagen, como las tareas han sido sincronizadas con el repositorio de \textbf{GitHub}, incluyendo su \gls{Sprint} y \gls{Milestone} asignados.
-\imagen{tarea2}{Tarea \#2:Instalación de herramientas en GitHub}
+\imagenflotante{tarea2}{Tarea \#2:Instalación de herramientas en GitHub}
 
+\subsection{Revisión del sprint}
+Tras cada \textbf{sprint} el código es analizado por \textbf{SonarCube}, para detectar errores, vulnerabilidades, problemas de estilo y garantizando la calidad. Así mismo, cada funcionalidad añadida por un sprint ha sido validada por \textbf{TestCafe} cuyos resultados se presentan visualmente en los informes generados por \textbf{Allure} (informe completo \href{https://far0010.github.io/TFGUBU-Fran_Arroyo/informe/#} {aquí})
+\imagenDos{allure}{Informe de test Allure}{.85}
+
+
+\clearpage
 \section{Estudio de Viabilidad}
 
 \subsection{Viabilidad Técnica}
-Este proyecto ha sido realizado siguiendo la filosofía de software libre y coste cero, lo que garantiza su viabilidad técnica, ya que todas las herramientas utilizadas son open access, como vemos en la siguiente tabla:
+Este proyecto ha sido realizado siguiendo la filosofía de software libre y coste cero, lo que garantiza su viabilidad técnica, no obstante se incluyen los costes reales de implantación. Hay que tener en cuenta que la Universidad de Burgos tiene licencia con Oracle y servidores propios.
 
 \begin{table}[ht]
 	\centering
 	\begin{tabular}{|p{3cm}|p{4cm}|p{4cm}|}
 		\hline
 		\rowcolor{gray!20}
-		\textbf{Herramienta} & \textbf{Función} & \textbf{Licencia / Coste} \\
+		\textbf{Herramienta} & \textbf{Función} & \textbf{Licencia / Coste real} \\
 		\hline
-		Oracle 23ai & BD relacional & Gratuito (Free Tier / Licencia UBU) \\
+		Oracle 23ai & BD relacional & Desde 43.700 € proc. + 22\% mant. anual \\
 		\hline
 		SQL Developer & Diseño BD & Gratuito \\
 		\hline
-		Oracle APEX 24.02 & Desarrollo web & Gratuito (Free Tier / Licencia UBU) \\
+		Oracle APEX 24.02 & Desarrollo web & Free en local/Desde 112.24 €/mes en OCI \\
 		\hline
-		AOP – Apex Office Print & Informes PDF personalizados & 100 informes, luego 35 €/mes \\
+		\acrshort{AOP} & Informes PDF personalizados & 100 inf. gratis, luego desde 35 €/mes \\
 		\hline
 		TestCafe & Pruebas & Gratuito \\
 		\hline
-		Oracle Cloud Free Tier & Despliegue en la nube & Gratuito \\
+		Oracle Cloud Free Tier & Despliegue Cloud & Gratuito (limitado) / Desde 110.4 €/mes \\
 		\hline
 		TeXstudio & Redacción técnica & Gratuito \\
 		\hline
 	\end{tabular}
-	\caption{Herramientas utilizadas en el desarrollo del proyecto}
+	\caption{Coste real estimado de herramientas utilizadas en el proyecto GeNomIn}
 \end{table}
 \subsection{Viabilidad Económica}
-Para el desarrollo del proyecto se estiman unas 250 horas a un precio estimado de 25 €/hora para un técnico cualificado, las licencias ya se ha indicado que son libres, salvo \gls{AOP} en producción. El alojamiento no es necesario en la nube, ya que se utilizaría en los servidores propios y las licencias existentes.
-\begin{table}[ht]
-		\centering
-		\begin{tabular}{|p{5cm}|p{5cm}|}
-			\hline
-			\rowcolor{gray!20}
-			\textbf{Concepto} & \textbf{Importe €}\\
-			\hline
-			Horas de desarrollo (250 h x 25 €/h) & 6.250 € \\
-			\hline
-			Hardware & 0 (Entorno UBU)\\
-			\hline
-			Licencias Soft & 0 (Salvo AOP en producción) \\
-			\hline
-			AOP – Apex Office Print & 35 €/mes \\
-			\hline
-			Matenimiento & 0 (Entorno UBU) \\
-			\hline
-			\textbf{Total} & \textbf{6.670 €} \\
-			\hline
-		\end{tabular}
-		\caption{Coste económico GeNomIn}
+Para el desarrollo del proyecto, se estiman unas 300 horas a un precio estimado de 25 €/hora para un técnico cualificado, más las cuotas de autónomo. Además se incluye el alquiler de local y los gastos asociados de luz. Para el equipamiento se ha calculado sobre una amortización de 4 años del equipamiento y la licencia de  \acrshort{AOP} en producción. 
+El coste de la \gls{Licencia MIT} de la aplicación es gratuita.
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|p{5cm}|>{\centering\arraybackslash}p{5cm}|}
+		\hline
+		\rowcolor{gray!20}
+		\textbf{Concepto} & \textbf{Importe €}\\
+		\hline
+		Horas de desarrollo (300 h x 25 €/h) & 7.500,00 € \\
+		\hline
+		Cuota autónomos (4 meses x 230 €/mes) & 920,00 € \\
+		\hline
+		Alquiler espacio de trabajo (4 meses x 250 €/mes) & 1.000,00 € \\
+		\hline
+		Electricidad (4 meses x 20 €/mes) & 80,00 € \\
+		\hline
+		Amortización portátil (4 meses) & 100,00 € \\
+		\hline
+		Licencia de la app (MIT) & 0,00 € \\
+		\hline
+		AOP – Apex Office Print (4 meses x 35 €/mes) & 140,00 € \\
+		\hline
+		\textbf{Total} & \textbf{9.740,00 €} \\
+		\hline
+	\end{tabular}
+	\caption{Coste económico actualizado del proyecto GeNomIn}
 \end{table}
 
 \subsection{Viabilidad Legal}
 \begin{itemize}
 	\item \textbf{Propiedad intelectual}: Este desarrollo ha sido realizado por el autor del \acrshort{TFG}, sin restricciones.
-	\item \textbf{Protección de datos}: Los datos son gestionados por la Universidad de Burgos, dentro de su marco legal, cumpliéndo se con el \acrshort{RGPD}.
-	\item \textbf{licencias}: Todas las licencias, como se ha comentado son o libres o cubiertas por la propia Universidad, salvo \acrshort{AOP}, si se supera el límite de informes.
+	\item \textbf{Protección de datos}: Los datos son gestionados por la Universidad de Burgos, dentro de su marco legal, cumpliéndose con el \acrshort{RGPD}.
+	\item \textbf{Licencias}: Todas las herramientas utilizadas en el desarrollo del proyecto son de código abierto o están cubiertas por licencias institucionales de la Universidad de Burgos, salvo el componente \acrshort{AOP}, que requiere licencia comercial si se supera el límite gratuito.
+	
+	En cuanto a la aplicación \textbf{GeNomIn}, se ha publicado en un repositorio público en GitHub bajo la \gls{Licencia MIT}, reconocida por la Open Source Initiative (OSI). Esta licencia permite:
+	\begin{itemize}
+		\item Uso libre del software, tanto personal como comercial.
+		\item Modificación y redistribución del código.
+		\item Conservación de la autoría original.
+	\end{itemize}	
+	
+	La licencia se ha aplicado mediante la inclusión del archivo LICENSE en el repositorio, y se ha indicado en la documentación (README.md). No se requiere registro ni pago para aplicar esta licencia, lo que garantiza la viabilidad legal y económica del proyecto.
 \end{itemize}
 \subsection{Viabilidad de Implantanción}
 \begin{itemize}
@@ -126,5 +147,5 @@ Para el desarrollo del proyecto se estiman unas 250 horas a un precio estimado d
 	\item \textbf{Escalabilidad}: como ya se ha demostrado al escalarlo al entorno de Oracle Cloud, no habría problema en el uso de servidores de la propia red.
 	\item \textbf{Mantenimiento}: Las tecnologías usadas pueden ser mantenidas por el personal técnico interno.
 \end{itemize}
-\subsection{Conclusiones}: La aplicación web \textbf{GeNomIn}, es viable tanto técnica como legalmente, con un coste contenido y un despliegue seguro en los servidores de la Universidad, cumpliendo con el objetivo inicial de facilitar el trabajo al Servicio en cargado de la gestión de contratos con cargo a proyectos de Investigación.
+\subsection{Conclusiones} La aplicación web \textbf{GeNomIn}, es viable tanto técnica como legalmente, con un coste contenido y un despliegue seguro en los servidores de la Universidad, cumpliendo con el objetivo inicial de facilitar el trabajo al Servicio en cargado de la gestión de contratos con cargo a proyectos de Investigación.
 

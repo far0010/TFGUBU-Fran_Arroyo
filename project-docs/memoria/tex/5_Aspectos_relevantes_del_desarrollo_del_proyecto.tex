@@ -1,5 +1,4 @@
 \capitulo{5}{Aspectos relevantes del desarrollo del proyecto}
-
 En este capítulo se detallan los aspectos que han influido en el desarrollo de la aplicación \textbf{GeNomIn}, tanto técnicas, económicas y de oportunidad.
 
 \section{Oportunidad de negocio}
@@ -16,7 +15,7 @@ Como vimos en la sección dedicada a esta herramienta \ref{sec: apex},  \acrshor
 \subsection{Integración con \acrfull{ODB}}
 \acrshort{APEX} aprovecha la potencia y eficiencia de \acrshort{ODB} así como sus características avanzadas así como integración nativa con \acrshort{SQL} y \acrshort{PL/SQL} desarrollado por Oracle ~\cite{OracleAPEXSQL}
 \subsubsection{Gestión de Usuarios}
-\imagen{apex_acl}{Gestión de usuarios de APEX}{0.6}
+\imagen{apex_acl}{Gestión de usuarios de APEX}{1}
 Como vemos en la imagen anterior \acrshort{APEX}, permite un control total de los usuarios a través de:
 \begin{itemize}
 	\item \textbf{\acrfull{ACL}}: permiten asignar roles asuarios específicos.
@@ -25,15 +24,15 @@ Como vemos en la imagen anterior \acrshort{APEX}, permite un control total de lo
 \end{itemize}
 \section{Creación de las Páginas}
 \acrshort{APEX} combina el desarrollo visual con la lógica declarativa y programación libre, para el desarrollo de aplicaciones web a través del \textbf{diseñador de páginas} (entorno visual para definir la estructura y componentes) y del \textbf{asistente de creación} (para generar formularios, informes interactivos, dashboards, etc.)
-\imagen{apex_pag}{Vista de las páginas APEX}{.6}
+\imagen{apex_pag}{Vista de las páginas APEX}{1}
 \section{Programación}
 \acrshort{APEX} permite la programación de procesos y acciones dinámicas en \acrshort{PL/SQL}, \acrshort{JS} sin complejidad de código.
 Además se pueden establecer condiciones y validaciones para mostrar u ocultar elementos según reglas establecidas.
-\imagen{apex_act}{Acciones dinámicas APEX y su código js}{.6}
-En la imagen superior podemos ver un grupo de acciones dinámicas asociadas a la pag 12 del proyecto: \textbf{Nuevo contratado}, y se muestra el código de la que verifica, si la fecha de inicio del contrato, es posterior a la fecha de inicio del proyecto asociado.
+\imagen{apex_act}{Acciones dinámicas APEX y su código js}{1}
+En la imagen superior podemos ver un grupo de acciones dinámicas asociadas a la pag 12 del proyecto: \textbf{Nuevo contratado}, y se muestra el código de la que verifica si la fecha de inicio del contrato, es posterior a la fecha de inicio del proyecto asociado.
 \section{Despliegue en Oracle Cloud Free Tier}
 Una de las características principales por las que se eligió este modelo de desarrollo en el binomio \acrshort{APEX} \ \acrshort{ODB}, fue la gratuidad y facilidad de los servicios. Aunque como ya se explicó en el capítulo 4 (ver \ref{sec: OFT}), el alta en Cloud, no es sencillo, se prefirió a otras opciones como \textbf{kubernetes}, con una curva de aprendizaje y configuración mayores o \textbf{virtualbox} que hubiera valido para un entorno local, exportando la imagen y confiando en la configuración del usuario de destino.
 
-Así, para este tipo de desarrollos más "\textit{experimentales}" se recomienda su uso, ya que además permite interactuar con entorno profesional, de bajo coste, alta disponibilidad, escalable (previo pago) y seguridad integrada, todo ello ofrecido por Oracle Cloud. Ver imagen(\ref{img: OCloud})
+Así, para este tipo de desarrollos más \textit{experimentales}´ se recomienda su uso, ya que además permite interactuar con entorno profesional, de bajo coste, alta disponibilidad, escalable (previo pago) y seguridad integrada, todo ello ofrecido por Oracle Cloud. Ver imagen(\ref{img: OCloud})
 
 

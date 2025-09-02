@@ -1,174 +1,33 @@
 \capitulo{3}{Conceptos teóricos}
+\section{Introducción}
+En este capítulo se van a presentar los fundamentos teóricos en los que se basa esta aplicación, cómo nace la necesidad y surge la idea de su desarrollo.
 
-En este capítulo se definen los conceptos teóricos que se ha utilizado para la conversión de un hoja de cálculo Excel en una \acrfull{BDR}, y la consecución de la aplicación web \textbf{GeNomIn}.
+\section{Antecedentes} 
+La idea de la realización de este \acrshort{TFG}, surge principalmente de la relación laboral de este estudiante con la Universidad, concretamente en el Servicio de Gestión de la Investigación. Como ya se comentó en la introducción de esta memoria, en este Servicio se realizan diferentes tareas relacionadas
+con la investigación y particularmente contratos asociados a proyectos de investigación.
 
-\section{Casos de Uso}
+Para la realización de este tipo de contratos los Investigadores, realizan una solicitud de contratación, luego solicitantes con diversas características
+requeridas (sobre todo titulación), participan en las mismas y para el que es seleccionado, se realiza un contrato asociado a un proyecto, \textbf{que tiene que
+estar en vigor}. 
 
-Las parte fundamental a la hora de desarrollar una aplicación es la entrevista con el usuario, de nada sirve una aplicación visualmente perfecta si no cumple con la función que requiere el usuario final.
-Los \gls{CasodeUso} sirven para modelar el sistema, entender las funcionalidades y establecer los requisitos que luego serán testados.
+Hasta aquí, cabría esperar que finalizase este proceso, pero hay que tener en cuenta las disponibilidades presupuestarias de los proyectos y los cambios que pueden surgir durante la vida del contrato.
 
-Los \textbf{actores} identificados en el análisis previo corresponden a uno principal, el \textbf{Gestor}, usuario final que realiza las acciones en la aplicación, y cuyo objetivo es tener una serie de informes de los contratos de nómina, para poder controlar los pagos, y otros dos "secundarios" \textbf{Investigador}, que realiza la solicitud de una convocatoria y el \textbf{Interesado} o solicitante, que es al final el beneficiario del contrato y sobre los que recaen las nóminas. Éstos últimos no tienen especial relevancia en el desarrollo de la aplicación ya que sus datos son gestionados por el Gestor, por lo que la aplicación también deberá permitir, la gestión de sus datos, la solicitud de convocatorias y creación de nóminas.
-Vemos un resumen en la siguiente imagen de la entrevista previa, en la que, en una primera toma de contacto podamos entender qué quiere el usuario:
-\imagen{casos_de_uso}{Casos de Uso}{.5}
+\section{Problemática}
+Una vez generado el contrato, el Servicio de Recursos Humanos genera mensualmente dos nóminas para cada contratado, una de seguridad social y otra de la nómina en sí. Estamos hablando que actualmente hay más de cuatrocientos contratos vinculados a estos proyectos.
 
-\section{Diagramas de Secuencias}
-Los diagramas de secuencias son representaciones visuales qué muestran como interaccionan diferentes componentes del sistema para realizar una tarea, como vemos en la siguiente imagen, que recrea el proceso general que se quiere desarrollar con la aplicación:
-\imagen{secuence}{Diagrama de secuencias}{.5}
+Estás nóminas (\textbf{sábanas}), son remitidas al Servicio de Investigación para que de conformidad a la existencia de crédito, la cuantía y validez del proyecto, antes de ordenar efectuar el pago general a contabilidad.\label{img: sabana}
+\imagen{sabana}{Sábana de nómina de RRHH}{1
+} 
 
-\section{Normalización}
+Para ésto, la Sección de Personal Contratado del Servicio de Investigación al realizar un contrato, a punta en una hoja Excel los datos del contratado, el proyecto vinculado, las mensualidades de un año con su seguridad social y observaciones.\label{img: contrato}
+\imagen{tablaexcel}{Tabla de nómina}{1}
 
-Cuando se inicia el análisis de los requerimientos para construir una \acrshort{BDR} a partir de una hoja de datos de Excel, el principal problema que nos encontramos al crear las tablas que contendrán los datos, es la duplicidad de éstos y la inconsistencia de los mismos. ~\cite{AbrahamSilberschatzFundamentosBasesDatos2006} 
-\imagen{c_excel}{Detalle anualidad de un contrato}{1}\label{img: contrato}
+Cuando recibe las sábanas de nómina, coteja cada referencia del proyecto (\textbf{\textbf{orgánica}}), con los datos que tiene apuntados en su hoja de cálculo y comprueba si hay diferencias, si los datos del proyecto son correctos así como las cuantías totales por orgánica.
 
-Así, como vemos en la imagen, para cada contratado, se realiza una fila, en la que se repiten los mismos datos personales y de sus mensualidades, tantas veces como contratos tenga, y creando una nueva tabla con todos los contratos cada año y añadiendo los nuevos.
+Esto proceso puede repetirse varias veces si hay errores. Al finalizar el año se hace una copia de la tabla de Excel del año anterior y se copia en el siguiente, donde se añaden los nuevos contratos.
 
-Esto, además de ser inmanejable con el paso del tiempo (en este caso se manejan más de 400 contratos/año), conlleva a diversos errores propiciados por el propio usuario, como son; la identificación diferente de una misma persona (Francisco J. vs F. José), cumplimentación errónea de importes reiterativos, asignaciones diferentes de tipos de contratos, borrados accidentales, etc.
+\section{Proyecto GeNomin}
 
-Por este motivo, realizaremos primeramente el proceso de \gls{Normalización} a través de las diferentes \acrfull{FN}.
-\begin{itemize}
-	\item \textbf{1ª\acrshort{FN}}: Con esta 1ª\acrshort{FN} detectaremos y eliminaremos los valores repetidos, garantizando la \gls{Atomicidad} de los datos para cada tabla, teniendo cada columna un tipo de dato único y con una clave principal \acrshort{PK}
-	Vemos en la hoja de excel, que por ejemplo el nombre y apellidos están en un único campo, siendo lo más lógico una tabla con los datos del solicitante (contratado) con campos: DNI, APE1, APE2, NOMBRE, OTROS
-	\item \textbf{2ª\acrshort{FN}}:	En esta segunda etapa comprobaremos que para cada \acrshort{PK}, cada atributo depende de toda ella y no sólo de una parte de la misma. Así creamos tablas independientes para conjuntos de valores y las relacionamos con \acrfull{FK}.
-	En nuestro caso tenemos \textbf{Responsables} con sus \textbf{proyectos}, en la misma línea, generaremos dos tablas; Proyectos, tendrá como \acrshort{FK}, la referencia de cada Responsable, pudiendo así determinar cuantos proyectos son dirigidos por un responsable, sin duplicidad de datos.
-	\item \textbf{3ª\acrshort{FN}}: Para finalizar, eliminaremos las dependencias transitivas de los campos de cada tabla,es decir, si una atributo no depende directamente de su \acrshort{PK}, deberá ir en otra tabla. En nuestro caso, no tiene sentido que cada mensualidad esté con el nombre de la persona, siendo más lógico crear su propia tabla.
-\end{itemize}
+En este estado de cosas y con la oportunidad de realizar un \acrshort{TFG} de utilidad, se propone transformar la hoja de cálculo en una \acrshort{BDR} en Oracle, que unifique todos los datos que ahora se dispersan en hojas de cálculo anuales y a través de una aplicación en \acrshort{APEX}, permita obtener informes de nómina que faciliten el trabajo de cotejo con las sábanas de retribuciones. Con la particularidad de que la aplicación de Gestión de Proyectos, Convocatorias y Contratos, se desarrolla también sobre ambas plataformas, no supondría un problema de adaptación para los usuarios.
 
-Finalizada esta fase obtenemos varias tablas para organizar los datos recogidos en la hoja de cálculo; \textbf{Responsables}, \textbf{Departamentos}, \textbf{Proyectos}, \textbf{Convocatorias}, \textbf{Solicitante}, \textbf{Contratos}y \textbf{Nomina}.
-
-\section{Modelo E-R}
-En esta segunda fase del diseño se establece cómo se conectan entre sí los diferentes objetos (tablas) del sistema.Esto permite organizar visualmente la estructura de la información antes de crear la \acrshort{BDR} definitiva y entender cómo se almacenan y relacionan los datos.
-Estas tablas ya contienen los distintos atributos que las definen unívocamente así como las \acrshort{FK} que permiten establecer las relaciones con otras entidades. 
-Hablamos aquí del concepto de \textbf{\gls{Cardinalidad}}, por el que básicamente se indica cuántos elementos de una entidad puede relacionarse con los de otra, siendo una característica fundamental en el diseño de la \acrshort{BDR}
-Los tipos de relaciones \textbf{1:1} uno a uno, \textbf{1:N} uno a muchos, \textbf{N:M} muchos a muchos.
-
-Hay que tener en cuenta que la \gls{Cardinalidad}, es un elemento fundamental en el diseño ya que optimiza las consultas, ayuda a mantener la integridad y evita la redundancia de datos garantizando la consistencia de la información.
-
-\section{Diseño Físico}
-Una vez finalizada la parte lógica y conceptual de nuestro diseño es el momento de definir cómo serán nuestras tablas físicamente, qué campo será la \acrshort{PK} , tipos de datos y longitud de los mismos, como se relacionarán las tablas entre sí, qué campos servirán de enlace o \acrshort{FK}. Así, vemos en la imagen siguiente como queda nuestro diseño.
-\imagen{e-r}{Diagrama de Entidad Relación}{0.60}
-
-
-
-\section{Sistemas de Gestión de Bases de Datos (\acrshort{SGBD})} \label{sec:SGBD}
-Los \acrshort{SGBD} son software que permite crear, gestionar y acceder a la Base de Datos interactuando entre datos y aplicaciones, permitiendo a los Administradores de las mismas una gestión eficaz del sistema. Se denomina así, al conjunto formado por la BD, el \acrfull{SGBD} y los programas de aplicación que dan servicio a la entidad o empresa~\cite{AbrahamSilberschatzFundamentosBasesDatos2006}\cite{MarquesBasesDatos2011}
-Las principales funciones son:
-\begin{itemize}
-	\item \textbf{Definición de la BD}, mediante un \acrfull{DDL}, que permite especificar la estructura, tipo y restricciones de los datos.
-	\item \textbf{Inserción, supresión, consulta y actualización de datos}, mediante un \acrfull{DML}. Este tipo de lenguajes \textbf{no procedurales}, es decir, que no operan sobre los registros, solamente lo que quieren obtener, son los utilizados por los \acrshort{SGBD}, siendo el más utilizado y estándar de facto \acrfull{SQL}.
-	\item \textbf{Seguridad}, mediante un acceso controlado.
-	\item \textbf{Integridad y consistencia} de la BD.
-	\item \textbf{Control de concurrencia}, permitiendo el acceso compartido a la BD.
-	\item \textbf{Diccionario de datos}, que contiene la descripción de los datos de la BD.
-\end{itemize}
-
-Entre los \acrshort{SGBD} más utilizados podemos destacar \textbf{MySQL}, \textbf{PostgreSQL}, \textbf{SQL Server} y el escogido para este trabajo \textbf{Oracle}, principalmente por su conexión con la herramienta de desarrollo de la aplicación \acrshort{APEX}, y por ser uno de los más extendidos en entornos comerciales, utilizado por la propia Universidad y con una versión gratuita como veremos en mas detalle posteriormente.
-
-Una vez elegida la herramienta de gestión es preciso la carga de datos en las tablas que inician el proceso de contratación y que de una manera deben ser más o menos estáticas (aunque en el desarrollo se permita su modificación), como son \textbf{Responsables} y \textbf{Proyectos}. Para rellenar estas tablas se ha utilizado un generador de \gls{Datos MOCK} en python:
-
-\begin{lstlisting}[language=Python, caption={Generación de\textit{Datos MOCK} para la tabla Responsables}]
-# Listas de nombres y apellidos base
-nombres = ["Laura", "Carlos", "Ana", "Miguel", "Lucia", "Pedro", "Maria","Javier"]
-apellidos = ["Garcia", "Lopez", "Martinez", "Sanchez", "Ramirez", "Torres", "Vega", "Diaz"]
-departamentos = ["V103", "V104", "V105", "V110", "V112", "V118", "V121", "V122", "V123"]
-
-# Crear archivo CSV
-with open('datos_personas.csv', 'w', newline='') as archivo:
-writer = csv.writer(archivo)
-writer.writerow(['DNI', 'APE1', 'APE2', 'NOMBRE', 'DEPTO'])
-
-for i in range(1, 101):
-dni = f"{i:08d}A"
-# Nos aseguramos de que no se repitan nombre y apellidos exactamente igual
-while True:
-ape1 = random.choice(apellidos)
-ape2 = random.choice(apellidos)
-nombre = random.choice(nombres)
-if not (ape1 == ape2 == nombre):
-break
-depto = random.choice(departamentos)
-writer.writerow([dni, ape1, ape2, nombre, depto])
-\end{lstlisting}
-
-Para los \textbf{Departamentos}, se ha establecido una lista de valores estática, ya que éstos son predeterminados por la entidad y no pueden ser modificados por el usuario.
-
-\section{Agilidad-Scrum}
-Scrum es un marco ligero que ayuda a las personas, equipos y organizaciones a generar valor a través de soluciones adaptables para problemas complejos ~\cite{SchwaberGuiaDefinitivaScrum2020}.
-La agilidad se fundamenta en los \textbf{sprints}, que son eventos de longitud fija para crear consistencia. Durante los mismos se produce el trabajo establecido durante la planificación del mismo.
-
-\subsubsection{El equipo Scrum (Scrum Team)}
-Para el desarrollo de la metodología ágil, es preciso la confección de un equipo de trabajo compuesto por; \textbf{(Product Owner}, propietario del producto, que es más bien un enlace entre la empresa y el equipo y puede representar a varias intervinientes externo, \textbf{Scrum Master}, es el líder del equipo y se encarga de que la metodología se desarrolle correctamente, ayuda al equipo y sirve de nexo de unión entre todos los demás componentes y los \textbf{Desarrolladores} que se encargan de crear cualquier incremento útil de un sprint.
-Evidentemente en el desarrollo de este \acrshort{TFG}, varios roles son asumidos por el Tutor, siendo el desarrollo a cargo del alumno.
-
-\subsection{Planificación}
-Para realizar toda esta planificación se ha usado un tablero \textbf{kanban}  que permite organizar y priorizar las historias de usuario. Estas tareas se vincularon al repositorio \href{https://github.com/far0010/TFGUBU-Fran_Arroyo}{GitHub} que permite obtener una trazabilidad entre el código y el sprint, aplicándose una integración continua manual.
-\imagen{kanban1} {Kanban TFGUBU}{1} \label{img: kanban}
-
-\subsection{Revisión del sprint}
-Tras cada \textbf{sprint} el código es analizado por \textbf{SonarCube}, para detectar errores, vulnerabilidades, problemas de estilo y garantizando la calidad. Así mismo, cada funcionalidad añadida por un sprint ha sido validada por \textbf{TestCafe} cuyos resultados se presentan visualmente en los informes generados por \textbf{Allure}.\imagen{allure}{Informe de test Allure}{1} \label{img: allure}
-
-\subsection{Integración y pruebas}
-Debido a que el proyecto se ha desarrollado en \acrshort{APEX}, que es una plataforma \textbf{low-code} que corre sobre Oracle Database y se gestiona desde un entorno web, es imposible realizar la integración automatizada a través de GitHub Actions, ya que no permite fácilmente levantar el entorno local, por lo cual se optó por una estrategia de \textbf{integración manual continua}, teniendo así control del software generado. Una vez desplegada la aplicación sí sería posible implementar test automatizados, pero se perdería el fin del método de desarrollo para este trabajo.
-
-\subsection{Releases}
-Durante el desarrollo del proyecto se han realizado tres entregas (\gls{Release}), \textbf{Prototipo}, \textbf{\acrshort{MPV}} y la versión final, con todas las funcionalidades implementadas.
-
-\subsubsection{Milestones}
-Aunque en \textbf{Scrum}, no es un elemento obligatorio la creación de \gls{Milestone} "hitos", para un mejor control de tiempos se ha considerado su inclusión dentro de la definición del \textbf{kanban}, incluyendo dentro de los mismos los \textbf{sprints} implicados, quedando así definidos:
-\begin{itemize}
-	\item \textbf{Kick-off: Puesta en marcha del proyecto 09-06-25}: Tras las primeras conversaciones con el Tutor del proyecto se inicia esta fase de puesta en marcha, que se basa principalmente en recopilar información, e instalación de las herramientas necesarias.
-	\item \textbf{Prototipo 01-07-25}: Finalizada la fase anterior se comienza el desarrollo del prototipo de la aplicación, que es una imagen visual de lo que se quiere llevar a cabo.
-	\item \textbf{\acrshort{MPV} 14-08-25}: Realizadas las operaciones más importantes se lanza la versión mínima para enseñar a los usuarios y comprobar que cumplen los requisitos y en caso contrario hacer modificaciones.
-	\item \textbf{Desarrollo completo 31-08-25}: La aplicación ha quedado finalizada y se realiza el despliegue en Oracle cloud para su visualización.
-	\item \textbf{Domentación 06-09-25}: Este último hito da por finalizado el desarrollo del \acrshort{TFG}, y consiste en generar toda la documentación pertinente. Dicha documentación se ha ido elaborando durante la vida del proyecto.
-\end{itemize}
-
-\section{Objetivos de Desarrollo Sostenible  \acrshort{ODS}}
-Los Objetivos de Desarrollo Sostenible son
-17 objetivos globalmente acordados adoptados por la
-Asamblea General de las Naciones Unidas en 2015 como
-parte de la Agenda 2030 para el Desarrollo Sostenible.
-Los objetivos abordan de forma integral las
-tres esferas del desarrollo sostenible: la ambiental, la
-social y la económica. Además, abarcan áreas críticas
-como la pobreza, la desigualdad, la inclusión social, la
-energía sostenible, el cambio climático, la educación
-de calidad y la innovación tecnológica. ~\cite{MarkiegiIntegrandoODSGrado}
-
-En respuesta a modernizar la administración se desarrolla esta herramienta \textbf{GeNomIn} sobre la plataforma digital \acrshort{APEX} y desplegada en Oracle Cloud, con el objetivo de sustituir procesos basados en hojas de cálculo Excel y almacenamiento compartido por una solución más integral, escalable y alienada con los citados principios y en particular:
-
-\begin{table}[ht]
-	\centering
-	\begin{tabularx}{\textwidth}{|X|X|X|}
-		\hline
-		\rowcolor{gray!20}
-		\multicolumn{1}{c}{\textbf{ODS}\rule{0pt}{25pt}} & \multicolumn{1}{c}{\shortstack[c]{\textbf{Aplicación}\\\textbf{en el sistema}}}
-		& \multicolumn{1}{c}{\textbf{Impacto esperado}} \\
-		\hline
-		\textbf{ODS 9: Industria, innovación e infraestructura} & Sustitución de procesos manuales por digitalización completa. & Aumento de la eficiencia, innovación operativa 
-		\\
-		\textbf{ODS 12: Producción y consumo responsables} & Eliminación del papel y archivos locales & Reducción de residuos físicos y duplicidades 
-		\\
-		\textbf{ODS 13: Acción por el clima} & Uso de Oracle Cloud con enfoque verde & Disminución de la huella energética institucional \\
-		\textbf{ODS 16: Paz, justicia e instituciones sólidas} & Control documental, trazabilidad y acceso seguro & Transparencia organizacional y fortalecimiento de la gobernanza \\
-		\hline
-	\end{tabularx}
-	\caption{\acrfull{ODS}}
-	\label{tab:Objetivos de Desarrollo Sostenible}
-\end{table}
-
-Se puede hacer una estimación del impacto estimado con el seguimiento:
-\begin{itemize}
-	\item \textbf{Reducción del uso de papel}:hasta 90
-	\item \textbf{Ahorro de tiempo administrativo}: entre 30–50
-	\item \textbf{Minimización de errores manuales}: hasta un 70 por ciento por validaciones automatizadas.
-	\item \textbf{Migración energética eficiente}: reemplazo de equipos físicos por infraestructura cloud.
-	\item \textbf{Consolidación documental}: simplificación del entorno de trabajo en una única plataforma digital.
-\end{itemize}
-
-Este compromiso de Oracle con \acrshort{ODS}, se muestra en la infraestructura utilizada, en la que; 
-\begin{itemize}
-	\item sus centros son \textbf{100 por ciento de Energía renovable}, 
-	\item su arquitectura hardware se realiza con \textbf{diseño circular y reciclaje certificado}, 
-	\item sus sevicios autónomos están optimizados para \textbf{eficiencia energética}
-	\item y el uso de herramientas Oracle ESG, para medición del \textbf{impacto ambiental}
-\end{itemize}	( \href{https://www.oracle.com/es/sustainability/}{Oracle y sostenibilidad})
+En el proyecto, se podrán gestionar investigadores, proyectos, convocatorias y solicitantes. Asociar un solicitante a una convocatoria y que generar las nóminas correspondientes. Prorrogar y renunciar a los contratos (modificando la nóminas a pagar) Y finalmente generar diversos informes de utilidad.
