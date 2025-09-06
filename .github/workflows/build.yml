@@ -1,21 +1,22 @@
+name: Build and Analyze
 
-name: Build
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
+
 jobs:
   sonarqube:
-    name: SonarQube
+    name: SonarQube Analysis
     runs-on: windows-latest
+
     steps:
       - name: Checkout del código
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Mejora la relevancia del análisis en SonarCloud
+          fetch-depth: 0
 
       - name: Configurar Java
         uses: actions/setup-java@v3
@@ -23,35 +24,25 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
-      - name: Verificar presencia de SONAR_TOKEN
-        run: |
-          if ($env:SONAR_TOKEN -eq $null -or $env:SONAR_TOKEN -eq "") {
-            Write-Host "SONAR_TOKEN NO está disponible en este contexto"
-            exit 1
-          } else {
-            Write-Host "SONAR_TOKEN está presente"
-          }
-        shell: pwsh
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Limpiar caché SonarQube
+      - name: Restaurar caché de SonarScanner
+        id: sonar-cache
         uses: actions/cache@v4
         with:
-          path: ~/.sonar/cache
-          key: sonar-cache-${{ github.run_id }}
-          restore-keys: |
-            sonar-cache-
+          path: ${{ runner.temp }}/sonar-scanner
+          key: sonar-scanner-cli-7.2.0.5079-Windows-X64
 
-      - name: Ejecutar análisis con SonarQube
-        uses: SonarSource/sonarqube-scan-action@v5
-        with:
-          args: >
-            -Dsonar.organization=far0010tfg
-            -Dsonar.projectKey=far0010_TFGUBU-Fran_Arroyo
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
-      - name: Ejecutar análisis con SonarScanner manual
+      - name: Descargar SonarScanner si no hay caché
+        if: steps.sonar-cache.outputs.cache-hit != 'true'
+        run: |
+          curl -L -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.2.0.5079-windows.zip
+          unzip sonar-scanner.zip -d ${{ runner.temp }}/sonar-scanner
+        shell: bash
+
+      - name: Añadir SonarScanner al PATH
+        run: echo "${{ runner.temp }}/sonar-scanner/sonar-scanner-7.2.0.5079-Windows/bin" >> $GITHUB_PATH
+        shell: bash
+
+      - name: Ejecutar análisis con SonarScanner
         shell: cmd
         run: |
           sonar-scanner.bat ^
