@@ -1,3 +1,4 @@
+
 name: Build
 on:
   push:
@@ -52,6 +53,7 @@ jobs:
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
       - name: Ejecutar análisis con SonarScanner manual
         run: |
+          shell: cmd
           sonar-scanner.bat ^
             -Dsonar.organization=far0010tfg ^
             -Dsonar.projectKey=far0010_TFGUBU-Fran_Arroyo ^
