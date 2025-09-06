@@ -50,3 +50,12 @@ jobs:
             -Dsonar.projectKey=far0010_TFGUBU-Fran_Arroyo
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+      - name: Ejecutar análisis con SonarScanner manual
+        run: |
+          sonar-scanner.bat ^
+            -Dsonar.organization=far0010tfg ^
+            -Dsonar.projectKey=far0010_TFGUBU-Fran_Arroyo ^
+            -Dsonar.host.url=https://sonarcloud.io ^
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
