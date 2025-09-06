@@ -35,11 +35,11 @@ jobs:
         if: steps.sonar-cache.outputs.cache-hit != 'true'
         run: |
           curl -L -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-windows.zip
-          unzip sonar-scanner.zip -d ${{ runner.temp }}/sonar-scanner
+          unzip sonar-scanner.zip -d "${RUNNER_TEMP}/sonar-scanner"
         shell: bash
 
       - name: Añadir SonarScanner al PATH
-        run: echo "${{ runner.temp }}/sonar-scanner/sonar-scanner-5.0.1.3006-windows/bin" >> $GITHUB_PATH
+        run: echo "${RUNNER_TEMP}/sonar-scanner/sonar-scanner-5.0.1.3006-windows/bin" >> $GITHUB_PATH
         shell: bash
 
       - name: Ejecutar análisis con SonarScanner
