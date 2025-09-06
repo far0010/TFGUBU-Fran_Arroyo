@@ -52,8 +52,8 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
       - name: Ejecutar análisis con SonarScanner manual
+        shell: cmd
         run: |
-          shell: cmd
           sonar-scanner.bat ^
             -Dsonar.organization=far0010tfg ^
             -Dsonar.projectKey=far0010_TFGUBU-Fran_Arroyo ^
